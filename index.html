@@ -115,6 +115,19 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .halo-item h4{font-family:var(--display);font-size:18px;letter-spacing:.04em;margin:4px 0 8px}
 .halo-item p{font-size:11px;color:var(--grey-lt);line-height:1.7}
 
+/* CONTACT FORM */
+.contact-form{margin:0 32px;border:1px solid var(--border);border-top:none;padding:40px}
+.cf-group{margin-bottom:24px}
+.cf-label{display:block;font-size:10px;letter-spacing:.2em;color:var(--grey);margin-bottom:8px;text-transform:uppercase}
+.cf-input,.cf-textarea{width:100%;padding:12px 14px;border:1px solid var(--border);background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13px;transition:border-color .15s}
+.cf-input:focus,.cf-textarea:focus{outline:none;border-color:var(--ink)}
+.cf-textarea{resize:vertical;min-height:120px}
+.cf-submit{padding:.6rem 1.4rem;border-radius:0;background:var(--ink);color:var(--bg);border:1px solid var(--ink);cursor:crosshair;font-family:var(--mono);font-size:10px;letter-spacing:.2em;transition:background .15s,color .15s;text-transform:uppercase}
+.cf-submit:hover{background:var(--bg);color:var(--ink)}
+.cf-status{margin-top:16px;padding:12px;border:1px solid var(--border);font-size:11px;display:none}
+.cf-status.success{background:#f0fff4;border-color:#22c55e;color:#16a34a}
+.cf-status.error{background:#fff5f5;border-color:#ef4444;color:#991b1b}
+
 /* JOURNEY */
 .post-list{margin:0 32px}
 .post-item{border:1px solid var(--border);border-top:none;padding:28px 32px;display:grid;grid-template-columns:110px 1fr;gap:28px;transition:background .15s;cursor:crosshair}
@@ -301,8 +314,9 @@ footer b{color:var(--ink);display:block;margin-top:2px}
   <footer>
     <div><span>ARCHIVE</span><b>#001 → #027 · WORKS</b></div>
     <div><span>STUDIO</span><b>MAASTRICHT · NL</b></div>
-    <div><span>CONTACT</span><b>studio@inedita.lab</b></div>
-    <div><span>©</span><b>ALL MATTER RESERVED · 2026</b></div>
+    <div><span>EMAIL</span><b>inedita23@gmail.com</b></div>
+    <div><span>PHONE</span><b>+31 685 027 547</b></div>
+    <div><span>KVK</span><b>42063923</b></div>
   </footer>
 </div>
 
@@ -398,8 +412,9 @@ footer b{color:var(--ink);display:block;margin-top:2px}
   <footer>
     <div><span>KLAAR</span><b>HOME · CARE · GADGET</b></div>
     <div><span>MATERIAL</span><b>NERO MATERIA</b></div>
-    <div><span>SHOP</span><b>studio@inedita.lab</b></div>
-    <div><span>©</span><b>ALL MATTER RESERVED · 2026</b></div>
+    <div><span>EMAIL</span><b>inedita23@gmail.com</b></div>
+    <div><span>PHONE</span><b>+31 685 027 547</b></div>
+    <div><span>KVK</span><b>42063923</b></div>
   </footer>
 </div>
 
@@ -488,7 +503,9 @@ footer b{color:var(--ink);display:block;margin-top:2px}
   <footer>
     <div><span>STUDIO</span><b>LAB & CONSULTING</b></div>
     <div><span>TARGET</span><b>STARTUPS · SMEs · FOOD/BEV</b></div>
-    <div><span>CONTACT</span><b>studio@inedita.lab</b></div>
+    <div><span>EMAIL</span><b>inedita23@gmail.com</b></div>
+    <div><span>PHONE</span><b>+31 685 027 547</b></div>
+    <div><span>KVK</span><b>42063923</b></div>
     <div><span>©</span><b>ALL MATTER RESERVED · 2026</b></div>
   </footer>
 </div>
@@ -548,8 +565,9 @@ footer b{color:var(--ink);display:block;margin-top:2px}
   <footer>
     <div><span>JOURNEY</span><b>BLOG · OPEN CHANNEL</b></div>
     <div><span>ENTRIES</span><b>05 PUBLISHED · 2026</b></div>
-    <div><span>CONTACT</span><b>studio@inedita.lab</b></div>
-    <div><span>©</span><b>ALL MATTER RESERVED</b></div>
+    <div><span>EMAIL</span><b>inedita23@gmail.com</b></div>
+    <div><span>PHONE</span><b>+31 685 027 547</b></div>
+    <div><span>KVK</span><b>42063923</b></div>
   </footer>
 </div>
 
@@ -561,22 +579,52 @@ footer b{color:var(--ink);display:block;margin-top:2px}
       <h1>CONTACTS</h1>
       <div class="ph-sub">Commissions, collaborations, workshops, consulting. The channel is open.</div>
     </div>
-    <div class="ph-right lbl">MAASTRICHT · NL<br>studio@inedita.lab</div>
+    <div class="ph-right lbl">MAASTRICHT · NL<br>inedita23@gmail.com</div>
   </div>
   <div class="contacts-grid">
     <div class="ct-block">
       <div class="lbl">STUDIO · LAB</div>
       <h2>INEDITA STUDIO</h2>
-      <span class="ct-email">studio@inedita.lab</span>
-      <div class="ct-loc">Maastricht · NL<br>→ ATELIER · OLV LAB<br><br>For B2B consulting, artwork commissions,<br>workshop access and collaborations<br>with architecture studios and local brands.</div>
-      <a href="mailto:studio@inedita.lab" class="ct-cta">WRITE A BRIEF →</a>
+      <span class="ct-email">inedita23@gmail.com</span>
+      <div class="ct-loc">Maastricht · NL<br><br>For B2B consulting, artwork commissions,<br>workshops and collaborations<br>with architecture studios and local brands.</div>
+      <a href="#contact-form" onclick="show('contacts', document.querySelector('.nav-links a:last-child'))" class="ct-cta">WRITE A BRIEF →</a>
     </div>
     <div class="ct-block">
       <div class="lbl">OPERATOR · IN-NED</div>
       <h2>ALESSANDRO</h2>
-      <div class="ct-loc">Available for:<br>— Unique piece commissions (Inedita)<br>— Klaar collection purchases<br>— Strategic consulting (Studio)<br>— OLV Lab &amp; Collab Architectures workshops<br>— Food &amp; beverage collaborations<br><br>REG 027 · LAB OLV · 2026 · KVK NL<br>SBI 9003 · 7022 · 7410</div>
-      <a href="mailto:studio@inedita.lab" class="ct-cta">COMMISSION A PIECE →</a>
+      <div class="ct-loc">Available for:<br>— Unique piece commissions (Inedita)<br>— Klaar collection purchases<br>— Strategic consulting (Studio)<br>— Collaborations with architecture studios<br>— Food &amp; beverage partnerships<br><br>REG 027 · 2026 · KVK 42063923<br>SBI 9003 · 7022 · 7410</div>
+      <a href="#contact-form" onclick="show('contacts', document.querySelector('.nav-links a:last-child'))" class="ct-cta">COMMISSION A PIECE →</a>
     </div>
+  </div>
+  <div class="contact-form" id="contact-form">
+    <h3 style="font-family:var(--display);font-size:32px;letter-spacing:.04em;margin:0 0 28px">SEND A BRIEF</h3>
+    <form id="contact-email-form">
+      <div class="cf-group">
+        <label class="cf-label">YOUR NAME / NICKNAME</label>
+        <input type="text" name="name" class="cf-input" placeholder="e.g., Andrea" required>
+      </div>
+      <div class="cf-group">
+        <label class="cf-label">EMAIL</label>
+        <input type="email" name="email" class="cf-input" placeholder="your@email.com" required>
+      </div>
+      <div class="cf-group">
+        <label class="cf-label">PROJECT TYPE</label>
+        <select name="type" class="cf-input" style="cursor:crosshair" required>
+          <option value="">— Select —</option>
+          <option value="Artwork Commission">Artwork Commission (Inedita)</option>
+          <option value="Klaar Collection">Klaar Collection Purchase</option>
+          <option value="Strategic Consulting">Strategic Consulting (Studio)</option>
+          <option value="Collaboration">Collaboration / Partnership</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="cf-group">
+        <label class="cf-label">MESSAGE</label>
+        <textarea name="message" class="cf-textarea" placeholder="Tell me about your idea, project, or question..." required></textarea>
+      </div>
+      <button type="submit" class="cf-submit">SEND BRIEF →</button>
+      <div class="cf-status" id="form-status"></div>
+    </form>
   </div>
   <div class="formula-bar">
     <div class="fb-item"><div class="fb-lbl lbl">ENTITY</div><div class="fb-val">INEDITA STUDIO</div></div>
@@ -589,6 +637,7 @@ footer b{color:var(--ink);display:block;margin-top:2px}
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/build/es5/email.min.js"></script>
 <script>
 function show(id,link){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -597,6 +646,47 @@ function show(id,link){
   if(link)link.classList.add('active');
   window.scrollTo(0,0);
 }
+
+// EmailJS initialization
+emailjs.init({
+  publicKey: "MfdM5-QlwdVUjzamb",
+  blockHeadless: true
+});
+
+// Contact Form Handler
+document.addEventListener('DOMContentLoaded', function(){
+  const form = document.getElementById('contact-email-form');
+  if(!form) return;
+  
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    const statusDiv = document.getElementById('form-status');
+    statusDiv.style.display = 'block';
+    statusDiv.textContent = 'Sending...';
+    statusDiv.className = 'cf-status';
+    
+    try {
+      const result = await emailjs.send('service_tqzqnab', 'template_1fxk9ww', {
+        from_name: formData.get('name'),
+        from_email: formData.get('email'),
+        project_type: formData.get('type'),
+        message: formData.get('message')
+      });
+      
+      if(result.status === 200){
+        statusDiv.textContent = '✓ Message sent! I\'ll get back to you soon at ' + formData.get('email');
+        statusDiv.className = 'cf-status success';
+        form.reset();
+        setTimeout(() => statusDiv.style.display = 'none', 5000);
+      }
+    } catch(err) {
+      statusDiv.textContent = '✗ Error sending message. Please try again or email inedita23@gmail.com';
+      statusDiv.className = 'cf-status error';
+    }
+  });
+});
 </script>
 </body>
 </html>
