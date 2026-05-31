@@ -1028,37 +1028,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ══════════════════════════════════════
-// TEXTURE GALLERY — Notion integration
+// TEXTURE GALLERY — legge da gallery.json
+// Per aggiungere una texture:
+//   1. Carica la foto nella cartella images/ su GitHub
+//   2. Aggiungi una riga in gallery.json
+//   3. Salva — il sito si aggiorna
 // ══════════════════════════════════════
-// TODO: After deploying cloudflare-worker.js, replace this URL with your worker URL
-// e.g. 'https://inedita-notion-proxy.YOUR-SUBDOMAIN.workers.dev'
-const WORKER_URL = 'https://inedita-notion-proxy.inedita23.workers.dev';
-
-// TODO: Set this to your Notion gallery database ID
-// Find it in the Notion URL: notion.so/YOUR-WORKSPACE/[DATABASE-ID]?v=...
-const GALLERY_DB_ID = '50586d1bc4f340d9a6d48d93807de333';
-
-// Demo textures shown when Notion is not yet connected
-const DEMO_TEXTURES = [
-  { title: 'NERO MATERIA · AG/01', meta: 'CEM I · COFFEE 18% · 400 GRIT', bg: '#1C1A17', label: 'CHARCOAL BASE', visual: 'Total opacity from carbon density. Black without pigment.' },
-  { title: 'LINEN SURFACE · NP/02', meta: 'CEM I · NO PIGMENT · RAW', bg: '#D4C9B8', dark: true, label: 'NATURAL TONE', visual: 'Unpigmented matrix. Cream tone from pure cement oxidation.' },
-  { title: 'EARTH LAYER · AG/05', meta: 'CEM I · PAPER PULP 8% · MATTE', bg: '#5C4F3D', label: 'EARTH TONE', visual: 'Paper fibre gives warmth to the matrix. Soft matte finish.' },
-  { title: 'OCEAN CAST · ST/03', meta: 'CEM I · OXIDE BLUE · RESIN TOP', bg: '#1A5068', label: 'RESEARCH', visual: 'Experimental — iron oxide pigment test. Not in production.' },
-  { title: 'SAND POLISH · KM/01', meta: 'NERO MATERIA · 400 GRIT · KLAAR', bg: '#A89880', dark: true, label: 'PRODUCT LINE', visual: 'Standard KLAAR surface finish. Polished to 400 grit.' },
-  { title: 'FRACTURE STUDY · FC/02', meta: 'CEM I · INDUCED CRACK · DOC', bg: '#2a2a2a', label: 'STRUCTURAL', visual: 'Controlled fracture — documented failure as aesthetic.' },
-  { title: 'TRIPTYCH MID · KH/02', meta: 'NERO MATERIA · MID CONCENTRATION', bg: '#3d3530', label: 'GRADIENT', visual: 'Middle tone from three-stage coffee concentration scale.' },
-  { title: 'WHITE RESIDUE · NP/01', meta: 'CEM I · UNPIGMENTED · OXIDATION', bg: '#e8e4de', dark: true, label: 'COLLECTOR', visual: 'Self-portrait of the environment. Yellows with light and time.' },
-];
 
 function renderGalleryItem(item) {
-  const isDark = item.dark;
-  const imgHtml = item.coverUrl
-    ? `<img class="gallery-thumb" src="${item.coverUrl}" alt="${item.title}" loading="lazy">`
-    : `<div class="gallery-thumb-placeholder" style="background:${item.bg || '#1C1A17'}">
-        <div class="gtp-label" style="${isDark ? 'color:#5C4F3D' : ''}">${item.meta || 'SURFACE STUDY · OLV LAB'}</div>
-        <div class="gtp-visual" style="${isDark ? 'color:#1C1A17;border-top-color:rgba(0,0,0,.1)' : ''}">${item.visual || ''}</div>
+  const imgHtml = item.image
+    ? `<img class="gallery-thumb" src="${item.image}" alt="${item.title}" loading="lazy">`
+    : `<div class="gallery-thumb-placeholder">
+        <div class="gtp-label">${item.meta || 'SURFACE STUDY · OLV LAB'}</div>
+        <div class="gtp-visual">${item.title}</div>
        </div>`;
-
   return `<div class="gallery-item">
     ${imgHtml}
     <div class="gallery-caption">
@@ -1072,56 +1055,17 @@ function renderGalleryItem(item) {
 async function loadGallery(gridId) {
   const grid = document.getElementById(gridId);
   if (!grid) return;
-
-  // If Notion worker is not configured, show demo content
-  if (!WORKER_URL || !GALLERY_DB_ID) {
-    grid.innerHTML = DEMO_TEXTURES.map(renderGalleryItem).join('');
-    return;
-  }
-
   try {
-    const res = await fetch(`${WORKER_URL}/query`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        database_id: GALLERY_DB_ID,
-        sorts: [{ property: 'Created', direction: 'descending' }],
-        page_size: 12
-      })
-    });
-
-    if (!res.ok) throw new Error('Worker error ' + res.status);
-    const data = await res.json();
-
-    if (!data.results || data.results.length === 0) {
-      grid.innerHTML = DEMO_TEXTURES.map(renderGalleryItem).join('');
+    const res = await fetch('gallery.json');
+    if (!res.ok) throw new Error('not found');
+    const items = await res.json();
+    if (!items.length) {
+      grid.innerHTML = '<div class="gallery-loading">NESSUNA TEXTURE — aggiungi voci in gallery.json</div>';
       return;
     }
-
-    const items = data.results.map(page => {
-      const props = page.properties;
-      // Property names from your Notion DB (Italian)
-      const titleProp = props['Titolo'] || props['Name'] || props['Title'];
-      const title = titleProp?.title?.[0]?.plain_text || 'UNTITLED';
-      const metaProp = props['Descrizione'] || props['Meta'] || props['Materiale'];
-      const meta = metaProp?.rich_text?.[0]?.plain_text || '';
-      const badgeProp = props['Badge'] || props['Stato'] || props['Status'];
-      const badge = badgeProp?.select?.name || '';
-      // Image: try the Immagine URL property first, then page cover
-      const immagineProp = props['Immagine'];
-      const immagineUrl = immagineProp?.url || immagineProp?.rich_text?.[0]?.plain_text || '';
-      const coverUrl = immagineUrl
-        || page.cover?.external?.url
-        || page.cover?.file?.url
-        || '';
-      return { title, meta, badge, coverUrl };
-    });
-
     grid.innerHTML = items.map(renderGalleryItem).join('');
-
-  } catch(err) {
-    console.warn('Gallery load failed, showing demo:', err);
-    grid.innerHTML = DEMO_TEXTURES.map(renderGalleryItem).join('');
+  } catch(e) {
+    grid.innerHTML = '<div class="gallery-loading">gallery.json non trovato</div>';
   }
 }
 
