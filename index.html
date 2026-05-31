@@ -1061,12 +1061,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ══════════════════════════════════════
-// TEXTURE GALLERY — legge da gallery.json
-// Per aggiungere una texture:
-//   1. Carica la foto nella cartella images/ su GitHub
-//   2. Aggiungi una riga in gallery.json
-//   3. Salva — il sito si aggiorna
+// TEXTURE GALLERY — Notion CMS + fallback gallery.json
+// Flusso: carica foto in images/ su GitHub → copia URL raw → incolla in Notion campo Immagine
+// URL raw GitHub: https://raw.githubusercontent.com/ineditastudio/inedita/main/images/NOMEFILE.jpg
 // ══════════════════════════════════════
+const WORKER_URL = 'https://inedita-notion-proxy.inedita23.workers.dev';
+const GALLERY_DB_ID = '50586d1bc4f340d9a6d48d93807de333';
 
 function renderGalleryItem(item) {
   const imgHtml = item.image
@@ -1088,17 +1088,46 @@ function renderGalleryItem(item) {
 async function loadGallery(gridId) {
   const grid = document.getElementById(gridId);
   if (!grid) return;
+
+  // 1. Prova Notion via Worker
+  try {
+    const res = await fetch(`${WORKER_URL}/query`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        database_id: GALLERY_DB_ID,
+        sorts: [{timestamp: 'created_time', direction: 'descending'}],
+        page_size: 20
+      })
+    });
+    if (!res.ok) throw new Error('worker');
+    const data = await res.json();
+    if (!data.results?.length) throw new Error('empty');
+
+    const items = data.results.map(page => {
+      const p = page.properties;
+      const title = p['Titolo']?.title?.[0]?.plain_text || 'UNTITLED';
+      const meta  = p['Descrizione']?.rich_text?.[0]?.plain_text || '';
+      const badge = p['Badge']?.select?.name || p['Stato']?.select?.name || '';
+      const image = p['Immagine']?.rich_text?.[0]?.plain_text
+                 || p['Immagine']?.url
+                 || page.cover?.external?.url
+                 || page.cover?.file?.url || '';
+      return { title, meta, badge, image };
+    });
+    grid.innerHTML = items.map(renderGalleryItem).join('');
+    return;
+  } catch(e) { /* fallback */ }
+
+  // 2. Fallback: gallery.json
   try {
     const res = await fetch('gallery.json');
-    if (!res.ok) throw new Error('not found');
     const items = await res.json();
-    if (!items.length) {
-      grid.innerHTML = '<div class="gallery-loading">NESSUNA TEXTURE — aggiungi voci in gallery.json</div>';
-      return;
-    }
-    grid.innerHTML = items.map(renderGalleryItem).join('');
-  } catch(e) {
-    grid.innerHTML = '<div class="gallery-loading">gallery.json non trovato</div>';
+    grid.innerHTML = items.length
+      ? items.map(renderGalleryItem).join('')
+      : '<div class="gallery-loading">Nessuna texture — aggiungi voci in Notion o gallery.json</div>';
+  } catch {
+    grid.innerHTML = '<div class="gallery-loading">Caricamento non riuscito</div>';
   }
 }
 
