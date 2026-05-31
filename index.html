@@ -245,12 +245,12 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .gallery-header h3{font-family:var(--display);font-weight:800;font-size:36px;letter-spacing:.02em;margin:6px 0 0}
 .gallery-header .gh-right{font-size:10px;color:var(--grey);letter-spacing:.2em;text-align:right;line-height:2}
 .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr)}
-.gallery-item{border-right:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;cursor:crosshair;transition:background .15s}
+.gallery-item{border-right:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;cursor:crosshair;transition:background .15s;display:flex;flex-direction:column}
 .gallery-item:nth-child(4n){border-right:none}
 .gallery-item:hover{background:var(--hover)}
-.gallery-thumb{width:100%;aspect-ratio:1;object-fit:cover;display:block;filter:grayscale(15%);transition:filter .3s,transform .3s}
+.gallery-thumb{width:100%;aspect-ratio:1;min-height:160px;object-fit:cover;display:block;filter:grayscale(15%);transition:filter .3s,transform .3s;flex-shrink:0}
 .gallery-item:hover .gallery-thumb{filter:grayscale(0%);transform:scale(1.02)}
-.gallery-thumb-placeholder{width:100%;aspect-ratio:1;background:var(--klaar-charcoal);display:flex;flex-direction:column;justify-content:space-between;padding:20px;transition:opacity .2s}
+.gallery-thumb-placeholder{width:100%;aspect-ratio:1;min-height:180px;background:#1C1A17;display:flex;flex-direction:column;justify-content:space-between;padding:20px;transition:opacity .2s}
 .gallery-item:hover .gallery-thumb-placeholder{opacity:.85}
 .gtp-label{font-size:9px;letter-spacing:.25em;color:var(--klaar-sand);font-family:var(--mono)}
 .gtp-visual{font-family:var(--display);font-size:11px;color:var(--klaar-cream);line-height:1.5;margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
@@ -627,11 +627,7 @@ footer b{color:var(--ink);display:block;margin-top:2px}
       ════════════════════════════════════════════════════════════════ -->
 
       <div class="gallery-item">
-        <div class="gallery-thumb-placeholder">
-            <img class="gallery-thumb" src="https://raw.githubusercontent.com/ineditastudio/inedita/main/logo.png" alt="TITOLO" loading="lazy">
-          <div class="gtp-label">CEM I · COFFEE 18% · NO PIGMENT</div>
-          <div class="gtp-visual">NERO MATERIA · AG/01</div>
-        </div>
+        <img class="gallery-thumb" src="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/logo.png" alt="NERO MATERIA · AG/01" loading="lazy">
         <div class="gallery-caption">
           <div class="gc-title">NERO MATERIA · AG/01</div>
           <div class="gc-meta">CEM I · COFFEE 18% · 400 GRIT</div>
