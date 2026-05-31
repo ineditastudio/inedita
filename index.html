@@ -265,6 +265,97 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .kp-photo{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-bottom:1px solid var(--border)}
 
 /* ══════════════════════════════════════
+   EXPAND PANEL — card detail
+══════════════════════════════════════ */
+.aw-entry{cursor:pointer}
+.kp-card{cursor:pointer}
+.aw-expand,.kp-expand{
+  display:none;
+  border-top:2px solid var(--orange);
+  background:var(--klaar-charcoal);
+  animation:expandIn .2s ease
+}
+.aw-entry.open .aw-expand,
+.kp-card.open .kp-expand{display:block}
+@keyframes expandIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+.ax-close{
+  display:block;text-align:right;
+  padding:10px 14px 0;
+  font-size:9px;letter-spacing:.25em;
+  color:rgba(255,255,255,.3);
+  cursor:pointer;transition:color .15s;
+  font-family:var(--mono)
+}
+.ax-close:hover{color:rgba(255,255,255,.7)}
+
+.ax-body{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0
+}
+.ax-photo{
+  width:100%;aspect-ratio:1;
+  object-fit:cover;display:block
+}
+.ax-no-photo{
+  width:100%;aspect-ratio:1;
+  background:#111;
+  display:flex;align-items:center;justify-content:center
+}
+.ax-no-photo span{font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.15)}
+
+.ax-info{
+  padding:28px 28px 28px;
+  display:flex;flex-direction:column;
+  gap:16px;
+  border-left:1px solid rgba(255,255,255,.07)
+}
+.ax-mat{
+  font-size:9px;letter-spacing:.22em;
+  color:var(--klaar-sand);
+  line-height:2;font-family:var(--mono)
+}
+.ax-price{
+  font-family:var(--display);font-weight:800;
+  font-size:36px;color:var(--klaar-cream);
+  letter-spacing:.02em;line-height:1
+}
+.ax-dim{
+  font-size:10px;letter-spacing:.15em;
+  color:rgba(255,255,255,.4);
+  margin-top:-8px
+}
+.ax-tag-row{display:flex;gap:6px;flex-wrap:wrap}
+.ax-tag{
+  font-size:8px;letter-spacing:.15em;
+  color:var(--klaar-sand);
+  border:1px solid rgba(255,255,255,.15);
+  padding:2px 8px
+}
+.ax-btn{
+  display:inline-block;
+  margin-top:auto;
+  font-size:10px;letter-spacing:.2em;
+  color:var(--bg);background:var(--orange);
+  border:1px solid var(--orange);
+  padding:12px 20px;
+  text-decoration:none;
+  transition:background .15s,color .15s;
+  font-family:var(--mono);cursor:pointer;
+  align-self:flex-start
+}
+.ax-btn:hover{background:transparent;color:var(--orange)}
+
+@media(max-width:768px){
+  .ax-body{grid-template-columns:1fr}
+  .ax-photo{aspect-ratio:4/3}
+  .ax-no-photo{aspect-ratio:4/3}
+  .ax-info{padding:20px 14px 24px;gap:12px}
+  .ax-price{font-size:28px}
+}
+
+/* ══════════════════════════════════════
    HAMBURGER + MOBILE MENU
 ══════════════════════════════════════ */
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:300}
@@ -1120,6 +1211,83 @@ function loadRealPhotos() {
   });
 }
 document.addEventListener('DOMContentLoaded', loadRealPhotos);
+
+// ══════════════════════════════════════
+// EXPAND CARDS — click per aprire dettaglio
+// ══════════════════════════════════════
+function populateExpand(exp, card, type) {
+  // Foto: prima cerca img già caricata, poi data-photo
+  const photoEl = card.querySelector('.aw-photo,.kp-photo');
+  const photo   = photoEl ? photoEl.src
+                : (card.querySelector('[data-photo]')?.dataset.photo || '');
+
+  const mat   = card.querySelector('.adp-material,.kdp-material')?.textContent.trim() || '';
+  const price = type === 'inedita'
+    ? card.querySelector('.aw-meta span:last-child b')?.textContent.trim() || ''
+    : card.querySelector('.kp-price')?.textContent.trim() || '';
+  const dim   = type === 'inedita'
+    ? card.querySelector('.aw-meta span:first-child b')?.textContent.trim() || ''
+    : card.querySelector('.kp-tag')?.textContent.trim() || '';
+  const tagsEl = card.querySelectorAll('.aw-tag,.kp-tag');
+  const tags   = [...tagsEl].map(t => `<span class="ax-tag">${t.textContent}</span>`).join('');
+  const cta    = type === 'inedita' ? 'COMMISSIONA QUEST\'OPERA →' : 'RICHIEDI INFORMAZIONI →';
+
+  const photoHtml = photo
+    ? `<img class="ax-photo" src="${photo}" alt="" loading="lazy">`
+    : `<div class="ax-no-photo"><span>FOTO IN ARRIVO</span></div>`;
+
+  exp.innerHTML = `
+    <span class="ax-close" onclick="event.stopPropagation();this.closest('.aw-entry,.kp-card').classList.remove('open')">CHIUDI ✕</span>
+    <div class="ax-body">
+      ${photoHtml}
+      <div class="ax-info">
+        ${mat ? `<div class="ax-mat">${mat}</div>` : ''}
+        ${price ? `<div class="ax-price">${price}</div>` : ''}
+        ${dim ? `<div class="ax-dim">${dim}</div>` : ''}
+        ${tags ? `<div class="ax-tag-row">${tags}</div>` : ''}
+        <a class="ax-btn"
+           href="#"
+           onclick="event.stopPropagation();show('contacts',document.querySelectorAll('.nav-links a')[5]);return false">
+          ${cta}
+        </a>
+      </div>
+    </div>`;
+}
+
+function initExpandCards() {
+  document.querySelectorAll('.aw-entry').forEach(entry => {
+    const exp = document.createElement('div');
+    exp.className = 'aw-expand';
+    entry.appendChild(exp);
+
+    entry.addEventListener('click', function() {
+      const wasOpen = this.classList.contains('open');
+      document.querySelectorAll('.aw-entry.open,.kp-card.open').forEach(el => el.classList.remove('open'));
+      if (!wasOpen) {
+        this.classList.add('open');
+        if (!exp.innerHTML) populateExpand(exp, this, 'inedita');
+        setTimeout(() => this.scrollIntoView({behavior:'smooth', block:'nearest'}), 50);
+      }
+    });
+  });
+
+  document.querySelectorAll('.kp-card').forEach(card => {
+    const exp = document.createElement('div');
+    exp.className = 'kp-expand';
+    card.appendChild(exp);
+
+    card.addEventListener('click', function() {
+      const wasOpen = this.classList.contains('open');
+      document.querySelectorAll('.aw-entry.open,.kp-card.open').forEach(el => el.classList.remove('open'));
+      if (!wasOpen) {
+        this.classList.add('open');
+        if (!exp.innerHTML) populateExpand(exp, this, 'klaar');
+        setTimeout(() => this.scrollIntoView({behavior:'smooth', block:'nearest'}), 50);
+      }
+    });
+  });
+}
+document.addEventListener('DOMContentLoaded', initExpandCards);
 
 // ── EmailJS ──
 document.addEventListener('DOMContentLoaded', function() {
