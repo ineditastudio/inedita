@@ -8,6 +8,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root{
+  --klaar-charcoal:#1C1A17;
+  --klaar-earth:#5C4F3D;
+  --klaar-sand:#A89880;
+  --klaar-linen:#D4C9B8;
+  --klaar-cream:#F4F0EB;
+  --studio-navy:#0F2A38;
+  --studio-ocean:#1A5068;
+  --studio-teal:#2A7A8C;
+  --studio-mist:#C2E4EA;
+  --studio-ice:#F2F6F7;
   --bg:#f2f0ec;
   --ink:#0a0a0a;
   --orange:#c84b1f;
@@ -16,297 +26,341 @@
   --border:#c8c5bf;
   --hover:#e6e3dd;
   --mono:'Space Mono',monospace;
-  --display:'Syne',sans-serif
+  --display:'Syne',sans-serif;
+  --nav-h:52px
 }
 
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.7;cursor:crosshair;overflow-x:hidden}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.7;cursor:crosshair}
 
-/* ── SPLASH PAGE ── */
-#splash-page {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: var(--bg);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+/* ══ SPLASH ══ */
+#splash-page{
+  position:fixed;top:0;left:0;width:100vw;height:100vh;
+  background:var(--bg);z-index:1000;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  transition:transform .6s cubic-bezier(.85,0,.15,1)
 }
-#splash-page.dismissed {
-  transform: translateY(-100vh);
-}
-.splash-trigger {
-  text-align: center;
-  text-decoration: none;
-  color: var(--ink);
-  cursor: crosshair;
-  background: none;
-  border: none;
-  padding: 40px;
-}
-.splash-logo {
-  font-family: var(--display);
-  font-size: clamp(48px, 8vw, 96px);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  margin-bottom: 24px;
-}
-.splash-logo span {
-  font-weight: 400;
-  font-family: var(--display);
-  text-transform: lowercase;
-}
-.splash-enter-btn {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.3em;
-  color: var(--orange);
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--orange);
-  padding-bottom: 4px;
-  transition: color 0.2s, border-color 0.2s;
-}
-.splash-trigger:hover .splash-enter-btn {
-  color: var(--ink);
-  border-color: var(--ink);
-}
+#splash-page.dismissed{transform:translateY(-100vh);pointer-events:none}
+.splash-trigger{text-align:center;text-decoration:none;color:var(--ink);cursor:crosshair;background:none;border:none;padding:40px}
+.splash-logo{font-family:var(--display);font-size:clamp(48px,8vw,96px);font-weight:800;line-height:1;letter-spacing:-.02em;margin-bottom:24px}
+.splash-logo span{font-weight:400;font-family:var(--display);text-transform:lowercase}
+.splash-enter-btn{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--orange);text-transform:uppercase;border-bottom:1px solid var(--orange);padding-bottom:4px;transition:color .2s,border-color .2s}
+.splash-trigger:hover .splash-enter-btn{color:var(--ink);border-color:var(--ink)}
 
-/* ── PROTOCOL ACCESS GATE (PIN PAGE) ── */
-#access-gate {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: var(--ink);
-  color: var(--bg);
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+/* ══ PIN GATE ══ */
+#access-gate{
+  position:fixed;top:0;left:0;width:100vw;height:100vh;
+  background:var(--ink);color:var(--bg);z-index:999;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px;
+  transition:transform .6s cubic-bezier(.85,0,.15,1)
 }
-#access-gate.dismissed {
-  transform: translateY(-100vh);
-}
-.gate-container {
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-}
-.gate-title {
-  font-family: var(--display);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-}
-.gate-sub {
-  font-size: 11px;
-  color: #888;
-  letter-spacing: 0.05em;
-  margin-bottom: 32px;
-}
-.pin-input-wrapper {
-  position: relative;
-  margin-bottom: 24px;
-}
-.pin-input {
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid #333;
-  color: var(--orange);
-  font-family: var(--mono);
-  font-size: 32px;
-  text-align: center;
-  letter-spacing: 0.5em;
-  width: 100%;
-  padding: 8px 0;
-  outline: none;
-  transition: border-color 0.3s;
-}
-.pin-input:focus {
-  border-color: var(--orange);
-}
-/* Hide native input password dots styling slightly to keep it clean */
-.pin-input::placeholder {
-  color: #222;
-  letter-spacing: normal;
-  font-size: 14px;
-}
-.gate-btn {
-  background: transparent;
-  color: var(--bg);
-  border: 1px solid #444;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  padding: 12px 24px;
-  cursor: crosshair;
-  transition: all 0.2s;
-  width: 100%;
-  text-transform: uppercase;
-}
-.gate-btn:hover {
-  background: var(--bg);
-  color: var(--ink);
-  border-color: var(--bg);
-}
-.gate-error {
-  color: #ef4444;
-  font-size: 11px;
-  margin-top: 16px;
-  letter-spacing: 0.05em;
-  min-height: 18px;
-  opacity: 0;
-  transition: opacity 0.15s;
-}
+#access-gate.dismissed{transform:translateY(-100vh);pointer-events:none}
+.gate-container{max-width:400px;width:100%;text-align:center}
+.gate-title{font-family:var(--display);font-size:20px;font-weight:700;letter-spacing:.1em;margin-bottom:8px;text-transform:uppercase}
+.gate-sub{font-size:11px;color:#888;letter-spacing:.05em;margin-bottom:32px}
+.pin-input-wrapper{position:relative;margin-bottom:24px}
+.pin-input{background:transparent;border:none;border-bottom:2px solid #333;color:var(--orange);font-family:var(--mono);font-size:32px;text-align:center;letter-spacing:.5em;width:100%;padding:8px 0;outline:none;transition:border-color .3s}
+.pin-input:focus{border-color:var(--orange)}
+.pin-input::placeholder{color:#222;letter-spacing:normal;font-size:14px}
+.gate-btn{background:transparent;color:var(--bg);border:1px solid #444;font-family:var(--mono);font-size:11px;letter-spacing:.15em;padding:12px 24px;cursor:crosshair;transition:all .2s;width:100%;text-transform:uppercase}
+.gate-btn:hover{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.gate-error{color:#ef4444;font-size:11px;margin-top:16px;letter-spacing:.05em;min-height:18px;opacity:0;transition:opacity .15s}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:52px;background:var(--bg);border-bottom:1px solid var(--border);letter-spacing:.14em;font-size:11px}
-.nav-brand{font-weight:700;font-family:var(--display);font-size:13px;letter-spacing:.1em}.nav-brand em{color:var(--orange);font-style:normal}
-.nav-links{display:flex}
-.nav-links a{color:var(--grey);text-decoration:none;padding:0 16px;height:52px;display:flex;align-items:center;border-left:1px solid var(--border);transition:color .15s,background .15s;cursor:crosshair}
-.nav-links a:hover{color:var(--ink);background:var(--hover)}
-.nav-links a.active{color:var(--ink);border-bottom:2px solid var(--orange)}
+/* ══ NAV ══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0 24px;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);letter-spacing:.14em;font-size:11px}
+.nav-brand{font-weight:700;font-family:var(--display);font-size:13px;letter-spacing:.1em}
+.nav-brand em{color:var(--orange);font-style:normal}
+.nav-dots{display:flex;gap:10px;align-items:center}
+.nav-dot{width:6px;height:6px;border-radius:50%;border:1px solid var(--border);cursor:crosshair;transition:background .2s,border-color .2s,transform .2s;background:transparent}
+.nav-dot.active{background:var(--orange);border-color:var(--orange);transform:scale(1.3)}
+.nav-dot:hover{border-color:var(--ink)}
 .nav-loc{font-size:10px;color:var(--grey);letter-spacing:.18em}
 
-/* ── MOBILE MENU ── */
-.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:300}
-.nav-hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:all .25s}
-.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.nav-hamburger.open span:nth-child(2){opacity:0}
-.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.nav-mobile-menu{display:none;position:fixed;top:52px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:199;flex-direction:column}
-.nav-mobile-menu.open{display:flex}
-.nav-mobile-menu a{color:var(--grey);text-decoration:none;padding:16px 24px;border-top:1px solid var(--border);font-size:11px;letter-spacing:.2em}
-.nav-mobile-menu a:hover,.nav-mobile-menu a.active{color:var(--ink);background:var(--hover)}
+/* ══ SCROLL CONTAINER ══ */
+#scroll-container{display:flex;overflow-x:scroll;scroll-snap-type:x mandatory;height:calc(100vh - var(--nav-h));margin-top:var(--nav-h);scroll-behavior:smooth;scrollbar-width:none}
+#scroll-container::-webkit-scrollbar{display:none}
 
-/* ── SEZIONI GENERALI ── */
-.page{display:none;min-height:100vh;padding-top:52px;animation:fadeUp .35s ease both}
-.page.active{display:block}
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.lbl{font-size:10px;letter-spacing:.25em;color:var(--grey)}
+/* ══ SLIDES ══ */
+.slide{min-width:100vw;width:100vw;height:calc(100vh - var(--nav-h));scroll-snap-align:start;display:flex;flex-shrink:0;overflow:hidden}
 
-.page-header{padding:40px 32px 28px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end}
-.page-header h1{font-family:var(--display);font-weight:800;font-size:72px;letter-spacing:.02em;line-height:1}
-.ph-sub{font-size:12px;color:var(--grey);margin-top:8px;max-width:500px}
-.ph-right{font-size:11px;color:var(--grey);letter-spacing:.15em;text-align:right}
+/* ─ Panel primitives ─ */
+.sl{flex-shrink:0;display:flex;flex-direction:column;justify-content:flex-end;padding:48px 40px}
+.sl.w38{width:38%}
+.sl.w42{width:42%}
+.sl.w50{width:50%}
+.sl-lbl{font-size:9px;letter-spacing:.3em;margin-bottom:16px;text-transform:uppercase}
+.sl-name{font-family:var(--display);font-weight:800;line-height:.9;letter-spacing:.01em;margin-bottom:20px}
+.sl-desc{font-size:12px;line-height:1.9;margin-bottom:28px;max-width:300px}
+.sl-cta{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;padding:11px 22px;border:1px solid;text-decoration:none;cursor:crosshair;transition:background .15s,color .15s;align-self:flex-start}
 
-/* ── FOOTER AZIENDALE STRUTTURATO ── */
-.corporate-footer{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:32px;border-top:1px solid var(--border);font-size:11px;color:var(--grey);letter-spacing:.12em;line-height:1.6}
-.corporate-footer b{color:var(--ink);display:block;margin-bottom:4px;font-family:var(--display);font-weight:700;letter-spacing:.05em}
-.corporate-footer span{display:block}
+.sr{flex:1;overflow-y:auto;height:100%;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.sr::-webkit-scrollbar{width:3px}
+.sr::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
-/* ── HOME LAYOUT SCHEMA ── */
-.home-hero{margin:32px;padding:56px 48px 48px;border:1px solid var(--border);position:relative}
-.home-hero h1{font-family:var(--display);font-weight:800;font-size:clamp(60px, 9vw, 112px);line-height:.93;letter-spacing:.01em;margin-bottom:32px}
-.home-hero h1 em{color:var(--orange);font-style:normal}
+/* ══ S1 — HERO ══ */
+#s-hero{background:var(--ink);flex-direction:column;justify-content:space-between;padding:48px}
+.hero-top{display:flex;justify-content:space-between;align-items:flex-start}
+.hero-tag{font-size:10px;color:#444;letter-spacing:.3em}
+.hero-headline{font-family:var(--display);font-weight:800;font-size:clamp(44px,6.2vw,90px);line-height:.92;letter-spacing:.01em;color:#f2f0ec;max-width:900px}
+.hero-headline em{color:var(--orange);font-style:normal}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.hero-meta{font-size:10px;color:#555;letter-spacing:.2em;line-height:2}
+.hero-scroll{display:flex;align-items:center;gap:8px;font-size:10px;color:#444;letter-spacing:.2em;cursor:crosshair}
+.hero-scroll-arrow{width:40px;height:1px;background:#333;position:relative}
+.hero-scroll-arrow::after{content:'';position:absolute;right:-4px;top:-3px;width:6px;height:6px;border-top:1px solid #333;border-right:1px solid #333;transform:rotate(45deg)}
 
-.home-brands-schema{display:grid;grid-template-columns:repeat(3,1fr);margin:0 32px;border-bottom:1px solid var(--border)}
-.brand-box{border-left:1px solid var(--border);padding:32px;transition:background .15s}
-.brand-box:last-child{border-right:1px solid var(--border)}
-.brand-box:hover{background:var(--hover)}
-.bb-meta{font-size:10px;letter-spacing:.15em;color:var(--orange);margin-bottom:12px;display:block}
-.brand-box h2{font-family:var(--display);font-weight:800;font-size:42px;letter-spacing:.01em;margin-bottom:16px;line-height:1}
-.brand-box p{font-size:12px;color:var(--grey-lt);line-height:1.7;margin-bottom:24px}
-.brand-box .bb-link{display:inline-block;font-size:11px;letter-spacing:.15em;color:var(--ink);text-decoration:none;border:1px solid var(--border);padding:8px 16px;transition:all .15s}
-.brand-box:hover .bb-link{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+/* ══ S2/S3/S4 — Brand slides ══ */
+#s-inedita .sl{background:var(--studio-navy)}
+#s-inedita .sl .sl-lbl{color:var(--studio-teal)}
+#s-inedita .sl .sl-name{font-size:clamp(52px,4.8vw,76px);color:#f2f0ec}
+#s-inedita .sl .sl-desc{color:#9cc5d0}
+#s-inedita .sl .sl-cta{color:#f2f0ec;border-color:rgba(255,255,255,.3)}
+#s-inedita .sl .sl-cta:hover{background:var(--orange);border-color:var(--orange)}
+#s-inedita .sr{background:var(--bg)}
 
-.home-profile-schema{display:grid;grid-template-columns:1fr 1fr;margin:0 32px}
-.profile-box{border-left:1px solid var(--border);padding:40px;border-bottom:1px solid var(--border)}
-.profile-box:last-child{border-right:1px solid var(--border)}
-.profile-box h3{font-family:var(--display);font-weight:800;font-size:32px;margin-bottom:16px;line-height:1.1}
-.profile-box p{font-size:12px;color:var(--grey-lt);line-height:1.8;margin-bottom:24px}
-.pb-data-row{display:flex;gap:32px;border-top:1px solid var(--border);padding-top:16px}
-.pb-data-item{font-size:11px}
-.pb-data-item span{display:block;font-size:9px;color:var(--grey);letter-spacing:.15em;margin-bottom:4px}
-.pb-data-item strong{font-family:var(--display);font-weight:700;font-size:14px}
+#s-klaar .sl{background:var(--klaar-charcoal)}
+#s-klaar .sl .sl-lbl{color:var(--klaar-sand)}
+#s-klaar .sl .sl-name{font-size:clamp(52px,5vw,80px);color:var(--klaar-cream)}
+#s-klaar .sl .sl-desc{color:var(--klaar-linen)}
+#s-klaar .sl .sl-cta{color:var(--klaar-cream);border-color:rgba(255,255,255,.3)}
+#s-klaar .sl .sl-cta:hover{background:var(--orange);border-color:var(--orange)}
+#s-klaar .sr{background:var(--bg)}
 
-/* ── CARDS SCHEDATE INEDITA & KLAAR ── */
-.lab-grid{display:grid;grid-template-columns:repeat(3,1fr);margin:0 32px}
-.lab-card{border-left:1px solid var(--border);border-bottom:1px solid var(--border);padding:32px;background:var(--bg);transition:background .15s;position:relative}
-.lab-card:nth-child(3n){border-right:1px solid var(--border)}
-.lab-card:hover{background:var(--hover)}
-.lc-header{display:flex;justify-content:between;font-size:10px;color:var(--orange);letter-spacing:.1em;margin-bottom:12px}
-.lc-header .lc-id{font-weight:700}
-.lc-header .lc-year{margin-left:auto;color:var(--grey)}
-.lab-card h2{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.1;margin-bottom:16px;letter-spacing:.01em}
-.lab-card p{font-size:12px;color:var(--grey-lt);line-height:1.7;margin-bottom:24px;min-height:70px}
-.lc-tags{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
-.lc-tag{font-size:9px;letter-spacing:.1em;border:1px solid var(--border);padding:2px 8px;color:var(--grey)}
-.lc-specs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);padding-top:14px;font-size:11px}
-.lc-specs div span{display:block;font-size:9px;color:var(--grey);letter-spacing:.1em;margin-bottom:2px}
-.lc-specs div strong{font-weight:700}
-.lc-btn{width:100%;margin-top:24px;background:var(--ink);color:var(--bg);border:none;padding:12px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;cursor:crosshair;transition:background .15s}
-.lc-btn:hover{background:var(--orange)}
+#s-studio .sl{background:#111}
+#s-studio .sl .sl-lbl{color:#666}
+#s-studio .sl .sl-name{font-size:clamp(38px,4vw,64px);color:#f2f0ec}
+#s-studio .sl .sl-desc{color:#888}
+#s-studio .sl .sl-cta{color:#f2f0ec;border-color:rgba(255,255,255,.3)}
+#s-studio .sl .sl-cta:hover{background:var(--orange);border-color:var(--orange)}
+#s-studio .sr{background:var(--bg)}
 
-/* ── STUDIO LAYOUT COMPLETO B2B ── */
-.studio-b2b-grid{display:grid;grid-template-columns:1fr 1fr;margin:0 32px}
-.b2b-card{border-left:1px solid var(--border);border-bottom:1px solid var(--border);padding:40px;transition:background .15s;display:flex;flex-direction:column;justify-content:space-between}
-.b2b-card:nth-child(2n){border-right:1px solid var(--border)}
-.b2b-card:hover{background:var(--hover)}
-.b2b-meta{font-size:10px;letter-spacing:.15em;color:var(--orange);margin-bottom:12px;display:block}
-.b2b-card h2{font-family:var(--display);font-weight:800;font-size:36px;letter-spacing:.01em;margin-bottom:16px;line-height:1}
-.b2b-desc{font-size:13px;color:var(--ink);line-height:1.7;margin-bottom:20px}
-.b2b-divider{height:1px;background:var(--border);margin:24px 0}
-.b2b-list{list-style:none;margin-bottom:24px}
-.b2b-list li{font-size:12px;color:var(--grey-lt);position:relative;padding-left:16px;margin-bottom:8px}
-.b2b-list li::before{content:"—";position:absolute;left:0;color:var(--orange)}
-.b2b-price{font-size:11px;color:var(--grey);letter-spacing:.05em;margin-bottom:20px}
+/* ══ S5 — JOURNEY ══ */
+#s-journey{background:var(--ink);flex-direction:column;overflow:hidden}
+#s-journey .j-header{padding:36px 48px 24px;border-bottom:1px solid #1a1a1a;flex-shrink:0;display:flex;justify-content:space-between;align-items:flex-end}
+#s-journey .j-header h2{font-family:var(--display);font-weight:800;font-size:52px;color:#f2f0ec;letter-spacing:.01em;line-height:1}
+#s-journey .j-header .j-sub{font-size:10px;color:#555;letter-spacing:.3em;text-align:right;line-height:2}
+#s-journey .j-list{overflow-y:auto;flex:1;padding:0 48px;scrollbar-width:thin;scrollbar-color:#1a1a1a transparent}
+#s-journey .j-list::-webkit-scrollbar{width:2px}
+#s-journey .j-list::-webkit-scrollbar-thumb{background:#222}
+.j-entry{display:grid;grid-template-columns:100px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid #111}
+.j-entry:last-child{border-bottom:none}
+.j-date{font-size:11px;color:#555;letter-spacing:.06em;padding-top:3px}
+.j-type{font-size:9px;color:var(--orange);letter-spacing:.25em;margin-bottom:6px}
+.j-title{font-family:var(--display);font-weight:700;font-size:18px;color:#f2f0ec;letter-spacing:.02em;margin-bottom:8px}
+.j-text{font-size:11px;color:#666;line-height:1.85}
 
-/* ── JOURNEY CRONOLOGIA REVISIONATA ── */
-.post-list{margin:0 32px}
-.post-item{border-left:1px solid var(--border);border-bottom:1px solid var(--border);padding:32px;display:grid;grid-template-columns:140px 1fr;gap:24px;transition:background .15s}
-.post-item:last-child{border-right:none}
-.post-item:hover{background:var(--hover)}
-.pi-date{font-family:var(--display);font-weight:800;font-size:24px;color:var(--orange);line-height:1}
-.pi-title{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.02em;margin-bottom:6px}
-.pi-text{font-size:12px;color:var(--grey-lt);line-height:1.8}
-
-/* ── CONTACTS & FORM ── */
-.contacts-grid{display:grid;grid-template-columns:1fr 1fr;margin:0 32px}
-.ct-block{border:1px solid var(--border);border-top:none;border-right:none;padding:40px}
-.ct-block:last-child{border-right:1px solid var(--border)}
-.ct-block h2{font-family:var(--display);font-weight:800;font-size:36px;margin-bottom:16px}
-.ct-email{font-size:16px;color:var(--orange);letter-spacing:.05em;display:block;margin-bottom:12px}
-.contact-form{margin:0 32px;border:1px solid var(--border);border-top:none;padding:40px}
-.cf-group{margin-bottom:20px}
-.cf-label{display:block;font-size:10px;letter-spacing:.15em;color:var(--grey);margin-bottom:6px}
-.cf-input, .cf-textarea{width:100%;padding:12px;border:1px solid var(--border);background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13px}
-.cf-input:focus, .cf-textarea:focus{outline:none;border-color:var(--ink)}
+/* ══ S6 — CONTACTS ══ */
+#s-contacts .sl{background:var(--klaar-charcoal);justify-content:space-between;padding-top:48px}
+#s-contacts .sl .sl-lbl{color:var(--klaar-sand)}
+#s-contacts .sl h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,3vw,44px);color:var(--klaar-cream);letter-spacing:.02em;margin-bottom:20px}
+.ct-email{display:block;color:var(--orange);font-size:16px;letter-spacing:.06em;margin-bottom:8px}
+.ct-loc{font-size:12px;color:var(--klaar-sand);line-height:2}
+.ct-details{margin-top:28px;font-size:10px;color:#666;letter-spacing:.12em;line-height:2.2}
+#s-contacts .sr{background:var(--bg);padding:48px}
+.cf-title{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.02em;margin-bottom:28px}
+.cf-group{margin-bottom:18px}
+.cf-label{display:block;font-size:10px;letter-spacing:.2em;color:var(--grey);margin-bottom:6px;text-transform:uppercase}
+.cf-input,.cf-textarea,.cf-select{width:100%;padding:10px 12px;border:1px solid var(--border);background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:12px;transition:border-color .15s;outline:none}
+.cf-input:focus,.cf-textarea:focus,.cf-select:focus{border-color:var(--ink)}
 .cf-textarea{resize:vertical;min-height:100px}
-.cf-submit{padding:12px 24px;background:var(--ink);color:var(--bg);border:1px solid var(--ink);cursor:crosshair;font-family:var(--mono);font-size:11px;letter-spacing:.15em;transition:all .15s}
+.cf-select{cursor:crosshair}
+.cf-submit{padding:11px 22px;background:var(--ink);color:var(--bg);border:1px solid var(--ink);cursor:crosshair;font-family:var(--mono);font-size:10px;letter-spacing:.2em;transition:all .15s;text-transform:uppercase}
 .cf-submit:hover{background:var(--bg);color:var(--ink)}
-.cf-status{margin-top:16px;padding:12px;border:1px solid var(--border);font-size:11px;display:none}
+.cf-status{margin-top:14px;padding:10px 12px;border:1px solid var(--border);font-size:11px;display:none}
 .cf-status.success{background:#f0fff4;border-color:#22c55e;color:#16a34a}
 .cf-status.error{background:#fff5f5;border-color:#ef4444;color:#991b1b}
 
+/* ══ S7 — CLOSING ══ */
+#s-closing{background:var(--ink);position:relative}
+.closing-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:52px 48px}
+.closing-col:last-child{border-left:1px solid #111}
+.closing-col .cl-lbl{font-size:9px;color:#555;letter-spacing:.3em;margin-bottom:20px}
+.closing-col h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,3vw,48px);color:#f2f0ec;letter-spacing:.02em;line-height:1;margin-bottom:20px}
+.closing-col p{font-size:12px;color:#666;line-height:1.9;margin-bottom:24px;max-width:420px}
+.closing-data{display:flex;gap:24px;padding-top:20px;border-top:1px solid #111;flex-wrap:wrap}
+.cd-item{font-size:10px}
+.cd-item span{display:block;font-size:9px;color:#555;letter-spacing:.15em;margin-bottom:3px}
+.cd-item strong{font-family:var(--display);font-weight:700;font-size:14px;color:#f2f0ec}
+.closing-footer{padding:16px 48px;border-top:1px solid #0d0d0d;font-size:10px;color:#444;letter-spacing:.2em;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;position:absolute;bottom:0;left:0;right:0}
+.closing-footer a{color:#555;text-decoration:none;border-bottom:1px solid #333;cursor:crosshair;transition:color .15s}
+.closing-footer a:hover{color:#f2f0ec}
+
+/* ══ COMPACT CARDS ══ */
+.rc-list{padding:28px 36px}
+.rc-item{border-bottom:1px solid var(--border);padding:18px 0;display:grid;grid-template-columns:76px 1fr;gap:18px;transition:background .15s}
+.rc-item:first-child{border-top:1px solid var(--border)}
+.rc-num{font-size:10px;color:var(--orange);letter-spacing:.18em;padding-top:3px;line-height:1.5}
+.rc-name{font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.02em;margin-bottom:4px}
+.rc-sub{font-size:11px;color:var(--grey-lt);line-height:1.7;margin-bottom:8px}
+.rc-foot{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.rc-price{font-size:13px;font-weight:700;font-family:var(--display)}
+.rc-tag{font-size:9px;color:var(--grey);letter-spacing:.1em;border:1px solid var(--border);padding:2px 7px}
+.rc-btn{display:inline-block;font-size:9px;letter-spacing:.15em;color:var(--bg);background:var(--ink);border:none;padding:7px 13px;cursor:crosshair;transition:background .15s;font-family:var(--mono)}
+.rc-btn:hover{background:var(--orange)}
+.rc-photo-btn{display:inline-flex;align-items:center;gap:4px;font-size:9px;letter-spacing:.12em;color:var(--grey);border:1px solid var(--border);padding:6px 10px;cursor:crosshair;background:none;font-family:var(--mono);transition:border-color .15s,color .15s}
+.rc-photo-btn:hover{border-color:var(--ink);color:var(--ink)}
+.rc-photo-btn svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:1.5}
+
+/* ══ SERVICES RIGHT PANEL ══ */
+.svc-list-r{padding:24px 36px}
+.svc-r{border-bottom:1px solid var(--border);padding:20px 0}
+.svc-r:first-child{border-top:1px solid var(--border)}
+.svc-r-idx{font-size:9px;color:var(--orange);letter-spacing:.25em;margin-bottom:5px}
+.svc-r-name{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:.02em;margin-bottom:8px}
+.svc-r-desc{font-size:11px;color:var(--grey-lt);line-height:1.75;margin-bottom:10px}
+.svc-r-price{font-size:10px;color:var(--grey);letter-spacing:.08em}
+.svc-r-btn{display:inline-block;font-size:9px;letter-spacing:.15em;color:var(--bg);background:var(--ink);border:none;padding:8px 14px;cursor:crosshair;transition:background .15s;font-family:var(--mono);margin-top:10px}
+.svc-r-btn:hover{background:var(--orange)}
+
+/* ══ LIGHTBOX ══ */
+#lightbox{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+#lightbox.open{opacity:1;pointer-events:all}
+.lb-inner{position:relative;max-width:720px;width:90%;display:flex;flex-direction:column;gap:0}
+.lb-close{position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:11px;letter-spacing:.3em;cursor:crosshair;font-family:var(--mono);opacity:.5;transition:opacity .15s}
+.lb-close:hover{opacity:1}
+.lb-img-wrap{width:100%;aspect-ratio:1;position:relative;background:#111;overflow:hidden}
+.lb-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .3s}
+.lb-img-wrap img.loaded{opacity:1}
+.lb-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:opacity .2s}
+.lb-placeholder-icon{width:48px;height:48px;opacity:.15}
+.lb-placeholder-icon svg{width:100%;height:100%;fill:none;stroke:#fff;stroke-width:1}
+.lb-placeholder-text{font-size:10px;color:#555;letter-spacing:.3em}
+.lb-placeholder-name{font-family:var(--display);font-weight:700;font-size:22px;color:#333;letter-spacing:.02em;margin-top:4px;text-align:center;padding:0 24px}
+.lb-caption{background:#0d0d0d;padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.lb-caption-title{font-family:var(--display);font-weight:700;font-size:16px;color:#f2f0ec;letter-spacing:.02em}
+.lb-caption-meta{font-size:10px;color:#555;letter-spacing:.15em}
+.lb-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.lb-loading-dot{width:6px;height:6px;border-radius:50%;background:#333;animation:lb-pulse 1.2s ease-in-out infinite}
+.lb-loading-dot:nth-child(2){animation-delay:.2s}
+.lb-loading-dot:nth-child(3){animation-delay:.4s}
+.lb-loading-wrap{display:flex;gap:6px;opacity:0;transition:opacity .2s}
+.lb-loading-wrap.visible{opacity:1}
+@keyframes lb-pulse{0%,100%{background:#333}50%{background:#555}}
+
+/* ══ LEGAL MODAL ══ */
+#legal-modal{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+#legal-modal.open{opacity:1;pointer-events:all}
+.lm-box{background:var(--bg);max-width:700px;width:90%;max-height:82vh;display:flex;flex-direction:column;border:1px solid var(--border)}
+.lm-header{padding:24px 28px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0}
+.lm-header h2{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.02em}
+.lm-close{background:none;border:1px solid var(--border);padding:6px 12px;font-size:10px;letter-spacing:.2em;cursor:crosshair;font-family:var(--mono);color:var(--grey);transition:all .15s}
+.lm-close:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.lm-body{padding:28px;overflow-y:auto;flex:1;scrollbar-width:thin}
+.lm-body h3{font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.12em;margin:24px 0 10px;text-transform:uppercase}
+.lm-body h3:first-child{margin-top:0}
+.lm-body p{font-size:12px;color:var(--grey-lt);line-height:1.9;margin-bottom:12px}
+.lm-body a{color:var(--orange)}
+.lm-footer{padding:16px 28px;border-top:1px solid var(--border);font-size:10px;color:var(--grey);letter-spacing:.12em;flex-shrink:0}
+
+/* ══ COOKIE BANNER ══ */
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:400;background:var(--ink);color:var(--bg);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:11px;letter-spacing:.1em;transform:translateY(0);transition:transform .3s}
+#cookie-banner.hidden{transform:translateY(100%)}
+.cb-text{line-height:1.7;color:#aaa}
+.cb-text a{color:var(--orange);cursor:crosshair}
+.cb-actions{display:flex;gap:10px;flex-shrink:0}
+.cb-btn{font-family:var(--mono);font-size:10px;letter-spacing:.15em;padding:8px 16px;cursor:crosshair;border:none;transition:all .15s;text-transform:uppercase}
+.cb-accept{background:var(--bg);color:var(--ink)}
+.cb-accept:hover{background:var(--orange);color:var(--bg)}
+.cb-decline{background:transparent;color:#555;border:1px solid #333}
+.cb-decline:hover{color:#888}
+
+/* ══ KEYBOARD HINT ══ */
+#kb-hint{position:fixed;bottom:20px;right:20px;z-index:100;font-size:9px;color:#aaa;letter-spacing:.15em;display:flex;gap:8px;align-items:center;pointer-events:none}
+.kb-key{border:1px solid #ccc;padding:2px 6px;border-radius:2px;font-size:9px}
+
+/* ══ DART GAME ══ */
+#s-closing{overflow:hidden}
+.dc-info{width:20%;display:flex;flex-direction:column;justify-content:space-between;padding:36px 24px;border-right:1px solid #111;flex-shrink:0}
+.dc-info .cl-lbl{font-size:9px;color:#555;letter-spacing:.3em;margin-bottom:10px}
+.dc-info h2{font-family:var(--display);font-weight:800;font-size:clamp(18px,2vw,28px);color:#f2f0ec;letter-spacing:.02em;line-height:1;margin-bottom:12px}
+.dc-info p{font-size:11px;color:#666;line-height:1.8;margin-bottom:12px}
+.dc-data{display:flex;gap:12px;flex-wrap:wrap;padding-top:12px;border-top:1px solid #111}
+.dc-data-item span{display:block;font-size:8px;color:#555;letter-spacing:.15em;margin-bottom:2px}
+.dc-data-item strong{font-family:var(--display);font-weight:700;font-size:11px;color:#f2f0ec}
+.dc-footer{font-size:9px;color:#333;letter-spacing:.12em;line-height:2.2}
+.dc-footer a{color:#444;text-decoration:none;border-bottom:1px solid #222;cursor:crosshair;transition:color .15s}
+.dc-footer a:hover{color:#888}
+.dc-game{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px;overflow:hidden}
+.dc-game-label{font-size:9px;color:#555;letter-spacing:.3em}
+.dc-board-wrap{position:relative;cursor:crosshair;flex-shrink:0}
+.dc-board-wrap canvas{display:block}
+.dc-throw-hint{font-size:10px;color:#555;letter-spacing:.18em;text-align:center;min-height:14px;font-family:var(--mono)}
+.dc-hud{display:flex;gap:24px;align-items:center}
+.dc-score-display{text-align:center}
+.dc-score-label{font-size:8px;color:#555;letter-spacing:.25em;margin-bottom:2px}
+.dc-score-val{font-family:var(--display);font-weight:800;font-size:30px;color:#f2f0ec;line-height:1;transition:color .15s;min-width:60px;text-align:center}
+.dc-score-val.tick{color:var(--orange)}
+.dc-darts-wrap{display:flex;flex-direction:column;align-items:center;gap:5px}
+.dc-darts-label{font-size:8px;color:#555;letter-spacing:.25em}
+.dc-darts{display:flex;gap:5px}
+.dc-d{width:8px;height:8px;border-radius:50%;background:var(--orange);transition:background .2s,opacity .2s}
+.dc-d.used{background:#222;opacity:.5}
+.dc-result-area{display:none;flex-direction:column;align-items:center;gap:8px;width:100%}
+.dc-result-banner{background:#0d0d0d;border:1px solid #1a1a1a;padding:12px 20px;text-align:center;width:100%;max-width:270px}
+.dc-result-banner .dr-lbl{font-size:8px;color:#555;letter-spacing:.3em;margin-bottom:4px}
+.dc-result-banner .dr-score{font-family:var(--display);font-weight:800;font-size:36px;color:#f2f0ec;line-height:1}
+.dc-result-banner .dr-msg{font-size:10px;color:var(--orange);letter-spacing:.18em;margin-top:4px}
+.dc-play-again{background:transparent;border:1px solid #2a2a2a;color:#555;font-family:var(--mono);font-size:9px;letter-spacing:.2em;padding:8px 20px;cursor:crosshair;transition:all .2s;text-transform:uppercase}
+.dc-play-again:hover{border-color:#666;color:#f2f0ec}
+.dc-lb{width:28%;border-left:1px solid #111;display:flex;flex-direction:column;padding:28px 20px;flex-shrink:0;overflow:hidden}
+.dc-lb-header{flex-shrink:0;margin-bottom:14px}
+.dc-lb-title{font-size:9px;color:#555;letter-spacing:.3em;margin-bottom:2px}
+.dc-lb-sub{font-size:9px;color:#2a2a2a;letter-spacing:.12em}
+.dc-lb-list{flex:1;overflow-y:auto;scrollbar-width:none}
+.dc-lb-list::-webkit-scrollbar{display:none}
+.dc-lb-empty{font-size:10px;color:#2a2a2a;letter-spacing:.15em;padding:20px 0;text-align:center;line-height:2}
+.dc-lb-row{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #0d0d0d;font-size:11px}
+.dc-lb-row:first-child{border-top:1px solid #0d0d0d}
+.dc-lb-row.new-entry .dc-lb-name{color:#f2f0ec}
+.dc-lb-rank{font-size:9px;color:#333;width:18px;flex-shrink:0;letter-spacing:.1em}
+.dc-lb-name{color:#888;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;letter-spacing:.08em}
+.dc-lb-pts{font-family:var(--display);font-weight:700;font-size:13px;color:var(--orange);flex-shrink:0}
+.dc-lb-row.gold .dc-lb-rank,.dc-lb-row.gold .dc-lb-pts{color:#c9a84c}
+.dc-name-area{flex-shrink:0;margin-top:auto;padding-top:14px;border-top:1px solid #111}
+.dc-name-area.hidden{display:none}
+.dc-name-prompt{font-size:9px;color:#555;letter-spacing:.22em;margin-bottom:10px}
+.dc-name-row{display:flex;gap:0}
+.dc-name-input{flex:1;background:transparent;border:none;border-bottom:1px solid #2a2a2a;color:var(--orange);font-family:var(--mono);font-size:12px;padding:6px 8px 6px 0;outline:none;min-width:0;transition:border-color .2s}
+.dc-name-input::placeholder{color:#1e1e1e;font-size:10px;letter-spacing:.12em}
+.dc-name-input:focus{border-color:var(--orange)}
+.dc-name-btn{background:transparent;border:none;border-bottom:1px solid #2a2a2a;color:#555;font-family:var(--mono);font-size:10px;letter-spacing:.15em;padding:6px 0 6px 10px;cursor:crosshair;transition:color .15s;flex-shrink:0;white-space:nowrap}
+.dc-name-btn:hover{color:#f2f0ec}
+
+/* ══ MOBILE ══ */
 @media(max-width:768px){
-  nav{padding:0 16px}.nav-links, .nav-loc{display:none}.nav-hamburger{display:flex}
-  .home-hero{margin:10px;padding:24px 16px}
-  .home-hero h1{font-size:36px}
-  .page-header{padding:24px 16px;flex-direction:column;align-items:flex-start}
-  .page-header h1{font-size:40px}
-  .home-brands-schema, .home-profile-schema, .lab-grid, .studio-b2b-grid, .post-list, .contacts-grid, .contact-form{grid-template-columns:1fr;margin:0 10px}
-  .brand-box, .profile-box, .lab-card, .b2b-card, .ct-block{border-right:1px solid var(--border)!important;border-left:1px solid var(--border)!important}
-  .post-item{grid-template-columns:1fr;padding:20px 16px;border-left:1px solid var(--border)!important;border-right:1px solid var(--border)!important}
-  .corporate-footer{grid-template-columns:1fr;padding:24px 16px;gap:16px}
+  body{overflow:auto}html{overflow:auto}
+  #scroll-container{flex-direction:column;overflow-x:hidden;overflow-y:auto;height:auto;scroll-snap-type:none;margin-top:var(--nav-h)}
+  .slide{min-width:100%;width:100%;height:auto;min-height:auto;flex-direction:column;scroll-snap-align:none;overflow:visible}
+  .sl{width:100%!important;padding:32px 20px;justify-content:flex-start}
+  .sr{height:auto;overflow-y:visible}
+  .sl-name{font-size:clamp(32px,10vw,58px)!important}
+  #s-hero{padding:32px 20px;height:100svh;min-height:100svh}
+  .hero-headline{font-size:clamp(30px,9vw,52px)}
+  #s-journey{height:auto}
+  #s-journey .j-header{padding:28px 20px 20px}
+  #s-journey .j-header h2{font-size:32px}
+  #s-journey .j-list{overflow-y:visible;padding:0 20px}
+  #s-contacts .sl{padding:32px 20px}
+  #s-contacts .sr{padding:28px 20px}
+  #s-closing{flex-direction:column;overflow-y:auto;height:auto}
+  .dc-info{width:100%;border-right:none;border-bottom:1px solid #111;padding:24px 20px}
+  .dc-game{padding:20px;min-height:360px}
+  .dc-lb{width:100%;border-left:none;border-top:1px solid #111;padding:20px}
+  .rc-list{padding:16px 20px}
+  .svc-list-r{padding:12px 20px}
+  nav{padding:0 16px}
+  .nav-loc{display:none}
+  #kb-hint{display:none}
+  #cookie-banner{flex-direction:column;align-items:flex-start;padding:16px 20px}
+  .lb-inner{width:95%}
+  .lm-box{max-height:90vh;width:95%}
 }
 </style>
 </head>
 <body>
 
-<!-- ── SPLASH PAGE ── -->
+<!-- ══ SPLASH ══ -->
 <div id="splash-page">
   <button class="splash-trigger" onclick="dismissSplash()">
     <h1 class="splash-logo">INEDITA <span>studio</span></h1>
@@ -314,530 +368,1090 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
   </button>
 </div>
 
-<!-- ── PROTOCOL ACCESS GATE (PIN PAGE) ── -->
+<!-- ══ PIN GATE ══ -->
 <div id="access-gate">
   <div class="gate-container">
-    <div class="gate-title">System Authorization</div>
-    <div class="gate-sub">Enter credentials to unlock matrix data layers</div>
+    <div class="gate-title">Lab Access</div>
+    <div class="gate-sub">Enter the protocol key to unlock the matrix</div>
     <div class="pin-input-wrapper">
-      <!-- Password field max length set to 4 characters -->
-      <input type="password" id="lab-pin" class="pin-input" maxlength="4" placeholder="••••" onkeydown="handlePinKey(event)">
+      <input type="password" id="lab-pin" class="pin-input" maxlength="4" placeholder="••••" onkeydown="handlePinKey(event)" autocomplete="off">
     </div>
     <button class="gate-btn" onclick="verifyPin()">Verify Access</button>
-    <div id="gate-error-msg" class="gate-error">SECURITY BREACH: Invalid protocol key.</div>
+    <div id="gate-error-msg" class="gate-error">INVALID KEY — Access denied.</div>
   </div>
 </div>
 
-<!-- ── NAV ── -->
+<!-- ══ NAV ══ -->
 <nav>
   <div class="nav-brand">INEDITA<em>.</em> STUDIO</div>
-  <div class="nav-links">
-    <a href="#" class="active" onclick="show('home',this)">HOME</a>
-    <a href="#" onclick="show('inedita',this)">INEDITA</a>
-    <a href="#" onclick="show('klaar',this)">KLAAR</a>
-    <a href="#" onclick="show('studio',this)">STUDIO</a>
-    <a href="#" onclick="show('journey',this)">JOURNEY</a>
-    <a href="#" onclick="show('contacts',this)">CONTACTS</a>
+  <div class="nav-dots" id="nav-dots">
+    <div class="nav-dot active" onclick="goToSlide(0)" title="HERO"></div>
+    <div class="nav-dot" onclick="goToSlide(1)" title="INEDITA"></div>
+    <div class="nav-dot" onclick="goToSlide(2)" title="KLAAR"></div>
+    <div class="nav-dot" onclick="goToSlide(3)" title="STUDIO"></div>
+    <div class="nav-dot" onclick="goToSlide(4)" title="JOURNEY"></div>
+    <div class="nav-dot" onclick="goToSlide(5)" title="CONTACTS"></div>
+    <div class="nav-dot" onclick="goToSlide(6)" title="CLOSING"></div>
   </div>
   <div class="nav-loc">MAASTRICHT · NL</div>
-  <button class="nav-hamburger" onclick="toggleMenu(this)">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
-<div class="nav-mobile-menu" id="mobileMenu">
-  <a href="#" onclick="showMobile('home')">HOME</a>
-  <a href="#" onclick="showMobile('inedita')">INEDITA</a>
-  <a href="#" onclick="showMobile('klaar')">KLAAR</a>
-  <a href="#" onclick="showMobile('studio')">STUDIO</a>
-  <a href="#" onclick="showMobile('journey')">JOURNEY</a>
-  <a href="#" onclick="showMobile('contacts')">CONTACTS</a>
+<!-- ══ KEYBOARD HINT ══ -->
+<div id="kb-hint">
+  <span class="kb-key">←</span><span class="kb-key">→</span> navigate
 </div>
 
-<!-- ── HOME ── -->
-<div id="home" class="page active">
-  <div class="home-hero">
-    <h1>WE SHAPE<br>MATTER<br><em>BEYOND</em><br>WASTE.</h1>
-  </div>
-  
-  <div class="home-brands-schema">
-    <div class="brand-box">
-      <span class="bb-meta">ARTIST BRAND · THE SOUL</span>
-      <h2>INEDITA</h2>
-      <p>Artworks born from a process of material research. Unique pieces that tell the story of IN-NED – Italian identity lived in the Netherlands. Poetic but never pretentious. Slow, reflective. Objects that carry the trace of their making.</p>
-      <a href="#" class="bb-link" onclick="show('inedita', document.querySelectorAll('.nav-links a')[1])">VIEW ARCHIVE →</a>
-    </div>
-    <div class="brand-box">
-      <span class="bb-meta">PRODUCT BRAND · THE INNOVATION</span>
-      <h2>KLAAR</h2>
-      <p>Home design objects built on Nero Materia. Coffee grounds and paper waste transformed into desirable objects. Not greenwashing – high-level design that proves sustainability without aesthetic compromise. Ready. Klaar.</p>
-      <a href="#" class="bb-link" onclick="show('klaar', document.querySelectorAll('.nav-links a')[2])">VIEW COLLECTION →</a>
-    </div>
-    <div class="brand-box">
-      <span class="bb-meta">LAB & CONSULTING · THE BRIDGE</span>
-      <h2>STUDIO</h2>
-      <p>Hybrid consulting for brands that want to transform their vision into a concrete product. Material research, creative direction, brand strategy. Not academics – operational creatives who know how to make things real.</p>
-      <a href="#" class="bb-link" onclick="show('studio', document.querySelectorAll('.nav-links a')[3])">VIEW SERVICES →</a>
-    </div>
-  </div>
-
-  <div class="home-profile-schema">
-    <div class="profile-box">
-      <span class="bb-meta">OPERATOR</span>
-      <h3>ALESSANDRO</h3>
-      <p>Barista in Maastricht. Artist in the studio. I work at the intersection of coffee extraction, cementitious matrices and technical resins to shape a new material vocabulary. Mediterranean creativity meets Northern European precision. One founder, three distinct voices.</p>
-      <div class="pb-data-row">
-        <div class="pb-data-item"><span>REG</span><strong>027</strong></div>
-        <div class="pb-data-item"><span>YEAR</span><strong>2026</strong></div>
-        <div class="pb-data-item"><span>LAB</span><strong>OLV</strong></div>
-        <div class="pb-data-item"><span>KVK</span><strong>NL</strong></div>
+<!-- ══ LIGHTBOX ══ -->
+<div id="lightbox" onclick="closeLightbox()">
+  <div class="lb-inner" onclick="event.stopPropagation()">
+    <button class="lb-close" onclick="closeLightbox()">CHIUDI ✕</button>
+    <div class="lb-img-wrap">
+      <div class="lb-loading">
+        <div class="lb-loading-wrap" id="lb-loading">
+          <div class="lb-loading-dot"></div>
+          <div class="lb-loading-dot"></div>
+          <div class="lb-loading-dot"></div>
+        </div>
       </div>
-    </div>
-    <div class="profile-box">
-      <span class="bb-meta">VISION · IN-NED</span>
-      <h3>THE VALUE</h3>
-      <p>Three brands, three voices, one person behind everything. Inedita builds artistic credibility. Klaar generates continuative revenue through product. Studio brings high revenue and professional positioning. The three reinforce each other – they do not compete. Authenticity is the thread that cannot be replicated.</p>
-      <div class="pb-data-row">
-        <div class="pb-data-item"><span>ART</span><strong>UNIQUE</strong></div>
-        <div class="pb-data-item"><span>RETAIL</span><strong>KLAAR</strong></div>
-        <div class="pb-data-item"><span>B2B</span><strong>STUDIO</strong></div>
+      <div class="lb-placeholder" id="lb-placeholder">
+        <div class="lb-placeholder-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <div class="lb-placeholder-text">FOTO IN ARRIVO</div>
+        <div class="lb-placeholder-name" id="lb-placeholder-name"></div>
       </div>
+      <img id="lb-img" src="" alt="">
+    </div>
+    <div class="lb-caption">
+      <div class="lb-caption-title" id="lb-title"></div>
+      <div class="lb-caption-meta" id="lb-meta"></div>
     </div>
   </div>
-
-  <footer class="corporate-footer">
-    <div>
-      <b>INEDITA STUDIO</b>
-      <span>© 2026 All Matter Reserved</span>
-      <span>Material R&D Lab</span>
-    </div>
-    <div>
-      <b>LOCATION</b>
-      <span>Maastricht, Netherlands</span>
-      <span>OLV Prototyping Site</span>
-    </div>
-    <div>
-      <b>REGISTRY</b>
-      <span>KvK: Registered</span>
-      <span>VAT: NL Available</span>
-    </div>
-    <div>
-      <b>CONTACTS</b>
-      <span>inedita23@gmail.com</span>
-      <span>Corporate Stream</span>
-    </div>
-  </footer>
 </div>
 
-<!-- ── INEDITA ── -->
-<div id="inedita" class="page">
-  <div class="page-header">
-    <div>
-      <h1>INEDITA</h1>
-      <div class="ph-sub">Single editions and pure material research works. Raw and uncompromising visual expression.</div>
+<!-- ══ LEGAL MODAL ══ -->
+<div id="legal-modal" onclick="closeLegal()">
+  <div class="lm-box" onclick="event.stopPropagation()">
+    <div class="lm-header">
+      <div>
+        <h2>Privacy &amp; Legal</h2>
+        <div style="font-size:10px;color:var(--grey);letter-spacing:.15em;margin-top:4px">INEDITA STUDIO · GDPR · NL</div>
+      </div>
+      <button class="lm-close" onclick="closeLegal()">CHIUDI ✕</button>
     </div>
-    <div class="ph-right lbl">UNIQUE PIECES</div>
+    <div class="lm-body">
+
+      <h3>1 — Controller</h3>
+      <p>Data Controller: Alessandro [operator of INEDITA STUDIO], Maastricht, Netherlands.<br>
+      Contact: <a href="mailto:inedita23@gmail.com">inedita23@gmail.com</a> · KvK 42063923 · BTW NL005467213B55</p>
+
+      <h3>2 — Data Collected</h3>
+      <p>This website collects personal data exclusively through the voluntary contact form. The data collected is: name (or nickname), email address, project type, and message content. No data is collected automatically beyond what is described below under Third-Party Services.</p>
+
+      <h3>3 — Purpose & Legal Basis</h3>
+      <p>Data collected via the contact form is processed for the sole purpose of responding to your enquiry or commission request. The legal basis is <strong>Art. 6(1)(b) GDPR</strong> (performance of a contract or pre-contractual steps at your request) and/or <strong>Art. 6(1)(a) GDPR</strong> (your consent, given freely by submitting the form).</p>
+
+      <h3>4 — Data Retention</h3>
+      <p>Contact form submissions are retained only for the duration necessary to handle your request, or until you request deletion. No marketing lists are maintained. You may request deletion of your data at any time by writing to <a href="mailto:inedita23@gmail.com">inedita23@gmail.com</a>.</p>
+
+      <h3>5 — Third-Party Services</h3>
+      <p><strong>EmailJS</strong> — Form submissions are transmitted via EmailJS (emailjs.com), a US-based service. EmailJS acts as a data processor. Data transmitted includes name, email, and message. EmailJS Privacy Policy: <a href="https://www.emailjs.com/legal/privacy-policy/" target="_blank" rel="noopener">emailjs.com/legal/privacy-policy</a></p>
+      <p><strong>Google Fonts</strong> — This site loads fonts from Google Fonts CDN (fonts.googleapis.com). This may result in your IP address being transmitted to Google's servers. Google Fonts Privacy: <a href="https://developers.google.com/fonts/faq/privacy" target="_blank" rel="noopener">developers.google.com/fonts/faq/privacy</a></p>
+      <p><strong>GitHub</strong> — Images are served from raw.githubusercontent.com (GitHub CDN). This transmits standard HTTP request data. GitHub Privacy Policy: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">docs.github.com</a></p>
+
+      <h3>6 — Cookies & Local Storage</h3>
+      <p>This site does <strong>not</strong> use tracking cookies, analytics, or advertising technologies. The only browser storage used is <code>localStorage</code> for two technical purposes: (1) remembering that you have authenticated with the access PIN, so you are not asked again on reload; (2) remembering your cookie consent choice. No personal data is stored in localStorage.</p>
+
+      <h3>7 — Your Rights (GDPR)</h3>
+      <p>Under GDPR you have the right to: access your personal data; rectify inaccurate data; request erasure; restrict or object to processing; and data portability. To exercise any of these rights, contact <a href="mailto:inedita23@gmail.com">inedita23@gmail.com</a>. You also have the right to lodge a complaint with the Dutch supervisory authority: <strong>Autoriteit Persoonsgegevens</strong> — <a href="https://www.autoriteitpersoonsgegevens.nl" target="_blank" rel="noopener">autoriteitpersoonsgegevens.nl</a></p>
+
+      <h3>8 — Data Transfers Outside the EU</h3>
+      <p>Form data is processed by EmailJS, which may transfer data to the United States. EmailJS relies on Standard Contractual Clauses as the transfer mechanism. By submitting the contact form, you acknowledge this transfer.</p>
+
+      <h3>9 — Changes to this Policy</h3>
+      <p>This privacy policy may be updated. The current version is always available via the Legal link in the site footer. Last updated: May 2026.</p>
+
+    </div>
+    <div class="lm-footer">INEDITA STUDIO · MAASTRICHT · NL · © 2026 ALL MATTER RESERVED</div>
   </div>
-  <div class="lab-grid">
-    <div class="lab-card">
-      <div class="lc-header"><span class="lc-id">A · 001 · 2023</span></div>
-      <h2>NERO MATERIA I</h2>
-      <p>Cementitious matrix with spent coffee grounds. Opaque surface, maximum optical density. The black comes from depth, not from pigment. First piece of the AG series – the one where the material spoke first.</p>
-      <div class="lc-tags">
-        <span class="lc-tag">CEMENT</span><span class="lc-tag">COFFEE</span><span class="lc-tag">UNIQUE</span>
-      </div>
-      <div class="lc-specs">
-        <div><span>DIM</span><strong>40×40 cm</strong></div>
-        <div><span>SERIES</span><strong>AG / 01</strong></div>
-        <div><span>PRICE</span><strong>€ 450</strong></div>
-      </div>
-      <button class="lc-btn" onclick="orderPiece('NERO MATERIA I')">COMMISSION THIS WORK →</button>
-    </div>
-    <div class="lab-card">
-      <div class="lc-header"><span class="lc-id">A · 002 · 2023</span></div>
-      <h2>NERO MATERIA II</h2>
-      <p>Chromatic variation on the AG series. Residual carbon layered in three successive coats. The surface records the time of the making – depth and sequence simultaneously visible.</p>
-      <div class="lc-tags">
-        <span class="lc-tag">CEMENT</span><span class="lc-tag">LAYER</span><span class="lc-tag">UNIQUE</span>
-      </div>
-      <div class="lc-specs">
-        <div><span>DIM</span><strong>40×40 cm</strong></div>
-        <div><span>SERIES</span><strong>AG / 02</strong></div>
-        <div><span>PRICE</span><strong>€ 480</strong></div>
-      </div>
-      <button class="lc-btn" onclick="orderPiece('NERO MATERIA II')">COMMISSION THIS WORK →</button>
-    </div>
-    <div class="lab-card">
-      <div class="lc-header"><span class="lc-id">A · 003 · 2024</span></div>
-      <h2>ALCHEMIST GRADE o3</h2>
-      <p>Extreme chromatic saturation. Technical resin on the surface, carbon in depth. Where the AG series becomes fully itself – not replicable, even by the author.</p>
-      <div class="lc-tags">
-        <span class="lc-tag">AG</span><span class="lc-tag">RESIN</span><span class="lc-tag">UNIQUE</span>
-      </div>
-      <div class="lc-specs">
-        <div><span>DIM</span><strong>45×45 cm</strong></div>
-        <div><span>SERIES</span><strong>AG / 03</strong></div>
-        <div><span>PRICE</span><strong>€ 650</strong></div>
-      </div>
-      <button class="lc-btn" onclick="orderPiece('ALCHEMIST GRADE o3')">COMMISSION THIS WORK →</button>
-    </div>
-  </div>
-  
-  <footer class="corporate-footer">
-    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
-    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
-    <div><b>REGISTRY</b><span>KvK / VAT Active</span></div>
-    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
-  </footer>
 </div>
 
-<!-- ── KLAAR ── -->
-<div id="klaar" class="page">
-  <div class="page-header">
-    <div>
-      <h1>KLAAR</h1>
-      <div class="ph-sub">Objects of daily use crafted according to the geometric and visual standards of the brand. Tangible minimalism.</div>
-    </div>
-    <div class="ph-right lbl">PERMANENT COLLECTION</div>
+<!-- ══ COOKIE BANNER ══ -->
+<div id="cookie-banner">
+  <div class="cb-text">
+    Questo sito non usa cookie di tracciamento. Usa <code>localStorage</code> solo per ricordare il PIN e le tue preferenze.
+    <a onclick="openLegal();return false" href="#">Leggi la privacy policy →</a>
   </div>
-  <div class="lab-grid">
-    <div class="lab-card">
-      <div class="lc-header"><span class="lc-id">K · 001</span></div>
-      <h2>KLAAR HOME 01</h2>
-      <p>Geometric modular element with a satin finish. Designed for a strong tactile and volumetric impact within the everyday architectural space.</p>
-      <div class="lc-tags"><span class="lc-tag">MATTE</span><span class="lc-tag">GEOMETRIC</span></div>
-      <div class="lc-specs">
-        <div><span>DIM</span><strong>15×15 cm</strong></div>
-        <div><span>SERIES</span><strong>K-HOME</strong></div>
-        <div><span>PRICE</span><strong>€ 85</strong></div>
-      </div>
-      <button class="lc-btn" onclick="orderPiece('KLAAR HOME 01')">ORDER PRODUCT →</button>
-    </div>
-    <div class="lab-card">
-      <div class="lc-header"><span class="lc-id">K · 002</span></div>
-      <h2>CANDLE BLOCK</h2>
-      <p>Massive candle holder with a reduced cylindrical volume. Brutalist presence with a sculptural weight achieved through the perfect balance of the binder.</p>
-      <div class="lc-tags"><span class="lc-tag">BRUTALIST</span><span class="lc-tag">SOLID</span></div>
-      <div class="lc-specs">
-        <div><span>DIM</span><strong>10×18 cm</strong></div>
-        <div><span>SERIES</span><strong>K-OBJECT</strong></div>
-        <div><span>PRICE</span><strong>€ 35</strong></div>
-      </div>
-      <button class="lc-btn" onclick="orderPiece('CANDLE BLOCK')">ORDER PRODUCT →</button>
-    </div>
-    <div class="lab-card">
-      <div class="lc-header"><span class="lc-id">K · 003</span></div>
-      <h2>MATERIAL SHEET</h2>
-      <p>Manual and visual overview on the use of organic structural components for designing and formulating custom surfaces.</p>
-      <div class="lc-tags"><span class="lc-tag">DOCUMENT</span><span class="lc-tag">PRINT</span></div>
-      <div class="lc-specs">
-        <div><span>DIM</span><strong>A4 SIZE</strong></div>
-        <div><span>SERIES</span><strong>K-INFO</strong></div>
-        <div><span>PRICE</span><strong>€ 12</strong></div>
-      </div>
-      <button class="lc-btn" onclick="orderPiece('MATERIAL SHEET')">ORDER PRODUCT →</button>
-    </div>
+  <div class="cb-actions">
+    <button class="cb-btn cb-accept" onclick="acceptCookies()">OK, CAPITO</button>
+    <button class="cb-btn cb-decline" onclick="declineCookies()">CHIUDI</button>
   </div>
-
-  <footer class="corporate-footer">
-    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
-    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
-    <div><b>REGISTRY</b><span>KvK / VAT Configured</span></div>
-    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
-  </footer>
 </div>
 
-<!-- ── STUDIO ── -->
-<div id="studio" class="page">
-  <div class="page-header">
+<!-- ══ SCROLL CONTAINER ══ -->
+<div id="scroll-container">
+
+  <!-- ─── S1 · HERO ─────────────────────────── -->
+  <section class="slide" id="s-hero">
+    <div class="hero-top">
+      <div class="hero-tag">MATERIAL R&amp;D · MAASTRICHT · 2023 –</div>
+      <div class="hero-tag">AG / 027</div>
+    </div>
     <div>
-      <h1>STUDIO</h1>
-      <div class="ph-sub">Services and support frameworks to position, communicate, and develop projects linked to bio-composites.</div>
+      <h1 class="hero-headline">
+        I <em>EXPLORE</em><br>MATTER TO<br>CREATE THE<br><em>UNCHARTED.</em>
+      </h1>
     </div>
-    <div class="ph-right lbl">CONSULTING & LAB</div>
-  </div>
-  
-  <div class="studio-b2b-grid">
-    <div class="b2b-card">
-      <div>
-        <span class="b2b-meta">S · 01 · STRATEGY</span>
-        <h2>BRAND STRATEGY</h2>
-        <p class="b2b-desc">Positioning analysis, value proposition definition, operational roadmap. From brief to delivery – we stay until it is concrete, not just written.</p>
-        <div class="b2b-divider"></div>
-        <ul class="b2b-list">
-          <li>Business Model Canvas and competitive analysis</li>
-          <li>Value proposition and positioning definition</li>
-          <li>12-month roadmap with measurable KPIs</li>
-        </ul>
+    <div class="hero-bottom">
+      <div class="hero-meta">
+        INEDITA · KLAAR · STUDIO<br>
+        CEM I 52.5R · COFFEE 12% · RESIN 5.8%<br>
+        OLV LAB · MAASTRICHT · NL
       </div>
-      <div>
-        <div class="b2b-price">From € 1,000 / project · Discovery: € 150-250 (2h)</div>
-        <button class="lc-btn" onclick="orderStudio('BRAND STRATEGY')">REQUEST SERVICE INFO →</button>
+      <div class="hero-scroll" onclick="goToSlide(1)">
+        SCROLL
+        <div class="hero-scroll-arrow"></div>
       </div>
     </div>
-    
-    <div class="b2b-card">
-      <div>
-        <span class="b2b-meta">S · 02 · MARKETING</span>
-        <h2>MARKETING & SALES</h2>
-        <p class="b2b-desc">Sales funnel, content strategy, digital and physical channels. From follower to paying customer – authority built through demonstrated competence, not advertising.</p>
-        <div class="b2b-divider"></div>
-        <ul class="b2b-list">
-          <li>Content Hub and editorial plan per brand</li>
-          <li>LinkedIn / Instagram / TikTok presence</li>
-          <li>B2B outreach and local networking strategy</li>
-        </ul>
-      </div>
-      <div>
-        <div class="b2b-price">From € 800 / project · Day rate: € 600-900</div>
-        <button class="lc-btn" onclick="orderStudio('MARKETING & SALES')">REQUEST SERVICE INFO →</button>
-      </div>
-    </div>
-    
-    <div class="b2b-card">
-      <div>
-        <span class="b2b-meta">S · 03 · DESIGN</span>
-        <h2>PRODUCT DESIGN</h2>
-        <p class="b2b-desc">Material prototyping, object design, circular supply chain development. From concept to prototype – with documentation that makes the process repeatable.</p>
-        <div class="b2b-divider"></div>
-        <ul class="b2b-list">
-          <li>Materials R&D, formulas, technical SOP</li>
-          <li>Industrial and product design</li>
-          <li>Circular supply chain mapping and activation</li>
-        </ul>
-      </div>
-      <div>
-        <div class="b2b-price">From € 1,200 / project</div>
-        <button class="lc-btn" onclick="orderStudio('PRODUCT DESIGN')">REQUEST SERVICE INFO →</button>
-      </div>
-    </div>
-    
-    <div class="b2b-card">
-      <div>
-        <span class="b2b-meta">S · 04 · WORKSHOP</span>
-        <h2>WORKSHOP & COLLAB</h2>
-        <p class="b2b-desc">Open lab sessions with architecture studios, chefs, and material engineers. OLV Lab – permanent prototyping site in Maastricht. We pour together, fail together, document everything.</p>
-        <div class="b2b-divider"></div>
-        <ul class="b2b-list">
-          <li>Coffee Science program: extraction, chemistry, application</li>
-          <li>Formwork, weighing, mix design sessions</li>
-          <li>Collab Architectures – OLV Lab residency</li>
-        </ul>
-      </div>
-      <div>
-        <div class="b2b-price">From € 200 / session</div>
-        <button class="lc-btn" onclick="orderStudio('WORKSHOP & COLLAB')">REQUEST SERVICE INFO →</button>
-      </div>
-    </div>
-  </div>
+  </section>
 
-  <footer class="corporate-footer">
-    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
-    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
-    <div><b>REGISTRY</b><span>KvK / VAT Managed</span></div>
-    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
-  </footer>
-</div>
-
-<!-- ── JOURNEY ── -->
-<div id="journey" class="page">
-  <div class="page-header">
-    <div>
-      <h1>JOURNEY</h1>
-      <div class="ph-sub">The milestone stages of lab development and material research.</div>
+  <!-- ─── S2 · INEDITA ──────────────────────── -->
+  <section class="slide" id="s-inedita">
+    <div class="sl w38">
+      <div class="sl-lbl">ARTIST BRAND · THE SOUL</div>
+      <div class="sl-name">INEDITA</div>
+      <p class="sl-desc">Artworks born from material research. Unique pieces that tell the story of IN-NED — Italian identity lived in the Netherlands. Poetic but never pretentious. Objects that carry the trace of their making.</p>
+      <a class="sl-cta" onclick="orderPiece('');return false" href="#">COMMISSION A PIECE →</a>
     </div>
-    <div class="ph-right lbl">CHRONOLOGICAL LOG</div>
-  </div>
-  <div class="post-list">
-    <div class="post-item">
-      <div class="pi-date">2023</div>
+    <div class="sr">
+      <div class="rc-list">
+
+        <div class="rc-item">
+          <div class="rc-num">A · 001<br>2023</div>
+          <div>
+            <div class="rc-name">NERO MATERIA I</div>
+            <div class="rc-sub">Cementitious matrix with spent coffee grounds. Opaque surface, maximum optical density. The black comes from depth, not from pigment.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 450</div>
+              <div class="rc-tag">40×40 cm · UNIQUE</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-001.jpg','NERO MATERIA I','€ 450 · 40×40 cm · UNIQUE')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('NERO MATERIA I')">COMMISSION →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item">
+          <div class="rc-num">A · 002<br>2023</div>
+          <div>
+            <div class="rc-name">NERO MATERIA II</div>
+            <div class="rc-sub">Residual carbon layered in three successive coats. The surface records the time of the making — depth and sequence simultaneously visible.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 480</div>
+              <div class="rc-tag">40×40 cm · UNIQUE</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-002.jpg','NERO MATERIA II','€ 480 · 40×40 cm · UNIQUE')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('NERO MATERIA II')">COMMISSION →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item">
+          <div class="rc-num">A · 003<br>2024</div>
+          <div>
+            <div class="rc-name">ALCHEMIST GRADE o3</div>
+            <div class="rc-sub">Technical resin on the surface, carbon in depth. Where the AG series becomes fully itself — not replicable, even by the author.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 650</div>
+              <div class="rc-tag">45×45 cm · UNIQUE</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-003.jpg','ALCHEMIST GRADE o3','€ 650 · 45×45 cm · UNIQUE')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('ALCHEMIST GRADE o3')">COMMISSION →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item">
+          <div class="rc-num">A · 004<br>2024</div>
+          <div>
+            <div class="rc-name">WHITE RESIDUE</div>
+            <div class="rc-sub">Unpigmented cementitious surface. White is not a choice — it is absence. Natural oxidation over time evolves differently in each space.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 520</div>
+              <div class="rc-tag">50×50 cm · UNIQUE</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-004.jpg','WHITE RESIDUE','€ 520 · 50×50 cm · UNIQUE')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('WHITE RESIDUE')">COMMISSION →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item">
+          <div class="rc-num">A · 005<br>2025</div>
+          <div>
+            <div class="rc-name">CONTROLLED FRACTURE</div>
+            <div class="rc-sub">Failure as aesthetic. Induced, documented, displayed. The fracture is not hidden — it is the work. A piece that shows what happens when you push a material to its limit.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 580</div>
+              <div class="rc-tag">60×30 cm · UNIQUE</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-005.jpg','CONTROLLED FRACTURE','€ 580 · 60×30 cm · UNIQUE')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('CONTROLLED FRACTURE')">COMMISSION →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item" style="opacity:.55">
+          <div class="rc-num" style="color:var(--grey)">A · 027<br>2026</div>
+          <div>
+            <div class="rc-name">WORK IN PROGRESS</div>
+            <div class="rc-sub">New granulometry, new material vocabulary. Not yet titled. The research phase is still open — this entry is a live document, not a finished work.</div>
+            <div class="rc-foot">
+              <div class="rc-tag" style="color:var(--orange);border-color:var(--orange)">◎ ACTIVE</div>
+              <div class="rc-tag">OLV LAB · 2026</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── S3 · KLAAR ────────────────────────── -->
+  <section class="slide" id="s-klaar">
+    <div class="sl w38">
+      <div class="sl-lbl">PRODUCT BRAND · THE INNOVATION</div>
+      <div class="sl-name">KLAAR</div>
+      <p class="sl-desc">Home design objects built on Nero Materia. Coffee grounds and paper waste transformed into desirable objects. Not greenwashing — design that proves sustainability without aesthetic compromise.</p>
+      <a class="sl-cta" onclick="orderPiece('');return false" href="#">ORDER A PRODUCT →</a>
+    </div>
+    <div class="sr">
+      <div class="rc-list">
+
+        <div class="rc-item">
+          <div class="rc-num">K · 001</div>
+          <div>
+            <div class="rc-name">KLAAR HOME 01</div>
+            <div class="rc-sub">Modular wall panel. Rectangular geometry, polished to 400 grit. Charcoal tone from coffee carbon. The material is the statement.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 85</div>
+              <div class="rc-tag">20×80 cm · LIMITED</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-home-01.jpg','KLAAR HOME 01','€ 85 · 20×80 cm · LIMITED')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('KLAAR HOME 01')">ORDER →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item">
+          <div class="rc-num">K · 002</div>
+          <div>
+            <div class="rc-name">KLAAR TRIPTYCH</div>
+            <div class="rc-sub">Three modular panels in scaled tones: Light / Mid / Dark. Variation comes from different coffee concentrations. Complete wall installation.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 230</div>
+              <div class="rc-tag">3 × 20×80 cm · SET</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-triptych.jpg','KLAAR TRIPTYCH','€ 230 · 3 × 20×80 cm · SET')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('KLAAR TRIPTYCH')">ORDER →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item">
+          <div class="rc-num">K · 003</div>
+          <div>
+            <div class="rc-name">CANDLE HOLDER</div>
+            <div class="rc-sub">Small functional object in Nero Materia. Essential form, real weight. When the flame warms the surface, the coffee smell returns.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 35</div>
+              <div class="rc-tag">Ø 8 cm · AVAILABLE</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-candle.jpg','CANDLE HOLDER','€ 35 · Ø 8 cm')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('CANDLE HOLDER')">ORDER →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item">
+          <div class="rc-num">K · 004</div>
+          <div>
+            <div class="rc-name">COFFEE SCRUB</div>
+            <div class="rc-sub">Wellness product based on spent coffee grounds. Same material, different purpose. CPNP certification in progress. Formula built with a toxicologist.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 28</div>
+              <div class="rc-tag">100 ml · COMING SOON</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-scrub.jpg','COFFEE SCRUB','€ 28 · 100 ml')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('COFFEE SCRUB')">NOTIFY ME →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item">
+          <div class="rc-num">K · 005</div>
+          <div>
+            <div class="rc-name">BODY BAR</div>
+            <div class="rc-sub">Artisan soap with coffee extract. Every bar carries a traceable batch number and full INCI label. Toxicologist assessment ongoing.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 18</div>
+              <div class="rc-tag">90 g · COMING SOON</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-body-bar.jpg','BODY BAR','€ 18 · 90 g')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('BODY BAR')">NOTIFY ME →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="rc-item">
+          <div class="rc-num">K · 006</div>
+          <div>
+            <div class="rc-name">TECHNICAL SHEETS</div>
+            <div class="rc-sub">The Nero Materia formula in digital format. Recipes, formulas, load curves, granulometry. For those who work with materials seriously.</div>
+            <div class="rc-foot">
+              <div class="rc-price">€ 12</div>
+              <div class="rc-tag">PDF · DOWNLOAD</div>
+              <button class="rc-photo-btn" onclick="openLightbox('https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-tech-sheets.jpg','TECHNICAL SHEETS','€ 12 · PDF')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                FOTO
+              </button>
+              <button class="rc-btn" onclick="orderPiece('TECHNICAL SHEETS')">ORDER →</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── S4 · STUDIO ───────────────────────── -->
+  <section class="slide" id="s-studio">
+    <div class="sl w42">
+      <div class="sl-lbl">LAB & CONSULTING · THE BRIDGE</div>
+      <div class="sl-name">STUDIO</div>
+      <p class="sl-desc">Hybrid consulting for brands that want to transform their vision into a concrete product. Not academics — operational creatives who know how to make things real. The know-how comes from the lab: failed pours, resin that reacted too hot, a formula tested 27 times.</p>
+      <a class="sl-cta" onclick="orderStudio('');return false" href="#">REQUEST A BRIEF →</a>
+    </div>
+    <div class="sr">
+      <div class="svc-list-r">
+
+        <div class="svc-r">
+          <div class="svc-r-idx">S · 01 · STRATEGY</div>
+          <div class="svc-r-name">BRAND STRATEGY</div>
+          <div class="svc-r-desc">Positioning analysis, value proposition definition, operational roadmap. Business Model Canvas, competitive analysis, 12-month roadmap with measurable KPIs. From brief to delivery — we stay until it is concrete, not just written.</div>
+          <div class="svc-r-price">From € 1,000 / project · Discovery: € 150–250 (2h)</div>
+          <button class="svc-r-btn" onclick="orderStudio('BRAND STRATEGY')">REQUEST INFO →</button>
+        </div>
+
+        <div class="svc-r">
+          <div class="svc-r-idx">S · 02 · MARKETING</div>
+          <div class="svc-r-name">MARKETING & SALES</div>
+          <div class="svc-r-desc">Sales funnel, content strategy, digital and physical channels. Content Hub and editorial plan per brand. LinkedIn / Instagram / TikTok presence. B2B outreach and local networking strategy.</div>
+          <div class="svc-r-price">From € 800 / project · Day rate: € 600–900</div>
+          <button class="svc-r-btn" onclick="orderStudio('MARKETING & SALES')">REQUEST INFO →</button>
+        </div>
+
+        <div class="svc-r">
+          <div class="svc-r-idx">S · 03 · DESIGN</div>
+          <div class="svc-r-name">PRODUCT DESIGN</div>
+          <div class="svc-r-desc">Material prototyping, object design, circular supply chain development. Materials R&amp;D, formulas, technical SOP. From concept to prototype — with documentation that makes the process repeatable.</div>
+          <div class="svc-r-price">From € 1,200 / project</div>
+          <button class="svc-r-btn" onclick="orderStudio('PRODUCT DESIGN')">REQUEST INFO →</button>
+        </div>
+
+        <div class="svc-r">
+          <div class="svc-r-idx">S · 04 · WORKSHOP</div>
+          <div class="svc-r-name">WORKSHOP & COLLAB</div>
+          <div class="svc-r-desc">Open lab sessions with architecture studios, chefs, and material engineers. OLV Lab — permanent prototyping site in Maastricht. Coffee Science program, formwork, weighing, mix design sessions. We pour together, fail together, document everything.</div>
+          <div class="svc-r-price">From € 200 / session</div>
+          <button class="svc-r-btn" onclick="orderStudio('WORKSHOP & COLLAB')">REQUEST INFO →</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── S5 · JOURNEY ──────────────────────── -->
+  <section class="slide" id="s-journey">
+    <div class="j-header">
       <div>
-        <div class="pi-title">FIRST KINTSUGI</div>
-        <div class="pi-text">The structural failure that morphs into geometric value. The fracture is highlighted and permanently stabilized. And so it began.</div>
+        <div style="font-size:9px;color:#555;letter-spacing:.3em;margin-bottom:8px">BLOG · OPEN CHANNEL</div>
+        <h2>THE JOURNEY</h2>
+      </div>
+      <div class="j-sub">05 ENTRIES<br>2025 – 2026<br>OLV LAB</div>
+    </div>
+    <div class="j-list">
+      <div class="j-entry">
+        <div class="j-date">24.05.2026</div>
+        <div>
+          <div class="j-type">FIELD NOTE</div>
+          <div class="j-title">THE FORMULA CHANGES AGAIN</div>
+          <div class="j-text">The granulometry of coffee affects water retention more than I thought. Every bag of spent espresso has a different distribution. I've started baking the grounds in the oven at 110°C to standardise residual moisture before mixing. If it is not replicable, it is not a business — it is just an experiment.</div>
+        </div>
+      </div>
+      <div class="j-entry">
+        <div class="j-date">12.05.2026</div>
+        <div>
+          <div class="j-type">FAILURE REPORT</div>
+          <div class="j-title">LOG #022 — THE EXOTHERM</div>
+          <div class="j-text">Lost a €40 formwork last night. The resin reacted at 68°C in contact with still-fresh cement. Result: irregular contraction, through-crack, stuck mould. Noted. Next time I will wait for full set before the epoxy layer. Controlled failure is part of the programme — you only learn the material by pushing it wrong.</div>
+        </div>
+      </div>
+      <div class="j-entry">
+        <div class="j-date">03.05.2026</div>
+        <div>
+          <div class="j-type">HYPOTHESIS</div>
+          <div class="j-title">BLACK IS NOT A COLOUR</div>
+          <div class="j-text">Nero Materia is not pigmented. The black comes from density — from the carbon of burnt coffee saturating the matrix. It is a black that absorbs, not one that reflects. I am trying to find the optical threshold beyond which the surface stops registering light. There might not be one. That would be interesting.</div>
+        </div>
+      </div>
+      <div class="j-entry">
+        <div class="j-date">18.04.2026</div>
+        <div>
+          <div class="j-type">STRATEGY · HALO EFFECT</div>
+          <div class="j-title">THREE BRANDS, ONE STORY</div>
+          <div class="j-text">The secret is not dividing the channels, but making them talk to each other. Studio builds authority, Klaar shows the process, Inedita creates the emotional bond. Every piece of content feeds all three. Do not advertise — curate. Let the competence sell itself.</div>
+        </div>
+      </div>
+      <div class="j-entry">
+        <div class="j-date">05.04.2026</div>
+        <div>
+          <div class="j-type">COLLABORATION · OLV LAB</div>
+          <div class="j-title">ART IN RESIDENCE — FIRST SESSION</div>
+          <div class="j-text">Workshop with three architecture students. We poured together, failed together. The formwork is a thinking tool, not just a shaping one. Three works displayed in a local bar — no commission. The owner, two weeks later, asked for a consultation to renovate the entrance. There it is: the €1,000 consulting job. Studio pays the bills.</div>
+        </div>
       </div>
     </div>
-    <div class="post-item">
-      <div class="pi-date">2026</div>
+  </section>
+
+  <!-- ─── S6 · CONTACTS ─────────────────────── -->
+  <section class="slide" id="s-contacts">
+    <div class="sl w42">
       <div>
-        <div class="pi-title">BUSINESS REGISTRATION (KvK)</div>
-        <div class="pi-text">Formal launch of commercial operations and structured consulting within the Dutch territory (KvK). Setting up the modular ecosystem: Inedita, Klaar, and Studio.</div>
+        <div class="sl-lbl">OPEN CHANNEL</div>
+        <h2>CONTACT</h2>
+        <a class="ct-email" href="mailto:inedita23@gmail.com">inedita23@gmail.com</a>
+        <div class="ct-loc">
+          Maastricht · NL<br><br>
+          Commissions, collaborations,<br>workshops, consulting.<br>The channel is open.
+        </div>
+      </div>
+      <div class="ct-details">
+        KVK 42063923<br>
+        BTW NL005467213B55<br>
+        SBI 9003 · 7022 · 7410<br>
+        +31 685 027 547
       </div>
     </div>
-  </div>
-
-  <footer class="corporate-footer" style="margin-top:40px;">
-    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
-    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
-    <div><b>REGISTRY</b><span>KvK Active</span></div>
-    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
-  </footer>
-</div>
-
-<!-- ── CONTACTS ── -->
-<div id="contacts" class="page">
-  <div class="page-header">
-    <div>
-      <h1>CONTACTS</h1>
-      <div class="ph-sub">For strategically driven consulting, permanent collection orders, or studio laboratory sessions.</div>
+    <div class="sr">
+      <div style="padding:40px 40px 40px">
+        <div class="cf-title">SEND A BRIEF</div>
+        <form id="contact-email-form" novalidate>
+          <div class="cf-group">
+            <label class="cf-label">Your Name</label>
+            <input type="text" name="name" id="cf-name" class="cf-input" placeholder="e.g., Andrea" required>
+          </div>
+          <div class="cf-group">
+            <label class="cf-label">Email</label>
+            <input type="email" name="email" class="cf-input" placeholder="your@email.com" required>
+          </div>
+          <div class="cf-group">
+            <label class="cf-label">Project Type</label>
+            <select name="type" id="cf-type" class="cf-input cf-select" required>
+              <option value="">— Select —</option>
+              <option value="Artwork Commission">Artwork Commission (Inedita)</option>
+              <option value="Klaar Collection">Klaar Collection Purchase</option>
+              <option value="Strategic Consulting">Strategic Consulting (Studio)</option>
+              <option value="Collaboration">Collaboration / Partnership</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="cf-group">
+            <label class="cf-label">Message</label>
+            <textarea name="message" id="cf-message" class="cf-textarea" placeholder="Tell me about your idea, project, or question..." required></textarea>
+          </div>
+          <div style="font-size:10px;color:var(--grey);letter-spacing:.1em;margin-bottom:14px;line-height:1.7">
+            Inviando questo modulo accetti il trattamento dei tuoi dati secondo la nostra
+            <a onclick="openLegal();return false" href="#" style="color:var(--orange)">Privacy Policy</a>.
+          </div>
+          <button type="submit" class="cf-submit">SEND BRIEF →</button>
+          <div class="cf-status" id="form-status"></div>
+        </form>
+      </div>
     </div>
-    <div class="ph-right lbl">MAASTRICHT</div>
-  </div>
-  <div class="contacts-grid">
-    <div class="ct-block">
-      <h2>INEDITA STUDIO</h2>
-      <span class="ct-email">inedita23@gmail.com</span>
-      <p>Headquarters and research laboratories · Maastricht, NL.</p>
-    </div>
-    <div class="ct-block">
-      <h2>ALESSANDRO</h2>
-      <p>Available for bespoke fine art commissions, permanent line orders, and integrated B2B consultations.</p>
-    </div>
-  </div>
-  
-  <div class="contact-form">
-    <h3 style="font-family:var(--display);font-weight:800;font-size:24px;margin-bottom:24px">SEND BRIEF</h3>
-    <form id="contact-email-form">
-      <div class="cf-group">
-        <label class="cf-label">NAME / COMPANY</label>
-        <input type="text" name="name" id="form-name" class="cf-input" required>
-      </div>
-      <div class="cf-group">
-        <label class="cf-label">EMAIL</label>
-        <input type="email" name="email" id="form-email" class="cf-input" required>
-      </div>
-      <div class="cf-group">
-        <label class="cf-label">STREAM</label>
-        <select name="type" id="form-type" class="cf-input" required>
-          <option value="">— Select —</option>
-          <option value="Inedita Piece">Fine Art Commission (Inedita)</option>
-          <option value="Klaar Collection">Product Order (Klaar)</option>
-          <option value="Consulting">Consulting & Services (Studio)</option>
-        </select>
-      </div>
-      <div class="cf-group">
-        <label class="cf-label">MESSAGE</label>
-        <textarea name="message" id="form-message" class="cf-textarea" required></textarea>
-      </div>
-      <button type="submit" class="cf-submit">TRANSMIT →</button>
-      <div class="cf-status" id="form-status"></div>
-    </form>
-  </div>
+  </section>
 
-  <footer class="corporate-footer" style="margin-top:40px; border-left:none; border-right:none; margin-left:-32px; margin-right:-32px; padding-left:32px; padding-right:32px;">
-    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
-    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
-    <div><b>REGISTRY</b><span>KvK / VAT Ecosystem</span></div>
-    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
-  </footer>
-</div>
+  <!-- ─── S7 · CLOSING ─────────────────────── -->
+  <section class="slide" id="s-closing">
 
+    <!-- Left info -->
+    <div class="dc-info">
+      <div>
+        <div class="cl-lbl">OPERATOR · IN-NED</div>
+        <h2>ALES&shy;SANDRO</h2>
+        <p>Barista in Maastricht. Artist in the studio. Coffee, cement, resin. Mediterranean creativity meets Northern European precision.</p>
+        <div class="dc-data">
+          <div class="dc-data-item"><span>REG</span><strong>027</strong></div>
+          <div class="dc-data-item"><span>LAB</span><strong>OLV</strong></div>
+          <div class="dc-data-item"><span>ART</span><strong>UNIQUE</strong></div>
+          <div class="dc-data-item"><span>B2B</span><strong>STUDIO</strong></div>
+        </div>
+      </div>
+      <div class="dc-footer">
+        © 2026 · ALL MATTER RESERVED<br>
+        CEM I / COFFEE 12% / RESIN 5.8%<br>
+        <a onclick="openLegal();return false" href="#">PRIVACY &amp; LEGAL</a>
+      </div>
+    </div>
+
+    <!-- Center: dart game -->
+    <div class="dc-game">
+      <div class="dc-game-label">DARTS · 6 THROWS · OLV LAB</div>
+      <div class="dc-board-wrap" id="dc-board-wrap">
+        <canvas id="dart-canvas"></canvas>
+      </div>
+      <div class="dc-throw-hint" id="dc-hint">CLICK THE BOARD TO THROW</div>
+      <div class="dc-hud">
+        <div class="dc-darts-wrap">
+          <div class="dc-darts-label">DARTS LEFT</div>
+          <div class="dc-darts" id="dc-darts">
+            <div class="dc-d"></div><div class="dc-d"></div><div class="dc-d"></div>
+            <div class="dc-d"></div><div class="dc-d"></div><div class="dc-d"></div>
+          </div>
+        </div>
+        <div class="dc-score-display">
+          <div class="dc-score-label">SCORE</div>
+          <div class="dc-score-val" id="dc-score">0</div>
+        </div>
+      </div>
+      <div class="dc-result-area" id="dc-result-area">
+        <div class="dc-result-banner">
+          <div class="dr-lbl">FINAL SCORE</div>
+          <div class="dr-score" id="dc-final-score">0</div>
+          <div class="dr-msg" id="dc-final-msg">—</div>
+        </div>
+        <button class="dc-play-again" onclick="resetDartGame()">PLAY AGAIN →</button>
+      </div>
+    </div>
+
+    <!-- Right: leaderboard -->
+    <div class="dc-lb">
+      <div class="dc-lb-header">
+        <div class="dc-lb-title">HALL OF DARTS</div>
+        <div class="dc-lb-sub">TOP SCORERS · OLV LAB</div>
+      </div>
+      <div class="dc-lb-list" id="dc-lb-list">
+        <div class="dc-lb-empty">Nessun punteggio.<br>Sii il primo.</div>
+      </div>
+      <div class="dc-name-area hidden" id="dc-name-area">
+        <div class="dc-name-prompt">SALVA IL TUO PUNTEGGIO</div>
+        <div class="dc-name-row">
+          <input type="text" class="dc-name-input" id="dc-name-input"
+            placeholder="il tuo nome..." maxlength="20"
+            onkeydown="if(event.key==='Enter')saveDartScore()">
+          <button class="dc-name-btn" onclick="saveDartScore()">SALVA →</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</div><!-- /scroll-container -->
+
+<!-- ══ SCRIPTS ══ -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-// Define the secure protocol variable token
-const LAB_PASSCODE = "2023"; 
+/* ══════════════════════════════
+   SESSION PERSISTENCE
+══════════════════════════════ */
+const STORE_KEY   = 'inedita_access';
+const COOKIE_KEY  = 'inedita_cookie_consent';
+const LAB_PASSCODE = '2023';
 
-function dismissSplash() {
-  document.getElementById('splash-page').classList.add('dismissed');
-  // Dynamic autofocus on the verification frame
-  setTimeout(() => {
-    document.getElementById('lab-pin').focus();
-  }, 400);
+function isUnlocked() {
+  try { return localStorage.getItem(STORE_KEY) === '1'; } catch(e) { return false; }
+}
+function setUnlocked() {
+  try { localStorage.setItem(STORE_KEY, '1'); } catch(e) {}
+}
+function hasCookieConsent() {
+  try { return localStorage.getItem(COOKIE_KEY) !== null; } catch(e) { return true; }
+}
+function saveCookieConsent(val) {
+  try { localStorage.setItem(COOKIE_KEY, val); } catch(e) {}
 }
 
-function handlePinKey(event) {
-  if (event.key === "Enter") {
-    verifyPin();
+/* Skip splash + gate if already unlocked */
+(function() {
+  if (isUnlocked()) {
+    const s = document.getElementById('splash-page');
+    const g = document.getElementById('access-gate');
+    if (s) { s.style.transition = 'none'; s.classList.add('dismissed'); }
+    if (g) { g.style.transition = 'none'; g.classList.add('dismissed'); }
   }
+  if (hasCookieConsent()) {
+    const b = document.getElementById('cookie-banner');
+    if (b) b.classList.add('hidden');
+  }
+})();
+
+/* ══════════════════════════════
+   SPLASH + PIN
+══════════════════════════════ */
+function dismissSplash() {
+  document.getElementById('splash-page').classList.add('dismissed');
+  setTimeout(() => {
+    const pin = document.getElementById('lab-pin');
+    if (pin) pin.focus();
+  }, 450);
 }
 
 function verifyPin() {
-  const inputPin = document.getElementById('lab-pin').value;
-  const errorElement = document.getElementById('gate-error-msg');
-  
-  if (inputPin === LAB_PASSCODE) {
-    errorElement.style.opacity = "0";
+  const pin = document.getElementById('lab-pin').value;
+  const err = document.getElementById('gate-error-msg');
+  if (pin === LAB_PASSCODE) {
     document.getElementById('access-gate').classList.add('dismissed');
+    err.style.opacity = '0';
+    setUnlocked();
   } else {
-    errorElement.style.opacity = "1";
-    // Shake animation effect for wrong input
-    const inputField = document.getElementById('lab-pin');
-    inputField.style.borderColor = "#ef4444";
-    inputField.value = "";
-    setTimeout(() => {
-      inputField.style.borderColor = "#333";
-    }, 800);
+    err.style.opacity = '1';
+    document.getElementById('lab-pin').value = '';
+    document.getElementById('lab-pin').focus();
+    setTimeout(() => { err.style.opacity = '0'; }, 2500);
   }
 }
 
-function show(id, link) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if (link) link.classList.add('active');
-  window.scrollTo(0, 0);
+function handlePinKey(e) {
+  if (e.key === 'Enter') verifyPin();
 }
-function toggleMenu(btn) {
-  btn.classList.toggle('open');
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-function showMobile(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.querySelector('.nav-hamburger').classList.remove('open');
-  window.scrollTo(0, 0);
-}
-function orderPiece(name) {
-  show('contacts', document.querySelectorAll('.nav-links a')[5]);
-  const streamSelect = document.getElementById('form-type');
-  const messageArea = document.getElementById('form-message');
-  if(name.includes('KLAAR') || name.includes('BLOCK') || name.includes('SHEET')) {
-    streamSelect.value = 'Klaar Collection';
-    messageArea.value = `Order inquiry for object: ${name}. Awaiting shipping specifications.`;
+
+/* ══════════════════════════════
+   SLIDE NAVIGATION
+══════════════════════════════ */
+const SLIDES = ['s-hero','s-inedita','s-klaar','s-studio','s-journey','s-contacts','s-closing'];
+let currentSlide = 0;
+const container  = document.getElementById('scroll-container');
+
+function goToSlide(n) {
+  if (window.innerWidth <= 768) {
+    document.getElementById(SLIDES[n]).scrollIntoView({behavior:'smooth'});
   } else {
-    streamSelect.value = 'Inedita Piece';
-    messageArea.value = `Commission inquiry for unique artwork: ${name}. Requesting availability analysis.`;
+    container.scrollTo({left: n * window.innerWidth, behavior:'smooth'});
   }
+  updateDots(n);
 }
-function orderStudio(serviceName) {
-  show('contacts', document.querySelectorAll('.nav-links a')[5]);
-  const streamSelect = document.getElementById('form-type');
-  const messageArea = document.getElementById('form-message');
-  streamSelect.value = 'Consulting';
-  messageArea.value = `Information request for B2B Service / Consultation: ${serviceName}. Requesting an initial exploratory call.`;
+
+function updateDots(n) {
+  currentSlide = n;
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === n));
 }
+
+let scrollTimer = null;
+container.addEventListener('scroll', () => {
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(() => {
+    const idx = Math.round(container.scrollLeft / window.innerWidth);
+    updateDots(idx);
+  }, 60);
+}, {passive:true});
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('open') ||
+      document.getElementById('legal-modal').classList.contains('open')) return;
+  if (e.key === 'ArrowRight' && currentSlide < SLIDES.length - 1) goToSlide(currentSlide + 1);
+  if (e.key === 'ArrowLeft'  && currentSlide > 0)                 goToSlide(currentSlide - 1);
+  if (e.key === 'Escape') { closeLightbox(); closeLegal(); }
+});
+
+/* ══════════════════════════════
+   LIGHTBOX
+══════════════════════════════ */
+function openLightbox(url, title, meta) {
+  const lb      = document.getElementById('lightbox');
+  const img     = document.getElementById('lb-img');
+  const ph      = document.getElementById('lb-placeholder');
+  const phName  = document.getElementById('lb-placeholder-name');
+  const loading = document.getElementById('lb-loading');
+
+  document.getElementById('lb-title').textContent = title;
+  document.getElementById('lb-meta').textContent  = meta;
+  phName.textContent = title;
+
+  // Reset state
+  img.classList.remove('loaded');
+  img.src = '';
+  ph.style.opacity    = '1';
+  ph.style.display    = 'flex';
+  loading.classList.add('visible');
+
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Try to load the image
+  const testImg = new Image();
+  testImg.onload = () => {
+    img.src = url;
+    img.onload = () => {
+      loading.classList.remove('visible');
+      ph.style.display = 'none';
+      img.classList.add('loaded');
+    };
+  };
+  testImg.onerror = () => {
+    // Image not on GitHub yet — show placeholder
+    loading.classList.remove('visible');
+    ph.style.opacity = '1';
+  };
+  testImg.src = url;
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => {
+    const img = document.getElementById('lb-img');
+    img.src = '';
+    img.classList.remove('loaded');
+  }, 300);
+}
+
+/* ══════════════════════════════
+   LEGAL MODAL
+══════════════════════════════ */
+function openLegal() {
+  document.getElementById('legal-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLegal() {
+  document.getElementById('legal-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ══════════════════════════════
+   COOKIE BANNER
+══════════════════════════════ */
+function acceptCookies() {
+  saveCookieConsent('accepted');
+  document.getElementById('cookie-banner').classList.add('hidden');
+}
+function declineCookies() {
+  saveCookieConsent('declined');
+  document.getElementById('cookie-banner').classList.add('hidden');
+}
+
+/* ══════════════════════════════
+   CTA HELPERS
+══════════════════════════════ */
+function orderPiece(name) {
+  goToSlide(5);
+  setTimeout(() => {
+    const sel = document.getElementById('cf-type');
+    if (sel) sel.value = 'Artwork Commission';
+    if (name) {
+      const msg = document.getElementById('cf-message');
+      if (msg) { msg.placeholder = ''; msg.value = `I'm interested in: ${name}\n\n`; }
+    }
+    const nameField = document.getElementById('cf-name');
+    if (nameField) nameField.focus();
+  }, 450);
+  return false;
+}
+
+function orderStudio(service) {
+  goToSlide(5);
+  setTimeout(() => {
+    const sel = document.getElementById('cf-type');
+    if (sel) sel.value = 'Strategic Consulting';
+    if (service) {
+      const msg = document.getElementById('cf-message');
+      if (msg) { msg.placeholder = ''; msg.value = `I'm interested in: ${service}\n\n`; }
+    }
+    const nameField = document.getElementById('cf-name');
+    if (nameField) nameField.focus();
+  }, 450);
+  return false;
+}
+
+/* ══════════════════════════════
+   EMAILJS FORM
+══════════════════════════════ */
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof emailjs !== 'undefined') {
-    emailjs.init({ publicKey: "MfdM5-QlwdVUjzamb", blockHeadless: true });
+    emailjs.init({ publicKey: 'MfdM5-QlwdVUjzamb', blockHeadless: true });
   }
+
   const form = document.getElementById('contact-email-form');
   if (!form) return;
-  form.addEventListener('submit', async function(e) {
+
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
-    const statusDiv = document.getElementById('form-status');
-    statusDiv.style.display = 'block';
-    statusDiv.textContent = 'Sending...';
-    statusDiv.className = 'cf-status';
-    try {
-      if (typeof emailjs === 'undefined') throw new Error('not loaded');
-      const result = await emailjs.send('service_tqzqnab', 'template_1fxk9ww', {
-        from_name: document.getElementById('form-name').value,
-        from_email: document.getElementById('form-email').value,
-        project_type: document.getElementById('form-type').value,
-        message: document.getElementById('form-message').value
-      });
-      if (result.status === 200) {
-        statusDiv.textContent = '✓ Message successfully transmitted to the Inedita Studio log.';
-        statusDiv.className = 'cf-status success';
-        form.reset();
-        setTimeout(() => statusDiv.style.display = 'none', 5000);
-      }
-    } catch(err) {
-      statusDiv.textContent = '✗ Transmission error. Write directly to: inedita23@gmail.com';
-      statusDiv.className = 'cf-status error';
+    const btn    = form.querySelector('.cf-submit');
+    const status = document.getElementById('form-status');
+
+    // Basic validation
+    const name  = form.querySelector('[name="name"]').value.trim();
+    const email = form.querySelector('[name="email"]').value.trim();
+    const type  = form.querySelector('[name="type"]').value;
+    const msg   = form.querySelector('[name="message"]').value.trim();
+
+    if (!name || !email || !type || !msg) {
+      status.textContent = '✗ Fill in all fields before sending.';
+      status.className = 'cf-status error';
+      status.style.display = 'block';
+      return;
     }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      status.textContent = '✗ Enter a valid email address.';
+      status.className = 'cf-status error';
+      status.style.display = 'block';
+      return;
+    }
+
+    btn.textContent = 'SENDING...';
+    btn.disabled = true;
+    status.style.display = 'none';
+
+    if (typeof emailjs === 'undefined') {
+      status.textContent = '✗ Email service unavailable. Write to inedita23@gmail.com';
+      status.className = 'cf-status error';
+      status.style.display = 'block';
+      btn.textContent = 'SEND BRIEF →';
+      btn.disabled = false;
+      return;
+    }
+
+    emailjs.sendForm('service_tqzqnab', 'template_1fxk9ww', form)
+      .then(() => {
+        status.textContent = '✓ Brief received. Alessandro will reply within 48h.';
+        status.className = 'cf-status success';
+        status.style.display = 'block';
+        form.reset();
+        btn.textContent = 'SEND BRIEF →';
+        btn.disabled = false;
+      })
+      .catch(err => {
+        console.error('EmailJS error:', err);
+        status.textContent = '✗ Something went wrong. Write directly to inedita23@gmail.com';
+        status.className = 'cf-status error';
+        status.style.display = 'block';
+        btn.textContent = 'SEND BRIEF →';
+        btn.disabled = false;
+      });
   });
 });
+
+/* ══════════════════════════════
+   DART GAME
+══════════════════════════════ */
+const DART_SECS   = [20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5];
+const DART_WOBBLE = 14;
+const DART_LB_KEY = 'inedita_darts_v1';
+let DG = null;
+
+function initDartGame() {
+  const canvas = document.getElementById('dart-canvas');
+  if (!canvas || DG) return;
+  const wrap  = document.getElementById('dc-board-wrap');
+  const size  = Math.min(Math.max(wrap ? Math.min(wrap.clientWidth, wrap.clientHeight) : 260, 160), 270);
+  const dpr   = window.devicePixelRatio || 1;
+  canvas.style.width  = size + 'px';
+  canvas.style.height = size + 'px';
+  canvas.width  = size * dpr;
+  canvas.height = size * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  DG = { canvas, ctx, size, dpr, cx:size/2, cy:size/2, R:size*.41, dartsLeft:6, thrown:[], total:0, phase:'playing', _hover:null };
+  boardDraw();
+  renderLB();
+  canvas.addEventListener('click',     onDartClick);
+  canvas.addEventListener('mousemove', onDartHover);
+  canvas.addEventListener('mouseleave',() => { if(DG){DG._hover=null; boardDraw();} });
+}
+
+function onDartClick(e) {
+  if (!DG || DG.phase !== 'playing') return;
+  const r  = DG.canvas.getBoundingClientRect();
+  const mx = (e.clientX - r.left) * (DG.size / r.width);
+  const my = (e.clientY - r.top)  * (DG.size / r.height);
+  const wx = mx + (Math.random()-.5)*2*DART_WOBBLE;
+  const wy = my + (Math.random()-.5)*2*DART_WOBBLE;
+  const sc = dartScore(wx - DG.cx, wy - DG.cy);
+  DG.thrown.push({x:wx, y:wy, score:sc});
+  DG.dartsLeft--;
+  DG.total += sc;
+  boardDraw();
+  dartHUD(sc);
+  if (DG.dartsLeft === 0) dartEnd();
+}
+
+function onDartHover(e) {
+  if (!DG || DG.phase !== 'playing') return;
+  const r = DG.canvas.getBoundingClientRect();
+  DG._hover = { x:(e.clientX-r.left)*(DG.size/r.width), y:(e.clientY-r.top)*(DG.size/r.height) };
+  boardDraw();
+  const {ctx,_hover:{x,y}} = DG;
+  ctx.save();
+  ctx.strokeStyle='rgba(200,75,31,.45)'; ctx.lineWidth=1; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(x-10,y); ctx.lineTo(x+10,y); ctx.moveTo(x,y-10); ctx.lineTo(x,y+10); ctx.stroke();
+  ctx.setLineDash([]); ctx.restore();
+}
+
+function dartScore(dx, dy) {
+  const R = DG.R, r = Math.sqrt(dx*dx+dy*dy)/R;
+  if (r > 1)     return 0;
+  if (r <= .034) return 50;
+  if (r <= .064) return 25;
+  let ang = ((Math.atan2(dy,dx)*180/Math.PI+90)%360+360)%360;
+  const val = DART_SECS[Math.floor(ang/18)%20];
+  if (r >= .612 && r <= .646) return val*3;
+  if (r >= .935)              return val*2;
+  return val;
+}
+
+function dartHUD(last) {
+  const sc = document.getElementById('dc-score');
+  if (sc) { sc.textContent=DG.total; sc.classList.add('tick'); setTimeout(()=>sc.classList.remove('tick'),300); }
+  document.querySelectorAll('#dc-darts .dc-d').forEach((p,i) => p.classList.toggle('used', i >= DG.dartsLeft));
+  const hint = document.getElementById('dc-hint');
+  if (!hint) return;
+  if (last===50)      hint.textContent = '◎  BULLSEYE! +50';
+  else if (last===25) hint.textContent = '◎  OUTER BULL +25';
+  else if (last===0)  hint.textContent = 'MISS — fuori dal bersaglio';
+  else                hint.textContent = `+${last} — ${DG.dartsLeft} ${DG.dartsLeft===1?'dardo':'dardi'} rimasti`;
+}
+
+function dartEnd() {
+  DG.phase = 'done';
+  const s = DG.total;
+  const msg = s>=200?'LEGGENDARIO 🎯': s>=150?'TOP FORM': s>=100?'SOLID PLAYER': s>=60?'FAIR SHOT':'ALLENATI DI PIÙ';
+  const hint = document.getElementById('dc-hint'); if(hint) hint.textContent='';
+  const ra = document.getElementById('dc-result-area');
+  if (ra) { ra.style.display='flex'; document.getElementById('dc-final-score').textContent=s; document.getElementById('dc-final-msg').textContent=msg; }
+  const na = document.getElementById('dc-name-area'); if(na) na.classList.remove('hidden');
+}
+
+function resetDartGame() {
+  if (!DG) return;
+  DG.dartsLeft=6; DG.thrown=[]; DG.total=0; DG.phase='playing'; DG._hover=null;
+  document.getElementById('dc-score').textContent='0';
+  document.querySelectorAll('#dc-darts .dc-d').forEach(p=>p.classList.remove('used'));
+  const hint=document.getElementById('dc-hint'); if(hint) hint.textContent='CLICK THE BOARD TO THROW';
+  const ra=document.getElementById('dc-result-area'); if(ra) ra.style.display='none';
+  const na=document.getElementById('dc-name-area'); if(na) na.classList.add('hidden');
+  const ni=document.getElementById('dc-name-input'); if(ni) ni.value='';
+  boardDraw();
+}
+
+function saveDartScore() {
+  const ni   = document.getElementById('dc-name-input');
+  const name = (ni?.value.trim().toUpperCase()) || 'ANONYMOUS';
+  let scores = loadLB();
+  scores.push({name, score:DG.total, date:new Date().toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit'})});
+  scores.sort((a,b)=>b.score-a.score);
+  scores = scores.slice(0,15);
+  try{ localStorage.setItem(DART_LB_KEY, JSON.stringify(scores)); }catch(e){}
+  renderLB(name, DG.total);
+  const na=document.getElementById('dc-name-area'); if(na) na.classList.add('hidden');
+}
+
+function loadLB() {
+  try{ const r=localStorage.getItem(DART_LB_KEY); return r?JSON.parse(r):[]; }catch(e){return[];}
+}
+
+function renderLB(hlName, hlScore) {
+  const list = document.getElementById('dc-lb-list');
+  if (!list) return;
+  const scores = loadLB();
+  if (!scores.length) { list.innerHTML='<div class="dc-lb-empty">Nessun punteggio.<br>Sii il primo.</div>'; return; }
+  list.innerHTML = scores.map((s,i) => {
+    const isNew=hlName&&s.name===hlName&&s.score===hlScore, isGold=i===0;
+    const cls=['dc-lb-row',isNew?'new-entry':'',isGold?'gold':''].filter(Boolean).join(' ');
+    return `<div class="${cls}"><span class="dc-lb-rank">${i+1}</span><span class="dc-lb-name">${s.name}</span><span class="dc-lb-pts">${s.score}</span></div>`;
+  }).join('');
+}
+
+/* Board drawing */
+function boardDraw() {
+  if (!DG) return;
+  const {ctx,cx,cy,R,size} = DG;
+  ctx.clearRect(0,0,size,size);
+  ctx.fillStyle='#0a0a0a';
+  ctx.beginPath(); ctx.arc(cx,cy,R+18,0,Math.PI*2); ctx.fill();
+  const sa=Math.PI*2/20, off=-Math.PI/2-sa/2;
+  for (let i=0;i<20;i++) {
+    const a1=off+i*sa, a2=a1+sa, ev=i%2===0;
+    ctx.fillStyle=ev?'#1c1c1c':'#ddd5c0'; bseg(ctx,cx,cy,R*.064,R*.612,a1,a2);
+    ctx.fillStyle=ev?'#c84b1f':'#1a6e38'; bseg(ctx,cx,cy,R*.612,R*.646,a1,a2);
+    ctx.fillStyle=ev?'#1c1c1c':'#ddd5c0'; bseg(ctx,cx,cy,R*.646,R*.935,a1,a2);
+    ctx.fillStyle=ev?'#c84b1f':'#1a6e38'; bseg(ctx,cx,cy,R*.935,R,a1,a2);
+    ctx.save(); ctx.strokeStyle='rgba(255,255,255,.07)'; ctx.lineWidth=.5;
+    ctx.beginPath();
+    ctx.moveTo(cx+R*.064*Math.cos(a1),cy+R*.064*Math.sin(a1));
+    ctx.lineTo(cx+R*Math.cos(a1),cy+R*Math.sin(a1));
+    ctx.stroke(); ctx.restore();
+  }
+  [R*.064,R*.612,R*.646,R*.935,R].forEach((r,i)=>{
+    ctx.strokeStyle='rgba(255,255,255,.12)'; ctx.lineWidth=i===4?2:.8;
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.stroke();
+  });
+  ctx.fillStyle='#1a6e38'; ctx.beginPath(); ctx.arc(cx,cy,R*.064,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,.2)'; ctx.lineWidth=.8; ctx.stroke();
+  ctx.fillStyle='#c84b1f'; ctx.beginPath(); ctx.arc(cx,cy,R*.034,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='#f2f0ec';
+  ctx.font=`bold ${Math.max(9,Math.floor(R*.092))}px 'Space Mono',monospace`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  const nr=R+10;
+  for (let i=0;i<20;i++){
+    const a=off+(i+.5)*sa, nx=cx+nr*Math.cos(a), ny=cy+nr*Math.sin(a);
+    if(nx>4&&nx<size-4&&ny>4&&ny<size-4) ctx.fillText(DART_SECS[i]+'',nx,ny);
+  }
+  DG.thrown.forEach(d=>dartDraw(ctx,d.x,d.y,d.score));
+}
+
+function bseg(ctx,cx,cy,r1,r2,a1,a2){
+  ctx.beginPath(); ctx.arc(cx,cy,r2,a1,a2); ctx.arc(cx,cy,r1,a2,a1,true); ctx.closePath(); ctx.fill();
+}
+
+function dartDraw(ctx,x,y,score){
+  ctx.save();
+  ctx.strokeStyle='rgba(180,160,100,.75)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-7,y-15); ctx.stroke();
+  ctx.fillStyle='#f2f0ec'; ctx.strokeStyle='rgba(0,0,0,.6)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.arc(x,y,2.5,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.fillStyle=score===0?'#555':'#f2f0ec';
+  ctx.font='bold 8px Space Mono,monospace'; ctx.textAlign='center'; ctx.textBaseline='bottom';
+  ctx.fillText(score===0?'MISS':'+'+score, x, y-17);
+  ctx.restore();
+}
+
+// Auto-init when closing slide enters viewport
+(function(){
+  const slide=document.getElementById('s-closing'); if(!slide) return;
+  const obs=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){ initDartGame(); obs.disconnect(); }
+  },{threshold:.2});
+  obs.observe(slide);
+})();
 </script>
 </body>
 </html>
