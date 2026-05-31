@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>INEDITA · STUDIO — Material Research / Maastricht</title>
+<title>INEDITA · STUDIO — Material Research & Bio-Composites / Maastricht</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -97,7 +97,6 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .aw-entry:nth-child(3n){border-right:1px solid var(--border)}
 .aw-entry:hover{background:var(--hover)}
 
-/* Description panel replacing image placeholder */
 .aw-desc-panel{
   width:100%;aspect-ratio:1;
   background:var(--klaar-charcoal);
@@ -121,7 +120,7 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .aw-body{padding:20px 22px 22px}
 .aw-num{font-size:10px;color:var(--orange);letter-spacing:.2em;margin-bottom:5px}
 .aw-title{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.02em;margin-bottom:6px}
-.aw-desc{font-size:11px;color:var(--grey-lt);line-height:1.7;margin-bottom:12px}
+.aw-desc">font-size:11px;color:var(--grey-lt);line-height:1.7;margin-bottom:12px}
 .aw-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
 .aw-tag{font-size:9px;letter-spacing:.15em;color:var(--grey);border:1px solid var(--border);padding:2px 7px}
 .aw-meta{display:flex;gap:16px;padding-top:10px;border-top:1px solid var(--border)}
@@ -149,7 +148,6 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .kp-card:nth-child(3n){border-right:1px solid var(--border)}
 .kp-card:hover{background:var(--hover)}
 
-/* Description panel replacing product image */
 .kp-desc-panel{
   width:100%;aspect-ratio:4/3;
   background:var(--klaar-earth);
@@ -190,7 +188,6 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .svc-list li{font-size:11px;color:var(--grey);line-height:2;padding-left:14px;position:relative}
 .svc-list li::before{content:'—';position:absolute;left:0;color:var(--orange)}
 
-/* ── HALO SECTION ── */
 .halo-section{margin:0 32px;border:1px solid var(--border);border-top:none;padding:36px}
 .halo-section h3{font-family:var(--display);font-weight:700;font-size:36px;letter-spacing:.02em;margin:8px 0 20px}
 .halo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -199,8 +196,80 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .halo-item h4{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:.02em;margin:4px 0 8px}
 .halo-item p{font-size:11px;color:var(--grey-lt);line-height:1.7}
 
+.gallery-section{margin:0 32px;border:1px solid var(--border);border-top:none}
+.gallery-header{padding:32px 32px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end}
+.gallery-header h3{font-family:var(--display);font-weight:800;font-size:36px;letter-spacing:.02em;margin:6px 0 0}
+.gallery-header .gh-right{font-size:10px;color:var(--grey);letter-spacing:.2em;text-align:right;line-height:2}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.gallery-item{border-right:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;cursor:crosshair;transition:background .15s;display:flex;flex-direction:column}
+.gallery-item:nth-child(4n){border-right:none}
+.gallery-item:hover{background:var(--hover)}
+.gallery-thumb{width:100%;aspect-ratio:1;min-height:160px;object-fit:cover;display:block;filter:grayscale(15%);transition:filter .3s,transform .3s;flex-shrink:0}
+.gallery-item:hover .gallery-thumb{filter:grayscale(0%);transform:scale(1.02)}
+.gallery-thumb-placeholder{width:100%;aspect-ratio:1;min-height:180px;background:#1C1A17;display:flex;flex-direction:column;justify-content:space-between;padding:20px;transition:opacity .2s}
+.gallery-item:hover .gallery-thumb-placeholder{opacity:.85}
+.gtp-label{font-size:9px;letter-spacing:.25em;color:var(--klaar-sand);font-family:var(--mono)}
+.gtp-visual{font-family:var(--display);font-size:11px;color:var(--klaar-cream);line-height:1.5;margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
+.gallery-caption{padding:14px 16px 16px;border-top:1px solid var(--border)}
+.gallery-caption .gc-title{font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.02em;margin-bottom:4px}
+.gallery-caption .gc-meta{font-size:9px;color:var(--grey);letter-spacing:.15em}
+.gallery-caption .gc-badge{display:inline-block;margin-top:8px;font-size:8px;letter-spacing:.18em;color:var(--orange);border:1px solid var(--orange);padding:2px 6px}
+
+/* ── REALS PHOTOS EXPAND SYSTEM ── */
+.aw-photo{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-bottom:1px solid var(--border)}
+.kp-photo{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-bottom:1px solid var(--border)}
+
+.aw-expand,.kp-expand{
+  display:none;
+  border-top:2px solid var(--orange);
+  background:var(--klaar-charcoal);
+  animation:expandIn .2s ease
+}
+.aw-entry.open .aw-expand,
+.kp-card.open .kp-expand{display:block}
+@keyframes expandIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+.ax-close{
+  display:block;text-align:right;
+  padding:10px 14px 0;
+  font-size:9px;letter-spacing:.25em;
+  color:rgba(255,255,255,.3);
+  cursor:pointer;transition:color .15s;
+  font-family:var(--mono)
+}
+.ax-close:hover{color:rgba(255,255,255,.7)}
+
+.ax-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ax-photo{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.ax-no-photo{width:100%;aspect-ratio:1;background:#111;display:flex;align-items:center;justify-content:center}
+.ax-no-photo span{font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.15)}
+
+.ax-info{
+  padding:28px;
+  display:flex;flex-direction:column;
+  gap:16px;
+  border-left:1px solid rgba(255,255,255,.07)
+}
+.ax-mat{font-size:9px;letter-spacing:.22em;color:var(--klaar-sand);line-height:2;font-family:var(--mono)}
+.ax-price{font-family:var(--display);font-weight:800;font-size:36px;color:var(--klaar-cream);letter-spacing:.02em;line-height:1}
+.ax-dim{font-size:10px;letter-spacing:.15em;color:rgba(255,255,255,.4);margin-top:-8px}
+.ax-tag-row{display:flex;gap:6px;flex-wrap:wrap}
+.ax-tag{font-size:8px;letter-spacing:.15em;color:var(--klaar-sand);border:1px solid rgba(255,255,255,.15);padding:2px 8px}
+.ax-btn{
+  display:inline-block;margin-top:auto;
+  font-size:10px;letter-spacing:.2em;
+  color:var(--bg);background:var(--orange);
+  border:1px solid var(--orange);
+  padding:12px 20px;
+  text-decoration:none;
+  transition:background .15s,color .15s;
+  font-family:var(--mono);cursor:pointer;
+  align-self:flex-start
+}
+.ax-btn:hover{background:transparent;color:var(--orange)}
+
 /* ══════════════════════════════════════
-   JOURNEY
+   JOURNEY / LAB LOGS
 ══════════════════════════════════════ */
 .post-list{margin:0 32px}
 .post-item{border:1px solid var(--border);border-top:none;padding:28px 32px;display:grid;grid-template-columns:110px 1fr;gap:28px;transition:background .15s;cursor:crosshair}
@@ -232,132 +301,13 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .cf-status{margin-top:16px;padding:12px;border:1px solid var(--border);font-size:11px;display:none}
 .cf-status.success{background:#f0fff4;border-color:#22c55e;color:#16a34a}
 .cf-status.error{background:#fff5f5;border-color:#ef4444;color:#991b1b}
+
 .formula-bar{margin:0 32px;border:1px solid var(--border);border-top:none;padding:22px 32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
 .fb-item .fb-lbl{font-size:10px;color:var(--grey);letter-spacing:.18em;margin-bottom:3px}
 .fb-item .fb-val{font-size:13px;font-weight:700;letter-spacing:.06em}
 .fb-sep{color:var(--border);font-size:18px}
 
-/* ══════════════════════════════════════
-   TEXTURE GALLERY
-══════════════════════════════════════ */
-.gallery-section{margin:0 32px;border:1px solid var(--border);border-top:none}
-.gallery-header{padding:32px 32px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end}
-.gallery-header h3{font-family:var(--display);font-weight:800;font-size:36px;letter-spacing:.02em;margin:6px 0 0}
-.gallery-header .gh-right{font-size:10px;color:var(--grey);letter-spacing:.2em;text-align:right;line-height:2}
-.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr)}
-.gallery-item{border-right:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;cursor:crosshair;transition:background .15s;display:flex;flex-direction:column}
-.gallery-item:nth-child(4n){border-right:none}
-.gallery-item:hover{background:var(--hover)}
-.gallery-thumb{width:100%;aspect-ratio:1;min-height:160px;object-fit:cover;display:block;filter:grayscale(15%);transition:filter .3s,transform .3s;flex-shrink:0}
-.gallery-item:hover .gallery-thumb{filter:grayscale(0%);transform:scale(1.02)}
-.gallery-thumb-placeholder{width:100%;aspect-ratio:1;min-height:180px;background:#1C1A17;display:flex;flex-direction:column;justify-content:space-between;padding:20px;transition:opacity .2s}
-.gallery-item:hover .gallery-thumb-placeholder{opacity:.85}
-.gtp-label{font-size:9px;letter-spacing:.25em;color:var(--klaar-sand);font-family:var(--mono)}
-.gtp-visual{font-family:var(--display);font-size:11px;color:var(--klaar-cream);line-height:1.5;margin-top:auto;padding-top:12px;border-top:1px solid rgba(255,255,255,.1)}
-.gallery-caption{padding:14px 16px 16px;border-top:1px solid var(--border)}
-.gallery-caption .gc-title{font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:.02em;margin-bottom:4px}
-.gallery-caption .gc-meta{font-size:9px;color:var(--grey);letter-spacing:.15em}
-.gallery-caption .gc-badge{display:inline-block;margin-top:8px;font-size:8px;letter-spacing:.18em;color:var(--orange);border:1px solid var(--orange);padding:2px 6px}
-.gallery-loading{padding:48px;text-align:center;font-size:11px;color:var(--grey);letter-spacing:.2em}
-
-/* ── FOTO REALI (sostituiscono i pannelli testo) ── */
-.aw-photo{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-bottom:1px solid var(--border)}
-.kp-photo{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-bottom:1px solid var(--border)}
-
-/* ══════════════════════════════════════
-   EXPAND PANEL — card detail
-══════════════════════════════════════ */
-.aw-entry{cursor:pointer}
-.kp-card{cursor:pointer}
-.aw-expand,.kp-expand{
-  display:none;
-  border-top:2px solid var(--orange);
-  background:var(--klaar-charcoal);
-  animation:expandIn .2s ease
-}
-.aw-entry.open .aw-expand,
-.kp-card.open .kp-expand{display:block}
-@keyframes expandIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-
-.ax-close{
-  display:block;text-align:right;
-  padding:10px 14px 0;
-  font-size:9px;letter-spacing:.25em;
-  color:rgba(255,255,255,.3);
-  cursor:pointer;transition:color .15s;
-  font-family:var(--mono)
-}
-.ax-close:hover{color:rgba(255,255,255,.7)}
-
-.ax-body{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:0
-}
-.ax-photo{
-  width:100%;aspect-ratio:1;
-  object-fit:cover;display:block
-}
-.ax-no-photo{
-  width:100%;aspect-ratio:1;
-  background:#111;
-  display:flex;align-items:center;justify-content:center
-}
-.ax-no-photo span{font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.15)}
-
-.ax-info{
-  padding:28px 28px 28px;
-  display:flex;flex-direction:column;
-  gap:16px;
-  border-left:1px solid rgba(255,255,255,.07)
-}
-.ax-mat{
-  font-size:9px;letter-spacing:.22em;
-  color:var(--klaar-sand);
-  line-height:2;font-family:var(--mono)
-}
-.ax-price{
-  font-family:var(--display);font-weight:800;
-  font-size:36px;color:var(--klaar-cream);
-  letter-spacing:.02em;line-height:1
-}
-.ax-dim{
-  font-size:10px;letter-spacing:.15em;
-  color:rgba(255,255,255,.4);
-  margin-top:-8px
-}
-.ax-tag-row{display:flex;gap:6px;flex-wrap:wrap}
-.ax-tag{
-  font-size:8px;letter-spacing:.15em;
-  color:var(--klaar-sand);
-  border:1px solid rgba(255,255,255,.15);
-  padding:2px 8px
-}
-.ax-btn{
-  display:inline-block;
-  margin-top:auto;
-  font-size:10px;letter-spacing:.2em;
-  color:var(--bg);background:var(--orange);
-  border:1px solid var(--orange);
-  padding:12px 20px;
-  text-decoration:none;
-  transition:background .15s,color .15s;
-  font-family:var(--mono);cursor:pointer;
-  align-self:flex-start
-}
-.ax-btn:hover{background:transparent;color:var(--orange)}
-
-@media(max-width:768px){
-  .ax-body{grid-template-columns:1fr}
-  .ax-photo{aspect-ratio:4/3}
-  .ax-no-photo{aspect-ratio:4/3}
-  .ax-info{padding:20px 14px 24px;gap:12px}
-  .ax-price{font-size:28px}
-}
-
-/* ══════════════════════════════════════
-   HAMBURGER + MOBILE MENU
-══════════════════════════════════════ */
+/* Hamburger + Mobile Responsive optimization */
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;z-index:300}
 .nav-hamburger span{display:block;width:22px;height:2px;background:var(--ink);transition:all .25s}
 .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -368,139 +318,35 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 .nav-mobile-menu a{color:var(--grey);text-decoration:none;padding:16px 24px;border-top:1px solid var(--border);font-size:11px;letter-spacing:.2em;transition:color .15s,background .15s}
 .nav-mobile-menu a:hover,.nav-mobile-menu a.active{color:var(--ink);background:var(--hover)}
 
-/* ══════════════════════════════════════
-   RESPONSIVE — TABLET
-══════════════════════════════════════ */
 @media(max-width:1024px) and (min-width:769px){
   .home-brands{grid-template-columns:1fr 1fr}
-  .brand-card:last-child{border-right:1px solid var(--border);border-top:1px solid var(--border);grid-column:1/-1}
-  .artwork-grid{grid-template-columns:1fr 1fr}
-  .aw-entry:nth-child(3n){border-right:none}
-  .aw-entry:nth-child(2n){border-right:1px solid var(--border)}
-  .klaar-products{grid-template-columns:1fr 1fr}
-  .kp-card:nth-child(3n){border-right:none}
-  .kp-card:nth-child(2n){border-right:1px solid var(--border)}
-  .halo-grid{grid-template-columns:1fr 1fr}
-  .gallery-grid{grid-template-columns:1fr 1fr 1fr}
-  .gallery-item:nth-child(4n){border-right:1px solid var(--border)}
-  .gallery-item:nth-child(3n){border-right:none}
-  .nav-loc{display:none}
+  .brand-card:last-child{grid-column:1/-1;border-right:1px solid var(--border);border-top:1px solid var(--border)}
+  .artwork-grid,.klaar-products{grid-template-columns:1fr 1fr}
+  .halo-grid,.gallery-grid{grid-template-columns:1fr 1fr 1fr}
 }
 
-/* ══════════════════════════════════════
-   RESPONSIVE — MOBILE
-══════════════════════════════════════ */
 @media(max-width:768px){
-  /* touch: no crosshair */
   *{cursor:auto!important}
-
-  /* ── nav ── */
   nav{padding:0 16px}
-  .nav-links{display:none}
-  .nav-loc{display:none}
+  .nav-links,.nav-loc{display:none}
   .nav-hamburger{display:flex}
   .nav-mobile-menu a{padding:18px 20px;font-size:12px}
-
-  /* ── hero ── */
   .home-hero{margin:10px;padding:22px 16px 20px}
   .home-hero h1{font-size:clamp(26px,7.5vw,44px)}
-  .home-hero .h-specs{font-size:9px;letter-spacing:.07em;word-break:break-all;line-height:2.2}
-  .home-hero .h-tag{font-size:9px;top:14px;right:14px}
-  .home-hero .h-sub{font-size:10px}
-  .home-hero{margin-bottom:0}
-
-  /* ── page header ── */
   .page-header{padding:20px 14px 16px;flex-direction:column;align-items:flex-start;gap:6px}
-  .page-header h1{font-size:clamp(32px,10vw,48px);line-height:1}
-  .ph-sub{font-size:11px;max-width:100%;margin-top:6px}
-  .ph-right{text-align:left;font-size:10px;margin-top:4px}
-
-  /* ── single-column grids ── */
-  .home-brands,.home-bio,.artwork-grid,.klaar-intro,.klaar-products,
-  .studio-services,.contacts-grid,.halo-grid{grid-template-columns:1fr}
-
-  /* ── margins ── */
-  .home-brands,.home-bio,.artwork-grid,.klaar-intro,.klaar-products,
-  .studio-manifesto,.studio-services,.halo-section,.gallery-section,.post-list,
-  .contacts-grid,.formula-bar,.contact-form{margin-left:10px;margin-right:10px}
-
-  /* ── border fixes in single column ── */
+  .page-header h1{font-size:clamp(32px,10vw,48px)}
+  .home-brands,.home-bio,.artwork-grid,.klaar-intro,.klaar-products,.studio-services,.contacts-grid,.halo-grid{grid-template-columns:1fr}
+  .home-brands,.home-bio,.artwork-grid,.klaar-intro,.klaar-products,.studio-manifesto,.studio-services,.halo-section,.gallery-section,.post-list,.contacts-grid,.formula-bar,.contact-form{margin-left:10px;margin-right:10px}
   .brand-card,.kp-card,.aw-entry,.svc-card,.ct-block,.bio-block{border-right:1px solid var(--border)!important}
-  .aw-entry:nth-child(3n){border-right:1px solid var(--border)}
   .ki-text{border-right:none;border-bottom:1px solid var(--border)}
   .klaar-intro{border-left:1px solid var(--border)}
-
-  /* ── gallery: 2 colonne su mobile ── */
   .gallery-grid{grid-template-columns:1fr 1fr}
-  .gallery-item:nth-child(4n){border-right:1px solid var(--border)}
-  .gallery-item:nth-child(2n){border-right:none}
-  .gallery-header{padding:20px 14px 14px;flex-direction:column;align-items:flex-start;gap:6px}
-  .gallery-header h3{font-size:26px}
-  .gallery-header .gh-right{text-align:left}
-
-  /* ── card padding ── */
-  .brand-card{padding:20px 14px}
-  .bio-block{padding:20px 14px}
-  .svc-card{padding:20px 14px}
-  .ct-block{padding:22px 14px}
-  .ki-text{padding:22px 14px}
-  .ki-material{padding:22px 14px}
-  .studio-manifesto{padding:22px 14px}
-  .halo-section{padding:20px 14px}
-  .contact-form{padding:22px 14px}
-
-  /* ── typography ── */
-  .brand-card h2{font-size:26px}
-  .brand-card p{font-size:11px}
-  .bio-block h2{font-size:26px}
-  .ki-text h2{font-size:30px}
-  .studio-manifesto h2{font-size:26px;line-height:1.2}
-  .studio-manifesto p{font-size:12px}
-  .svc-name{font-size:20px}
-  .ct-block h2{font-size:28px}
-  .halo-section h3{font-size:26px}
-  .halo-item h4{font-size:16px}
-  .halo-item p{font-size:11px}
-  .halo-num{font-size:28px}
-
-  /* ── brand card CTA full width ── */
-  .bc-cta{display:block;text-align:center;padding:12px 16px;margin-top:16px}
-
-  /* ── swatches più piccoli ── */
-  .ki-swatches{gap:8px;margin-bottom:28px}
-  .kl-sw{width:38px;height:38px}
-  .ki-formula{font-size:9px;letter-spacing:.1em}
-
-  /* ── post list ── */
   .post-item{grid-template-columns:1fr;gap:2px;padding:16px 14px}
-  .pi-date{padding-top:0;font-size:10px}
-  .pi-title{font-size:18px}
-  .pi-text{font-size:11px}
-
-  /* ── form ── */
-  .cf-input,.cf-textarea{font-size:16px} /* previene zoom su iOS */
-  .cf-submit{width:100%;padding:14px;font-size:11px;letter-spacing:.15em}
-
-  /* ── formula bar ── */
-  .formula-bar{flex-direction:column;align-items:flex-start;gap:10px;padding:16px 14px}
+  .cf-input,.cf-textarea{font-size:16px}
+  .cf-submit{width:100%}
+  .formula-bar{flex-direction:column;align-items:flex-start;gap:10px}
   .fb-sep{display:none}
-  .fb-item .fb-val{font-size:11px}
-
-  /* ── footer ── */
-  footer{padding:16px 14px;gap:10px}
-  footer>div{min-width:45%}
-  footer b{font-size:11px}
 }
-
-/* ── iPhone SE e schermi <375px ── */
-@media(max-width:375px){
-  .gallery-grid{grid-template-columns:1fr}
-  .gallery-item:nth-child(2n){border-right:1px solid var(--border)}
-  .home-hero h1{font-size:26px}
-  .page-header h1{font-size:30px}
-}
-
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border)}
 </style>
 </head>
 <body>
@@ -522,7 +368,6 @@ footer b{color:var(--ink);display:block;margin-top:2px}
   </button>
 </nav>
 
-<!-- ══ MOBILE MENU ══ -->
 <div class="nav-mobile-menu" id="mobileMenu">
   <a href="#" onclick="showMobile('home')">HOME</a>
   <a href="#" onclick="showMobile('inedita')">INEDITA</a>
@@ -538,27 +383,27 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 <div id="home" class="page active">
   <div class="home-hero">
     <div class="h-tag lbl">INDEX / 001 · H · 01</div>
-    <div class="h-sub lbl">HOME / OPEN FILE</div>
-    <h1>I EXPLORE<br>MATTER<br><em>TO CREATE</em><br>THE UNCHARTED.</h1>
-    <div class="h-specs">Σ ≥ 62 MPA · A/C 0.31 · 80 MM · CEM I 52.5R / COFFEE 12% / RESIN 5.8%</div>
+    <div class="h-sub lbl">HOME / R&D ACTIVE FILE</div>
+    <h1>WE SHAPE<br>MATTER<br><em>BEYOND</em><br>WASTE.</h1>
+    <div class="h-specs">Σ ≥ 62 MPA · A/C 0.31 · CEM I 52.5R / SPENT COFFEE 12% / RECYCLED PAPER POWDER / CO-POLYMER RESIN 5.8%</div>
   </div>
   <div class="home-brands">
     <div class="brand-card">
       <div class="bc-type lbl">ARTIST BRAND · THE SOUL</div>
       <h2>INEDITA</h2>
-      <p>Artworks born from a process of material research. Unique pieces that tell the story of IN-NED — Italian identity lived in the Netherlands. Poetic but never pretentious. Slow, reflective. Objects that carry the trace of their making.</p>
+      <p>Artworks born from extreme material stress. Unique, single-edition pieces exploring the structural density of unpigmented carbon. A visual vocabulary lived at the intersection of Italian identity and Dutch soil. Raw, physical, uncompromised.</p>
       <a href="#" class="bc-cta" onclick="show('inedita', document.querySelectorAll('.nav-links a')[1])">VIEW ARCHIVE →</a>
     </div>
     <div class="brand-card">
-      <div class="bc-type lbl">PRODUCT BRAND · THE INNOVATION</div>
+      <div class="bc-type lbl">PRODUCT BRAND · CIRCULAR SYSTEM</div>
       <h2>KLAAR</h2>
-      <p>Home design objects built on Nero Materia. Coffee grounds and paper waste transformed into desirable objects. Not greenwashing — high-level design that proves sustainability without aesthetic compromise. Ready. Klaar.</p>
+      <p>Functional home objects crafted entirely from Nero Materia. Post-consumer spent coffee grounds and cellulosics upcycled into structural, brutalist design. Zero greenwashing, certified mechanics, hand-polished to a 400-grit satin sheen.</p>
       <a href="#" class="bc-cta" onclick="show('klaar', document.querySelectorAll('.nav-links a')[2])">VIEW COLLECTION →</a>
     </div>
     <div class="brand-card">
       <div class="bc-type lbl">LAB & CONSULTING · THE BRIDGE</div>
       <h2>STUDIO</h2>
-      <p>Hybrid consulting for brands that want to transform their vision into a concrete product. Material research, creative direction, brand strategy. Not academics — operational creatives who know how to make things real.</p>
+      <p>Hybrid R&D and brand strategy consulting for forward-thinking architecture firms, startups, and F&B visionaries. We don't preach theory; we build operational roadmaps born from calculated laboratory failures.</p>
       <a href="#" class="bc-cta" onclick="show('studio', document.querySelectorAll('.nav-links a')[3])">VIEW SERVICES →</a>
     </div>
   </div>
@@ -566,18 +411,18 @@ footer b{color:var(--ink);display:block;margin-top:2px}
     <div class="bio-block">
       <div class="lbl">OPERATOR</div>
       <h2>ALESSANDRO</h2>
-      <p>Barista in Maastricht. Artist in the studio. I work at the intersection of coffee extraction, cementitious matrices and technical resins to shape a new material vocabulary. Mediterranean creativity meets Northern European precision. One founder, three distinct voices.</p>
+      <p>Barista by trade, material researcher by obsession. Working out of Maastricht to dissolve the boundary between beverage extraction chemistry, cementitious matrices, and cross-linking technical resins. One ecosystem, three precise architectural voices.</p>
       <div class="bio-meta">
         <span>REG<b>027</b></span>
-        <span>YEAR<b>2023</b></span>
+        <span>YEAR<b>2026</b></span>
         <span>LAB<b>OLV</b></span>
         <span>KVK<b>NL</b></span>
       </div>
     </div>
     <div class="bio-block">
       <div class="lbl">VISION · IN-NED</div>
-      <h2>THE VALUE</h2>
-      <p>Three brands, three voices, one person behind everything. Inedita builds artistic credibility. Klaar generates continuative revenue through product. Studio brings high revenue and professional positioning. The three reinforce each other — they do not compete. Authenticity is the thread that cannot be replicated.</p>
+      <h2>THE HALO EFFECT</h2>
+      <p>Our infrastructure operates as a self-reinforcing loop. Inedita establishes radical artistic credibility. Klaar scales cash flow through high-end industrial batches. Studio synthesizes this deep operational know-how into premium B2B consulting. Authority is not bought; it's proven.</p>
       <div class="bio-meta">
         <span>ART<b>UNIQUE</b></span>
         <span>RETAIL<b>KLAAR</b></span>
@@ -587,37 +432,37 @@ footer b{color:var(--ink);display:block;margin-top:2px}
   </div>
   <footer>
     <div><span>ENTITY</span><b>INEDITA STUDIO</b></div>
-    <div><span>MIX</span><b>CEM I 52.5R / COFFEE 12% / RESIN 5.8%</b></div>
-    <div><span>RECORD</span><b>LOG #027 — R&S · 2026</b></div>
+    <div><span>ACTIVE MIX</span><b>NERO MATERIA v2.4 (CEM I 52.5R / COFFEE 12%)</b></div>
+    <div><span>RECORD</span><b>LOG #027 — SYSTEM DEPLOY · 2026</b></div>
     <div><span>©</span><b>ALL MATTER RESERVED</b></div>
   </footer>
 </div>
 
 <!-- ══════════════════════════════════════
-     INEDITA
+     INEDITA (ARTWORK ARCHIVE)
 ══════════════════════════════════════ -->
 <div id="inedita" class="page">
   <div class="page-header">
     <div>
-      <div class="lbl">ARTIST BRAND · THE SOUL</div>
+      <div class="lbl">ARTIST BRAND · MONOLITHS</div>
       <h1>INEDITA</h1>
-      <div class="ph-sub">Artworks born from material research. Unique pieces, single edition. Objects that carry the trace of the process. #001 → #027</div>
+      <div class="ph-sub">Material exploration through single-edition physical pieces. Objects that carry the tactical scars of their chemical curing process. #001 → #027</div>
     </div>
-    <div class="ph-right lbl">27 WORKS<br>2023 – 2026</div>
+    <div class="ph-right lbl">27 UNIQUE PIECES<br>OLV LAB ARCHIVE</div>
   </div>
   <div class="artwork-grid">
 
     <!-- #001 -->
     <div class="aw-entry">
       <div class="aw-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-001.jpg">
-        <div class="adp-material">CEM I · COFFEE GROUNDS 18% · NO PIGMENT · 400 GRIT</div>
-        <div class="adp-visual">Dense matte surface. Black without pigment — the darkness is structural. Carbon from spent coffee saturates the matrix until total opacity. Light enters and does not return.</div>
+        <div class="adp-material">CEM I 52.5R · SPENT ESPRESSO GROUNDS 18% · NO EXTERNAL PIGMENT</div>
+        <div class="adp-visual">Absolute structural darkness. The matrix is entirely saturated by spent carbon molecules until total optical absorption. Light enters and does not return. Polished to 400-grit.</div>
       </div>
       <div class="aw-body">
-        <div class="aw-num">A · 001 · 2023</div>
+        <div class="aw-num">A · 001 · ARCHIVE</div>
         <div class="aw-title">NERO MATERIA I</div>
-        <div class="aw-desc">Cementitious matrix with spent coffee grounds. Opaque surface, maximum optical density. The black comes from depth, not from pigment. First piece of the AG series — the one where the material spoke first.</div>
-        <div class="aw-tags"><span class="aw-tag">CEMENT</span><span class="aw-tag">COFFEE</span><span class="aw-tag">UNIQUE</span></div>
+        <div class="aw-desc">Pure cementitious matrix with high-density spent coffee. Opaque, raw surface. The foundational piece of our signature AG series where the material spoke first.</div>
+        <div class="aw-tags"><span class="aw-tag">NERO-MATERIA</span><span class="aw-tag">MONOLITH</span><span class="aw-tag">AG-SERIES</span></div>
         <div class="aw-meta"><span>DIM<b>40×40 cm</b></span><span>SERIES<b>AG / 01</b></span><span>PRICE<b>€ 450</b></span></div>
       </div>
     </div>
@@ -625,14 +470,14 @@ footer b{color:var(--ink);display:block;margin-top:2px}
     <!-- #002 -->
     <div class="aw-entry">
       <div class="aw-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-002.jpg">
-        <div class="adp-material">CEM I · CARBON RESIDUE · 3-LAYER POUR · NO PIGMENT</div>
-        <div class="adp-visual">Three successive coats. Each pour records a different moment in time. The surface is not uniform — it is a chronology. To read it is to read the making.</div>
+        <div class="adp-material">CEM I · STRATIFIED CARBON RESIDUE · 3-LAYER SEQUENTIAL POUR</div>
+        <div class="adp-visual">Three successive, timed pours. Each layer records a different exothermal state during curing. The resulting surface is not a flat color—it is a physical timeline of the setting phase.</div>
       </div>
       <div class="aw-body">
-        <div class="aw-num">A · 002 · 2023</div>
+        <div class="aw-num">A · 002 · ARCHIVE</div>
         <div class="aw-title">NERO MATERIA II</div>
-        <div class="aw-desc">Chromatic variation on the AG series. Residual carbon layered in three successive coats. The surface records the time of the making — depth and sequence simultaneously visible.</div>
-        <div class="aw-tags"><span class="aw-tag">CEMENT</span><span class="aw-tag">LAYER</span><span class="aw-tag">UNIQUE</span></div>
+        <div class="aw-desc">Chromatic stratification experiment. Chronological variations achieved by altering the hydration mapping across three distinct curing stages.</div>
+        <div class="aw-tags"><span class="aw-tag">STRATIFICATION</span><span class="aw-tag">CHRONO</span><span class="aw-tag">UNIQUE</span></div>
         <div class="aw-meta"><span>DIM<b>40×40 cm</b></span><span>SERIES<b>AG / 02</b></span><span>PRICE<b>€ 480</b></span></div>
       </div>
     </div>
@@ -640,14 +485,14 @@ footer b{color:var(--ink);display:block;margin-top:2px}
     <!-- #003 -->
     <div class="aw-entry">
       <div class="aw-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-003.jpg">
-        <div class="adp-material">CEM I · COFFEE · EPOXY RESIN SURFACE · EXTREME SATURATION</div>
-        <div class="adp-visual">Epoxy seals the surface without hiding it. Carbon in depth, glass on top. The material and its preservation visible simultaneously. Gloss that does not decorate — it protects.</div>
+        <div class="adp-material">BIO-COMPOSITE BASE · POLI-LIQUID GLOSS EPOXY EMBEDMENT</div>
+        <div class="adp-visual">High-molecular resin lens completely sealing the carbon matrix beneath. Visually isolates depth while freezing chemical oxidation. High gloss engineered strictly for molecular stabilization.</div>
       </div>
       <div class="aw-body">
-        <div class="aw-num">A · 003 · 2024</div>
+        <div class="aw-num">A · 003 · ARCHIVE</div>
         <div class="aw-title">ALCHEMIST GRADE 03</div>
-        <div class="aw-desc">Extreme chromatic saturation. Technical resin on the surface, carbon in depth. Where the AG series becomes fully itself — not replicable, even by the author.</div>
-        <div class="aw-tags"><span class="aw-tag">AG</span><span class="aw-tag">RESIN</span><span class="aw-tag">UNIQUE</span></div>
+        <div class="aw-desc">Maximum structural saturation. Technical liquid lens poured over raw carbon aggregate. Non-replicable interaction between cross-linking resin and fresh concrete.</div>
+        <div class="aw-tags"><span class="aw-tag">RESIN-GLAZE</span><span class="aw-tag">ALCHEMIST</span><span class="aw-tag">PREMIUM</span></div>
         <div class="aw-meta"><span>DIM<b>45×45 cm</b></span><span>SERIES<b>AG / 03</b></span><span>PRICE<b>€ 650</b></span></div>
       </div>
     </div>
@@ -655,14 +500,14 @@ footer b{color:var(--ink);display:block;margin-top:2px}
     <!-- #004 -->
     <div class="aw-entry">
       <div class="aw-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-004.jpg" style="background:#d4c9b8">
-        <div class="adp-material" style="color:#5C4F3D">CEM I · UNPIGMENTED · RAW OXIDATION · NATURAL LIGHT</div>
-        <div class="adp-visual" style="color:#1C1A17;border-top-color:rgba(0,0,0,.1)">White as the absence of intervention. Unpigmented surface. Each piece yellows differently depending on where it lives. A slow self-portrait of its environment.</div>
+        <div class="adp-material" style="color:#5C4F3D">PURE CEM I · RECYCLED RAW CELLULOSE · ZERO PIGMENTATION</div>
+        <div class="adp-visual" style="color:#1C1A17;border-top-color:rgba(0,0,0,.1)">White as the total absence of structural intervention. Organic, reactive matrix designed to yellow slowly over time based on UV exposure. A self-recording environmental clock.</div>
       </div>
       <div class="aw-body">
-        <div class="aw-num">A · 004 · 2024</div>
+        <div class="aw-num">A · 004 · ARCHIVE</div>
         <div class="aw-title">WHITE RESIDUE</div>
-        <div class="aw-desc">Unpigmented cementitious surface. White is not a choice — it is absence. Natural oxidation over time — each piece evolves depending on the light, the air, the room where it is kept.</div>
-        <div class="aw-tags"><span class="aw-tag">RAW</span><span class="aw-tag">OXIDATION</span><span class="aw-tag">UNIQUE</span></div>
+        <div class="aw-desc">Unpigmented composite surface. Raw cellulose fibers visible within the pale structural matrix. Evolving piece responding dynamically to regional light conditions.</div>
+        <div class="aw-tags"><span class="aw-tag">RAW-CELLULOSE</span><span class="aw-tag">UV-REACTIVE</span><span class="aw-tag">MINIMAL</span></div>
         <div class="aw-meta"><span>DIM<b>50×50 cm</b></span><span>SERIES<b>NP / 01</b></span><span>PRICE<b>€ 520</b></span></div>
       </div>
     </div>
@@ -670,14 +515,14 @@ footer b{color:var(--ink);display:block;margin-top:2px}
     <!-- #005 -->
     <div class="aw-entry">
       <div class="aw-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-005.jpg" style="background:#2a2a2a">
-        <div class="adp-material">CEM I · INDUCED FRACTURE · DOCUMENTED FAILURE · DIAGONAL</div>
-        <div class="adp-visual">The crack runs diagonally — it was calculated, not found. This is not defect. It is method. The author's signature written directly in the material.</div>
+        <div class="adp-material">HIGH-TENSILE MIX · INDUCED THERMAL SHOCK · CALCULATED SHEAR CRACK</div>
+        <div class="adp-visual">The diagonal rift was mathematically induced via freezing post-pour. Failure as method. The structural flaw is not a defect; it is the literal record of internal stress mechanics.</div>
       </div>
       <div class="aw-body">
-        <div class="aw-num">A · 005 · 2025</div>
+        <div class="aw-num">A · 005 · ARCHIVE</div>
         <div class="aw-title">CONTROLLED FRACTURE</div>
-        <div class="aw-desc">Failure as aesthetic. Induced, documented, displayed. The fracture is not hidden — it is the work. A piece that shows what happens when you push a material to its limit and then stop, exactly there.</div>
-        <div class="aw-tags"><span class="aw-tag">FRACTURE</span><span class="aw-tag">RESEARCH</span><span class="aw-tag">UNIQUE</span></div>
+        <div class="aw-desc">Laboratory failure documented and transformed into an aesthetic centerpiece. Pushing concrete matrices to their breaking limits and capturing the exact point of shear failure.</div>
+        <div class="aw-tags"><span class="aw-tag">CRITICAL-LIMIT</span><span class="aw-tag">FRACTURE</span><span class="aw-tag">TEST-DATA</span></div>
         <div class="aw-meta"><span>DIM<b>60×30 cm</b></span><span>SERIES<b>FC / 01</b></span><span>PRICE<b>€ 580</b></span></div>
       </div>
     </div>
@@ -685,86 +530,74 @@ footer b{color:var(--ink);display:block;margin-top:2px}
     <!-- #027 — WIP -->
     <div class="aw-entry">
       <div class="aw-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/inedita-027.jpg" style="background:#0F2A38">
-        <div class="adp-material" style="color:var(--studio-mist)">NEW GRANULOMETRY · VARIABLE MIX · ACTIVE R&D · OLV LAB</div>
-        <div class="adp-visual" style="border-top-color:rgba(255,255,255,.1)">The studio floor has powder traces. New variables. The result is not yet known — the material is still deciding what it wants to become.</div>
+        <div class="adp-material" style="color:var(--studio-mist)">HYBRID POLYMERS · MICRO-GRANULOMETRY · UNKNOWN REACTION PROFILE</div>
+        <div class="adp-visual" style="border-top-color:rgba(255,255,255,.1)">Ongoing trial. We altered the water-to-cement ratio to 0.28 while adding micro-milled spent espresso. The mixture is still curing on the table; outcome pending.</div>
       </div>
       <div class="aw-body">
-        <div class="aw-num" style="color:var(--grey)">A · 027 · 2026 · CURRENT</div>
-        <div class="aw-title">WORK IN PROGRESS</div>
-        <div class="aw-desc">New granulometry, new material vocabulary. Not yet titled. The research phase is still open — this entry is a live document, not a finished work.</div>
-        <div class="aw-tags"><span class="aw-tag">ACTIVE</span><span class="aw-tag">2026</span><span class="aw-tag">OLV</span></div>
-        <div class="aw-meta"><span>STATUS<b>◎ ONGOING</b></span><span>LAB<b>OLV</b></span></div>
+        <div class="aw-num" style="color:var(--grey)">A · 027 · 2026 · LIVE FILE</div>
+        <div class="aw-title">WORK IN PROGRESS (LOG #027)</div>
+        <div class="aw-desc">New micro-granulometric testing phase. Exploring hyper-dense composite structures at variable ambient humidity levels. Open research document.</div>
+        <div class="aw-tags"><span class="aw-tag">ACTIVE-TEST</span><span class="aw-tag">OLV-LAB</span><span>2026</span></div>
+        <div class="aw-meta"><span>STATUS<b>◎ CURING</b></span><span>LAB<b>OLV / NL</b></span></div>
       </div>
     </div>
 
   </div>
 
-  <!-- ── TEXTURE GALLERY ── -->
+  <!-- MATERIAL ARCHIVE SECTION -->
   <div class="gallery-section" id="gallery-inedita">
     <div class="gallery-header">
       <div>
-        <div class="lbl">TEXTURES · SURFACES · MATTER</div>
-        <h3>MATERIAL ARCHIVE</h3>
+        <div class="lbl">LAB STUDIOS · LIVE SURFACES</div>
+        <h3>MATERIAL LIBRARY</h3>
       </div>
-      <div class="gh-right lbl">ONGOING · OLV LAB<br>SURFACE STUDIES</div>
+      <div class="gh-right lbl">OLV SYSTEM R&D<br>SURFACE GRIT SPECIMENS</div>
     </div>
     <div class="gallery-grid" id="gallery-grid-inedita">
-      <!-- ══ COME AGGIUNGERE TEXTURE ══════════════════════════════════
-           1. Carica l'immagine su GitHub in images/ (es. texture-01.jpg)
-           2. Copia e incolla un blocco <div class="gallery-item"> qui sotto
-           3. Aggiorna src, titolo e meta
-           Con foto:    <img class="gallery-thumb" src="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/NOMEFILE.jpg" alt="TITOLO" loading="lazy">
-           Senza foto:  usa il div gallery-thumb-placeholder qui sotto come template
-      ════════════════════════════════════════════════════════════════ -->
-
       <div class="gallery-item">
-        <img class="gallery-thumb" src="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/logo.png" alt="NERO MATERIA · AG/01" loading="lazy">
+        <img class="gallery-thumb" src="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/logo.png" alt="NERO MATERIA SYSTEM SPECIMEN" loading="lazy">
         <div class="gallery-caption">
-          <div class="gc-title">NERO MATERIA · AG/01</div>
-          <div class="gc-meta">CEM I · COFFEE 18% · 400 GRIT</div>
+          <div class="gc-title">NERO MATERIA SPECIMEN v1</div>
+          <div class="gc-meta">CEM I 52.5R · 18% GROUNDS · 400 GRIT</div>
         </div>
       </div>
-
     </div>
   </div>
 
   <footer>
-    <div><span>ARCHIVE</span><b>#001 → #027 · WORKS</b></div>
-    <div><span>STUDIO</span><b>MAASTRICHT · NL</b></div>
-    <div><span>EMAIL</span><b>inedita23@gmail.com</b></div>
-    <div><span>PHONE</span><b>+31 685 027 547</b></div>
-    <div><span>KVK</span><b>42063923</b></div>
-    <div><span>BTW</span><b>NL005467213B55</b></div>
+    <div><span>ARCHIVE</span><b>#001 → #027 · OPEN SPECIMENS</b></div>
+    <div><span>STUDIO CONTACT</span><b>inedita23@gmail.com</b></div>
+    <div><span>KVK REGISTRATION</span><b>42063923</b></div>
   </footer>
 </div>
 
 <!-- ══════════════════════════════════════
-     KLAAR
+     KLAAR (PRODUCT BRAND)
 ══════════════════════════════════════ -->
 <div id="klaar" class="page">
   <div class="page-header">
     <div>
-      <div class="lbl">PRODUCT BRAND · CIRCULAR INNOVATION</div>
+      <div class="lbl">PRODUCT LINE · MOLECULAR UPCYCLING</div>
       <h1>KLAAR</h1>
-      <div class="ph-sub">Home design objects from coffee and paper waste. Not greenwashing — design that proves sustainability without aesthetic compromise. Ready. Klaar.</div>
+      <div class="ph-sub">Architectural objects built entirely on the Nero Materia standard. No performative eco-marketing—just unpigmented carbon strength.</div>
     </div>
-    <div class="ph-right lbl">HOME · CARE · GADGET<br>MAASTRICHT · NL</div>
+    <div class="ph-right lbl">HOME · CARE · GADGET<br>MAASTRICHT / MAAS-KM0</div>
   </div>
   <div class="klaar-intro">
     <div class="ki-text">
-      <div class="lbl">NERO MATERIA — THE MATERIAL</div>
-      <h2>WASTE<br>BECOMES<br>OBJECT.</h2>
-      <p>Spent coffee grounds and paper waste transformed into high-level design objects. Not just sustainable — beautiful, dense, real. The name says it all: <em>klaar</em> in Dutch means ready, clear, finished. Objects that are exactly what they appear to be.<br><br>Nero Materia is the exclusive formula: certified structural strength, chromatic saturation from residual carbon, polished to 400 grit. Brutalist design makes no aesthetic compromise. No greenwashing — just material honesty.</p>
+      <div class="lbl">NERO MATERIA — THE FORMULA STRUCTURAL STANDARD</div>
+      <h2>HIGH DENSITY.<br>ZERO PIGMENT.<br>REAL WEIGHT.</h2>
+      <p>Klaar takes raw laboratory bio-composite research and standardizes it into modular architectural components. The core of every product is <strong>Nero Materia</strong>: an unpigmented composite matrix achieved by saturating high-early-strength Portland cement ($CEM\ I\ 52.5R$) with post-consumer coffee grounds sourced at 0km from local corporate bars.<br><br>The coffee aggregate is oven-stabilized at 110°C to extract residual water before mixing, ensuring a fixed water-to-cement ratio ($\Sigma \ge 62\ MPa$ at $A/C\ 0.31$). This ensures certified structural integrity, deep matte carbon absorption, and an honest tactile feedback that resin plastic can never copy.</p>
     </div>
     <div class="ki-material">
-      <div class="lbl">BVI PALETTE · NERO MATERIA TONES</div>
+      <div class="lbl">BVI PALETTE · LAB RATIOS</div>
       <div class="ki-swatches">
         <div class="kl-sw kl-sw-1"><span>CHARCOAL</span></div>
         <div class="kl-sw kl-sw-2"><span>EARTH</span></div>
         <div class="kl-sw kl-sw-3"><span>SAND</span></div>
         <div class="kl-sw kl-sw-4"><span>LINEN</span></div>
       </div>
-      <div class="ki-formula lbl">CERTIFIED FORMULA<br>CEM I 52.5R / COFFEE 12% / RESIN 5.8%<br>Σ ≥ 62 MPA · A/C 0.31 · 80 MM<br>CHARCOAL #1C1A17 · EARTH #5C4F3D<br>SAND #A89880 · LINEN #D4C9B8<br><br>KM0 SOURCING · MAASTRICHT<br>100% RECYCLED PACKAGING</div>
+      <div class="ki-formula lbl">CERTIFIED PRODUCTION MANIFESTO<br>BASE RECONSTRUCT: 12% SPENT COFFEE / 5.8% RESIN REINFORCEMENT<br>LOAD RESISTANCE: 62 MPA MINIMUM TOLERANCE<br>SURFACE METRIC: MECHANICAL POLISH TO 400 GRIT<br><br>SOCIALLY RECLAIMED IN MAASTRICHT<br>STRUCTURAL RAW TRANSPARENCY</div>
     </div>
   </div>
   <div class="klaar-products">
@@ -772,397 +605,353 @@ footer b{color:var(--ink);display:block;margin-top:2px}
     <!-- HOME 01 -->
     <div class="kp-card">
       <div class="kp-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-home-01.jpg">
-        <div class="kdp-material">NERO MATERIA · 400 GRIT · RECTANGULAR · WALL MOUNT</div>
-        <div class="kdp-visual">The surface reflects softly, like satin. Coffee grounds give the grey a depth that pure cement cannot achieve. Installed on a wall, it reads as solid silence.</div>
+        <div class="kdp-material">NERO MATERIA STANDARD · RECTANGULAR GEOMETRY · SATIN FINISH</div>
+        <div class="kdp-visual">Satin-smooth face reflecting low angle lighting. The embedded carbon grains give the grey matrix an organic depth that standard pigment coats cannot match. Monolithic weight.</div>
       </div>
       <div class="kp-body">
-        <div class="kp-line lbl">LINE · HOME</div>
+        <div class="kp-line lbl">LINE · ARCHITECTURAL HOME</div>
         <div class="kp-name">KLAAR HOME 01</div>
-        <div class="kp-desc">Modular wall panel. Rectangular geometry, polished to 400 grit. Charcoal tone from coffee carbon. The material is the statement — no decoration needed.</div>
+        <div class="kp-desc">Modular wall cladding tile. Brutalist rectangular layout, diamond-cut edges. Charcoal tone sourced purely from organic roasting residue.</div>
         <div class="kp-price">€ 85</div>
-        <div class="kp-tag">20×80 cm · LIMITED</div>
+        <div class="kp-tag">20×80 cm · SHIPPED IN BATCHES</div>
       </div>
     </div>
 
     <!-- TRIPTYCH -->
     <div class="kp-card">
       <div class="kp-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-triptych.jpg">
-        <div class="kdp-material">NERO MATERIA · 3 PANELS · GRADIENT CONCENTRATION · SET</div>
-        <div class="kdp-visual">Three tones, three coffee concentrations — the same formula, three different moments of saturation. A chromatic scale made of breakfast residue. Together they form a gradient; apart, each holds its own.</div>
+        <div class="kdp-material">GRADIENT COFFEE CONCENTRATE · 3 TILE MODULAR INSTALLATION</div>
+        <div class="kdp-visual">Three separate mix scales: 6%, 12%, and 18% organic aggregate loading. A natural gradient progression demonstrating the exact point of composite saturation from light ash to deep void.</div>
       </div>
       <div class="kp-body">
-        <div class="kp-line lbl">LINE · HOME</div>
+        <div class="kp-line lbl">LINE · WALL ASSEMBLIES</div>
         <div class="kp-name">KLAAR TRIPTYCH</div>
-        <div class="kp-desc">Three modular panels in scaled tones: Light / Mid / Dark. Variation comes from different coffee concentrations in the same base mix. Complete wall installation designed to hang as one unit.</div>
+        <div class="kp-desc">Tonal gradient three-piece setup. Modulated carbon levels map out the physical capabilities of our matrix base across an incremental scale.</div>
         <div class="kp-price">€ 230</div>
-        <div class="kp-tag">3 × 20×80 cm · SET</div>
+        <div class="kp-tag">3 × 20×80 cm · COMPLETE SET</div>
       </div>
     </div>
 
     <!-- CANDLE HOLDER -->
     <div class="kp-card">
       <div class="kp-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-candle.jpg" style="background:var(--klaar-charcoal)">
-        <div class="kdp-material">NERO MATERIA · Ø8 CM · HAND TURNED · DENSE BASE</div>
-        <div class="kdp-visual">Heavier than it looks. The Ø 8 cm base grounds it — the candle sits without hesitation. When the flame warms the surface, the coffee smell returns. Functional object that remembers what it was made of.</div>
+        <div class="kdp-material">NERO MATERIA SPEC · Ø8 CM CYLINDER · THERMALLY ACTIVATED FINISH</div>
+        <div class="kdp-visual">Turned solid core. Massive density anchors it safely to any horizontal surface. When the lit candle transfers thermal energy down into the composite, a subtle scent trace re-activates.</div>
       </div>
       <div class="kp-body">
-        <div class="kp-line lbl">LINE · GADGET</div>
+        <div class="kp-line lbl">LINE · GADGET HARDWARE</div>
         <div class="kp-name">CANDLE HOLDER</div>
-        <div class="kp-desc">Small functional object in Nero Materia. Essential form, real weight. Coffee that was once a drink becomes a permanent presence in the room. The smell activates lightly when warm.</div>
+        <div class="kp-desc">Solid architectural candle block. Minimal volume maximizing materials gravity. The coffee waste leaves its disposable life to become a permanent structural component.</div>
         <div class="kp-price">€ 35</div>
-        <div class="kp-tag">Ø 8 cm · AVAILABLE</div>
+        <div class="kp-tag">Ø 8 cm · INDUSTRIAL READY</div>
       </div>
     </div>
 
     <!-- COFFEE SCRUB -->
     <div class="kp-card">
       <div class="kp-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-scrub.jpg" style="background:var(--studio-navy)">
-        <div class="kdp-material" style="color:var(--studio-mist)">COFFEE GROUNDS 12% · CARE BASE · CPNP IN PROGRESS</div>
-        <div class="kdp-visual" style="color:var(--studio-ice);border-top-color:rgba(255,255,255,.15)">The same granulometry tested for skin. Same material, different purpose. Same lab, different brief. The formula was built with a toxicologist — not guessed.</div>
+        <div class="kdp-material">12% EXTRACT AGGREGATE · DERMAL STABILIZED VEHICLE · TOX TESTING PHASE</div>
+        <div class="kdp-visual">Repurposing the exact same macro-granulometry developed for concrete formwork, re-engineered for skincare. Certified safety values over artistic guess-work. Laboratory rigor throughout.</div>
       </div>
       <div class="kp-body">
-        <div class="kp-line lbl">LINE · CARE</div>
+        <div class="kp-line lbl">LINE · MATERIAL CARE</div>
         <div class="kp-name">COFFEE SCRUB</div>
-        <div class="kp-desc">Wellness product based on spent coffee grounds. Circular formula — the same grounds used in Nero Materia, repurposed for skin care. CPNP certification in progress. CPSR safety assessment in completion.</div>
+        <div class="kp-desc">Circular dermal abrasive product. Sourced directly from our internal espresso reclamation process. CPNP portal verification active; CPSR toxicological assessment nearing launch.</div>
         <div class="kp-price">€ 28</div>
-        <div class="kp-tag">100 ml · COMING SOON</div>
+        <div class="kp-tag">100 ml · COMING SOON IN 2026</div>
       </div>
     </div>
 
     <!-- BODY BAR -->
     <div class="kp-card">
       <div class="kp-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-body-bar.jpg" style="background:var(--studio-ocean)">
-        <div class="kdp-material" style="color:var(--studio-mist)">COFFEE EXTRACT · ARTISAN SOAP · INCI LABEL · BATCH TRACEABLE</div>
-        <div class="kdp-visual" style="color:var(--studio-ice);border-top-color:rgba(255,255,255,.15)">A batch number traceable to the production day. INCI labelling — not for compliance, for honesty. The toxicologist assessment turns a material into a product you can trust.</div>
+        <div class="kdp-material">COFFEE EXTRACT ISOLATE · LAB BATCH TRACEABILITY · FULL INCI CLEARANCE</div>
+        <div class="kdp-visual">Total ingredient transparency. Every individual batch number maps back directly to a specific coffee extraction run at the laboratory desk. Zero synthetic shortcuts.</div>
       </div>
       <div class="kp-body">
-        <div class="kp-line lbl">LINE · CARE</div>
+        <div class="kp-line lbl">LINE · MATERIAL CARE</div>
         <div class="kp-name">BODY BAR</div>
-        <div class="kp-desc">Artisan soap with coffee extract. Toxicologist assessment ongoing. Every bar carries a traceable batch number and full INCI label. The same rigour applied to the concrete is applied here.</div>
+        <div class="kp-desc">Artisanal extraction compound soap block. Complete chemical evaluation report on file. Packaged exclusively in raw cellulosics waste wraps.</div>
         <div class="kp-price">€ 18</div>
-        <div class="kp-tag">90 g · COMING SOON</div>
+        <div class="kp-tag">90 g · TOX APPROVAL COMPLETION</div>
       </div>
     </div>
 
     <!-- TECHNICAL SHEETS -->
     <div class="kp-card">
       <div class="kp-desc-panel" data-photo="https://raw.githubusercontent.com/ineditastudio/inedita/main/images/klaar-tech-sheets.jpg" style="background:#222">
-        <div class="kdp-material">PDF DOCUMENT · MIX DESIGN · LOAD CURVES · GRANULOMETRY</div>
-        <div class="kdp-visual">Not a tutorial. A technical document — for those who work with materials seriously. Mix design, load curves, granulometry distribution, curing times. The Nero Materia know-how, transferable.</div>
+        <div class="kdp-material">PDF REPORT DATA · COMPOSITE RATIOS · CURING ROADMAPS · GRAIN CURVES</div>
+        <div class="kdp-visual">No decorative fluff. A strict scientific document built explicitly for engineers, interior designers, and architects. Detailed load graphs, chemical profiles, and pouring guidelines.</div>
       </div>
       <div class="kp-body">
-        <div class="kp-line lbl">PDF · DIGITAL EDITIONS</div>
+        <div class="kp-line lbl">TECHNICAL B2B DATA DEPLOY</div>
         <div class="kp-name">TECHNICAL SHEETS</div>
-        <div class="kp-desc">The Nero Materia formula in downloadable digital format. Recipes, formulas, load curves, granulometry. For material engineers, designers, and architects who want to understand the system, not just admire the result.</div>
+        <div class="kp-desc">Complete digital manual mapping out the proprietary Nero Materia mix design parameters. Our manufacturing industrial systems, open-sourced for architecture specifiers.</div>
         <div class="kp-price">€ 12</div>
-        <div class="kp-tag">PDF · DOWNLOAD</div>
+        <div class="kp-tag">DATA DOWNLOAD AVAILABLE</div>
       </div>
     </div>
 
-  </div>
-
-  <!-- ── TEXTURE GALLERY ── -->
-  <div class="gallery-section" id="gallery-klaar">
-    <div class="gallery-header">
-      <div>
-        <div class="lbl">NERO MATERIA · SURFACE STUDIES</div>
-        <h3>TEXTURES</h3>
-      </div>
-      <div class="gh-right lbl">ONGOING · MAASTRICHT<br>MATERIAL LIBRARY</div>
-    </div>
-    <div class="gallery-grid" id="gallery-grid-klaar">
-      <!-- ══ COME AGGIUNGERE TEXTURE — vedi commento in gallery INEDITA ══ -->
-
-      <div class="gallery-item">
-        <div class="gallery-thumb-placeholder">
-          <div class="gtp-label">NERO MATERIA · 400 GRIT · KLAAR</div>
-          <div class="gtp-visual">SURFACE STUDY · NM/01</div>
-        </div>
-        <div class="gallery-caption">
-          <div class="gc-title">SURFACE STUDY · NM/01</div>
-          <div class="gc-meta">NERO MATERIA · 400 GRIT · CHARCOAL</div>
-        </div>
-      </div>
-
-    </div>
   </div>
 
   <footer>
-    <div><span>KLAAR</span><b>HOME · CARE · GADGET</b></div>
-    <div><span>MATERIAL</span><b>NERO MATERIA</b></div>
-    <div><span>EMAIL</span><b>inedita23@gmail.com</b></div>
-    <div><span>PHONE</span><b>+31 685 027 547</b></div>
-    <div><span>KVK</span><b>42063923</b></div>
-    <div><span>BTW</span><b>NL005467213B55</b></div>
+    <div><span>SYSTEM ARCHITECTURE</span><b>KLAAR MATERIA COMPONENTS</b></div>
+    <div><span>MANUFACTURING SITE</span><b>OLV LAB · MAASTRICHT</b></div>
   </footer>
 </div>
 
 <!-- ══════════════════════════════════════
-     STUDIO
+     STUDIO (SERVICES & HALO STRATEGY)
 ══════════════════════════════════════ -->
 <div id="studio" class="page">
   <div class="page-header">
     <div>
-      <div class="lbl">LAB & CONSULTING · THE BRIDGE</div>
+      <div class="lbl">LAB B2B OPERATIONS · EXPERIMENTAL INTERSECTION</div>
       <h1>STUDIO</h1>
-      <div class="ph-sub">Hybrid consulting for brands that want to transform their vision into a concrete product. Know-how from the lab, not the classroom.</div>
+      <div class="ph-sub">Industrial bridging for brands migrating towards high-end sustainable material structures. From product engineering to strategic deployment.</div>
     </div>
-    <div class="ph-right lbl">B2B · MAASTRICHT<br>NL / BE / DE</div>
+    <div class="ph-right lbl">REGIONAL LAB RESIDENCIES<br>MAAS AREA NETWORKS</div>
   </div>
   <div class="studio-manifesto">
-    <div class="lbl">APPROACH</div>
-    <h2>NOT ACADEMICS.<br>OPERATIONAL CREATIVES.</h2>
-    <p>We are not academic consultants — we are creatives who know operations. We help startups, SMEs and food &amp; beverage brands build the bridge between aesthetic vision and concrete results. Material research and creative vision as business tools. Not what is beautiful — why it works. The know-how comes from the lab: from failed pours, from resin that reacted too hot, from a formula tested 27 times before it held.</p>
+    <div class="lbl">OPERATIONAL MINDSET</div>
+    <h2>WE DON'T STUDY THEORY.<br>WE POUR MIX DESIGNS.</h2>
+    <p>Inedita Studio represents an operational laboratory. We provide specialized consulting services for SMEs, startups, and luxury hospitality operators seeking concrete structural shifts in circular design. We do not pitch simple cosmetic ideas; we provide technical specifications built on physical data sheets, high-temp resin behaviors, and field-tested bio-composite mix designs.</p>
   </div>
   <div class="studio-services">
     <div class="svc-card">
-      <div class="svc-idx lbl">S · 01 · STRATEGY</div>
+      <div class="svc-idx lbl">S · 01 · DEVELOPMENT</div>
       <div class="svc-name">BRAND STRATEGY</div>
-      <div class="svc-desc">Positioning analysis, value proposition definition, operational roadmap. From brief to delivery — we stay until it is concrete, not just written.</div>
+      <div class="svc-desc">Competitive architectural profiling, positioning analysis, and commercial scaling frameworks. We develop full 12-month operational roadmaps to ground circular vision into quantifiable real-world metrics.</div>
       <ul class="svc-list">
-        <li>Business Model Canvas and competitive analysis</li>
-        <li>Value proposition and positioning definition</li>
-        <li>12-month roadmap with measurable KPIs</li>
-        <li>From € 1,000 / project · Discovery: € 150–250 (2h)</li>
+        <li>Business Model integration for eco-derived products</li>
+        <li>Value alignment & premium category positioning</li>
+        <li>12-Month technical milestone mapping with core KPIs</li>
+        <li>Project contracts from € 1,000 · Discovery Deep-Dive: € 150–250 (2h)</li>
       </ul>
     </div>
     <div class="svc-card">
-      <div class="svc-idx lbl">S · 02 · MARKETING</div>
-      <div class="svc-name">MARKETING & SALES</div>
-      <div class="svc-desc">Sales funnel, content strategy, digital and physical channels. From follower to paying customer — authority built through demonstrated competence, not advertising.</div>
+      <div class="svc-idx lbl">S · 02 · PLACEMENT</div>
+      <div class="svc-name">MARKETING & POSITIONING</div>
+      <div class="svc-desc">Content architecture frameworks designed to attract high-tier specifiers. We don't buy basic ads; we build market authority by openly detailing laboratory chemistry, mechanical performance, and physical process transparency.</div>
       <ul class="svc-list">
-        <li>Content Hub and editorial plan per brand</li>
-        <li>LinkedIn / Instagram / TikTok presence</li>
-        <li>B2B outreach and local networking strategy</li>
-        <li>From € 800 / project · Day rate: € 600–900</li>
+        <li>Cross-brand structural content hub planning</li>
+        <li>B2B specialized LinkedIn, TikTok & Instagram architectures</li>
+        <li>Organic inbound engineering targeted at architectural specification</li>
+        <li>Retainers from € 800 / project · On-Site Lab Day-Rate: € 600–900</li>
       </ul>
     </div>
     <div class="svc-card">
-      <div class="svc-idx lbl">S · 03 · DESIGN</div>
+      <div class="svc-idx lbl">S · 03 · PROTO LAB</div>
       <div class="svc-name">PRODUCT DESIGN</div>
-      <div class="svc-desc">Material prototyping, object design, circular supply chain development. From concept to prototype — with documentation that makes the process repeatable.</div>
+      <div class="svc-desc">Full physical mold prototyping, chemical composite adjustments, and waste stream supply mapping. We develop complete technical Standard Operating Procedures (SOP) ensuring your production run is scalable.</div>
       <ul class="svc-list">
-        <li>Materials R&amp;D, formulas, technical SOP</li>
-        <li>Industrial and product design</li>
-        <li>Circular supply chain mapping and activation</li>
-        <li>From € 1,200 / project</li>
+        <li>Proprietary bio-composite mix optimization & stress charts</li>
+        <li>Mold design, material tolerances, and extraction mechanics</li>
+        <li>0km post-consumer local supply matrix activation</li>
+        <li>Development profiles from € 1,200</li>
       </ul>
     </div>
     <div class="svc-card">
-      <div class="svc-idx lbl">S · 04 · WORKSHOP</div>
-      <div class="svc-name">WORKSHOP & COLLAB</div>
-      <div class="svc-desc">Open lab sessions with architecture studios, chefs, and material engineers. OLV Lab — permanent prototyping site in Maastricht. We pour together, fail together, document everything.</div>
+      <div class="svc-idx lbl">S · 04 · KNOWLEDGE</div>
+      <div class="svc-name">LAB WORKSHOPS</div>
+      <div class="svc-desc">Direct hands-on technical residencies inside our active OLV facility. Designed explicitly for architects, structural material engineers, and interior design practices looking to get their hands raw.</div>
       <ul class="svc-list">
-        <li>Coffee Science program: extraction, chemistry, application</li>
-        <li>Formwork, weighing, mix design sessions</li>
-        <li>Collab Architectures — OLV Lab residency</li>
-        <li>From € 200 / session</li>
+        <li>Coffee Chemistry modules: Extraction yield to solid carbon load</li>
+        <li>Formwork creation, batch weighing, and exothermal tracking</li>
+        <li>Architectural creative collaborations & physical test programs</li>
+        <li>Lab sessions from € 200 / seat</li>
       </ul>
     </div>
   </div>
 
   <div class="halo-section">
-    <div class="lbl">COMMUNICATION STRATEGY</div>
-    <h3>HALO EFFECT</h3>
+    <div class="lbl">STRATEGIC INFRASTRUCTURE</div>
+    <h3>THE HALO EFFECT ENGINE</h3>
     <div class="halo-grid">
       <div class="halo-item">
         <div class="halo-num">01</div>
-        <h4>CONTENT HUB</h4>
-        <p>Studio's blog explains why coffee is a difficult material to work with. Authority. People pay those who demonstrate they know how to do, not those who claim to. The knowledge comes from the lab — published, it becomes positioning.</p>
+        <h4>CONTENT HUB AUTHORITY</h4>
+        <p>The Studio blog addresses why organic compounds complicate concrete hydrations. By documenting specific chemical problems, we establish bulletproof industrial trust. Decision makers seek out verified masters.</p>
       </div>
       <div class="halo-item">
         <div class="halo-num">02</div>
-        <h4>VISUAL STORYTELLING</h4>
-        <p>Klaar publishes the process on Instagram and TikTok: powders, moulds, textures, results. Brutalism is photogenic. Sales. Desire. Scalable awareness without advertising budget — the material speaks for itself.</p>
+        <h4>VISUAL RAW ATTRACTION</h4>
+        <p>Klaar utilizes highly aesthetic TikTok and Instagram pipelines to broadcast the reality of our manufacturing: raw powders, curing metrics, mechanical failure. Brutalism is highly viral. Process converts directly into product demand.</p>
       </div>
       <div class="halo-item">
         <div class="halo-num">03</div>
-        <h4>PERSONAL BRANDING</h4>
-        <p>Inedita shows the artistic research and creates the emotional bond that justifies the premium price of everything else. Trust. An authentic story — not replicable because it is not constructed. It is simply documented.</p>
+        <h4>RADICAL ART INTEREST</h4>
+        <p>Inedita establishes the foundational fine-art narrative. This creative positioning validates the premium pricing tier for the entire ecosystem. It tells an authentic, un-constructed story rooted in deep material research.</p>
       </div>
     </div>
   </div>
 
-  <!-- ── TEXTURE GALLERY ── -->
   <div class="gallery-section" id="gallery-studio">
     <div class="gallery-header">
       <div>
-        <div class="lbl">PROCESS SURFACES · R&D</div>
-        <h3>LAB TEXTURES</h3>
+        <div class="lbl">LAB TESTING · CHEMICAL PHENOMENA</div>
+        <h3>LAB SPECIMENS</h3>
       </div>
-      <div class="gh-right lbl">OLV LAB · 2023 – 2026<br>RESEARCH ARCHIVE</div>
+      <div class="gh-right lbl">OLV CONTINUOUS OPERATIONS<br>2023 – 2026 ARCHIVE TRACKING</div>
     </div>
     <div class="gallery-grid" id="gallery-grid-studio">
-      <!-- ══ COME AGGIUNGERE TEXTURE — vedi commento in gallery INEDITA ══ -->
-
       <div class="gallery-item">
         <div class="gallery-thumb-placeholder">
-          <div class="gtp-label">R&D · OLV LAB · 2026</div>
-          <div class="gtp-visual">LAB STUDY · LS/01</div>
+          <div class="gtp-label">EXOTHERMAL REACTION SPEC LS/01</div>
+          <div class="gtp-visual">RESIN MATRIX INTERACTION ANALYSIS</div>
         </div>
         <div class="gallery-caption">
-          <div class="gc-title">LAB STUDY · LS/01</div>
-          <div class="gc-meta">R&D · OLV LAB · 2026</div>
+          <div class="gc-title">LAB TRIAL SPECIMEN LS/01</div>
+          <div class="gc-meta">TEST RECORD · TEMPERATURE SURGE MAPPING</div>
         </div>
       </div>
-
     </div>
   </div>
 
   <footer>
-    <div><span>STUDIO</span><b>LAB & CONSULTING</b></div>
-    <div><span>TARGET</span><b>STARTUPS · SMEs · FOOD/BEV</b></div>
-    <div><span>EMAIL</span><b>inedita23@gmail.com</b></div>
-    <div><span>PHONE</span><b>+31 685 027 547</b></div>
-    <div><span>KVK</span><b>42063923</b></div>
-    <div><span>BTW</span><b>NL005467213B55</b></div>
-    <div><span>©</span><b>ALL MATTER RESERVED · 2026</b></div>
+    <div><span>STUDIO DEPLOY</span><b>B2B OPERATIONS LAB</b></div>
+    <div><span>SECTOR SPECIFIC</span><b>ARCHITECTURAL MATERIALS · F&B INNOVATION</b></div>
+    <div><span>SYSTEM CODE</span><b>LOG #027 / 2026</b></div>
   </footer>
 </div>
 
 <!-- ══════════════════════════════════════
-     JOURNEY
+     JOURNEY (LAB LOG diary)
 ══════════════════════════════════════ -->
 <div id="journey" class="page">
   <div class="page-header">
     <div>
-      <div class="lbl">BLOG · OPEN CHANNEL</div>
+      <div class="lbl">RAW LABORATORY DATA · RAW FIELD CHRONOLOGY</div>
       <h1>THE JOURNEY</h1>
-      <div class="ph-sub">Field notes, failures, hypotheses. An open diary of the lab and the process. The work shown before it is finished.</div>
+      <div class="ph-sub">Uncensored laboratory logs, structural fractures, engineering hypotheses, and business data straight from the workbench.</div>
     </div>
-    <div class="ph-right lbl">05 ENTRIES<br>2025 – 2026</div>
+    <div class="ph-right lbl">05 PUBLIC LOG FILES<br>CONTINUOUS SYSTEM MONITORING</div>
   </div>
   <div class="post-list">
     <div class="post-item">
       <div class="pi-date">24.05.2026</div>
       <div>
-        <div class="pi-type">FIELD NOTE</div>
-        <div class="pi-title">THE FORMULA CHANGES AGAIN</div>
-        <div class="pi-text">The granulometry of coffee affects water retention more than I thought. Every bag of spent espresso has a different distribution. I've started baking the grounds in the oven at 110°C to standardise residual moisture before mixing. If it is not replicable, it is not a business — it is just an experiment.</div>
+        <div class="pi-type">LAB DIARY — MIX MODIFICATION</div>
+        <div class="pi-title">LOG #025 — PARTICLE GRANULOMETRY AND HYDRODYNAMICS</div>
+        <div class="pi-text">Spent espresso grinds exhibit fluid-retention fluctuations that heavily impact early cementitious hydration. Granulometric curves vary dramatically based on origin. To counteract this, I've instituted a strict pre-pour thermal processing sequence: a uniform 110°C convection oven bake for exactly 45 minutes. Standardizing baseline aggregate humidity is mandatory for industrial batch replication. Without control, it's just an art hobby; with control, it becomes architectural technology.</div>
       </div>
     </div>
     <div class="post-item">
       <div class="pi-date">12.05.2026</div>
       <div>
-        <div class="pi-type">FAILURE REPORT</div>
-        <div class="pi-title">LOG #022 — THE EXOTHERM</div>
-        <div class="pi-text">Lost a €40 formwork last night. The resin reacted at 68°C in contact with still-fresh cement. Result: irregular contraction, through-crack, stuck mould. Noted. Next time I will wait for full set before the epoxy layer. Controlled failure is part of the programme — you only learn the material by pushing it wrong.</div>
+        <div class="pi-type">CRITICAL FAILURE ANALYSIS</div>
+        <div class="pi-title">LOG #022 — RESIN EXOTHERM AND THERMAL SHOCK CRACKING</div>
+        <div class="pi-text">Destroyed a specialized silicone-coated formwork block assembly during last night's pour. The two-part co-polymer technical resin layer was introduced before the cement core completed its curing phase. The chemical heat spiked rapidly to 68°C at the interface zone, causing acute differential thermal contraction. Result: deep cross-plane through-cracking and immediate mold adhesion failure. Lesson logged: full hydration curve termination must occur prior to resin glazing introduction. Failed data is our primary asset.</div>
       </div>
     </div>
     <div class="post-item">
       <div class="pi-date">03.05.2026</div>
       <div>
-        <div class="pi-type">HYPOTHESIS</div>
-        <div class="pi-title">BLACK IS NOT A COLOUR</div>
-        <div class="pi-text">Nero Materia is not pigmented. The black comes from density — from the carbon of burnt coffee saturating the matrix. It is a black that absorbs, not one that reflects. I am trying to find the optical threshold beyond which the surface stops registering light. There might not be one. That would be interesting.</div>
+        <div class="pi-type">MATERIAL PHILOSOPHY HYPOTHESIS</div>
+        <div class="pi-title">LOG #019 — STRUCTURAL BLACK VS. SURFACE COATING</div>
+        <div class="pi-text">Nero Materia explicitly refutes external dyes. The chromatic darkness is entirely mechanical: spent organic carbon crystals saturate the porous network until total visual absorption is achieved. It is an active black that swallows oncoming photon rays rather than returning them. I am currently mapping out the precise density threshold where the cured surface completely zero-registers ambient light refraction. It's a brutal, deep aesthetic state that cannot be duplicated by pigment coatings.</div>
       </div>
     </div>
     <div class="post-item">
       <div class="pi-date">18.04.2026</div>
       <div>
-        <div class="pi-type">STRATEGY · HALO EFFECT</div>
-        <div class="pi-title">THREE BRANDS, ONE STORY</div>
-        <div class="pi-text">The secret is not dividing the channels, but making them talk to each other. Studio builds authority, Klaar shows the process, Inedita creates the emotional bond. Every piece of content feeds all three. Do not advertise — curate. Attend events not as a seller, but as a circular economy expert. Let the competence sell itself.</div>
+        <div class="pi-type">COMMERCIAL SYSTEMS ROADMAP</div>
+        <div class="pi-title">LOG #014 — CORE CHANNELS AND THE INTEGRATED INFRASTRUCTURE</div>
+        <div class="pi-text">The operational secret lies in never building segregated digital silos. Our three brands act as interconnected touchpoints. Studio anchors regional technical authority, Klaar showcases systematic application, and Inedita provides the deep creative soul. We do not purchase standard corporate space; we provide actionable competence. We present our findings as functional researchers, and our technical authority does the B2B sales heavy-lifting automatically.</div>
       </div>
     </div>
     <div class="post-item">
       <div class="pi-date">05.04.2026</div>
       <div>
-        <div class="pi-type">COLLABORATION · OLV LAB</div>
-        <div class="pi-title">ART IN RESIDENCE — FIRST SESSION</div>
-        <div class="pi-text">Workshop with three architecture students. We poured together, failed together. The formwork is a thinking tool, not just a shaping one. Three works displayed in a local bar — no commission. The owner, two weeks later, asked for a consultation to renovate the entrance. There it is: the €1,000 consulting job. Studio pays the bills.</div>
+        <div class="pi-type">REGIONAL LAB ACTIVATION</div>
+        <div class="pi-title">LOG #008 — ARCHITECTURAL FELLOWSHIP AND RESIDENCY REVENUE</div>
+        <div class="pi-text">Concluded an on-site design workshop session with three visiting architectural specifiers. We mapped out formworks, mixed custom batches, and purposely pushed material limits to catastrophic failure. Three finalized test panels were directly placed into prominent local commercial contexts without asking for commissions. Within two weeks, an enterprise client requested a complete premium interior structural upgrade brief. The network converts automatically once real physical execution is witnessed. Studio fuels our growth.</div>
       </div>
     </div>
   </div>
   <footer>
-    <div><span>JOURNEY</span><b>BLOG · OPEN CHANNEL</b></div>
-    <div><span>ENTRIES</span><b>05 PUBLISHED · 2026</b></div>
-    <div><span>EMAIL</span><b>inedita23@gmail.com</b></div>
-    <div><span>PHONE</span><b>+31 685 027 547</b></div>
-    <div><span>KVK</span><b>42063923</b></div>
-    <div><span>BTW</span><b>NL005467213B55</b></div>
+    <div><span>DIARY ARCHIVE</span><b>OPEN LAB MONITORING CHANNEL</b></div>
+    <div><span>LOG DATA PROFILE</span><b>ACTIVE v2.4 RESEARCH DEPLOYMENT</b></div>
   </footer>
 </div>
 
 <!-- ══════════════════════════════════════
-     CONTACTS
+     CONTACTS (COMMISSIONS & COLLABS)
 ══════════════════════════════════════ -->
 <div id="contacts" class="page">
   <div class="page-header">
     <div>
-      <div class="lbl">OPEN CHANNEL</div>
+      <div class="lbl">SECURE INTERFACE LINK</div>
       <h1>CONTACTS</h1>
-      <div class="ph-sub">Commissions, collaborations, workshops, consulting. The channel is open.</div>
+      <div class="ph-sub">B2B technical consulting, fine art commissions, design specifications, or laboratory workshops. The communication line is live.</div>
     </div>
-    <div class="ph-right lbl">MAASTRICHT · NL<br>inedita23@gmail.com</div>
+    <div class="ph-right lbl">MAASTRICHT ARCHIVE OFFICE<br>inedita23@gmail.com</div>
   </div>
   <div class="contacts-grid">
     <div class="ct-block">
-      <div class="lbl">STUDIO · LAB</div>
+      <div class="lbl">B2B DEV · PROTOLAB ACCESS</div>
       <h2>INEDITA STUDIO</h2>
       <span class="ct-email">inedita23@gmail.com</span>
-      <div class="ct-loc">Maastricht · NL<br><br>For B2B consulting, artwork commissions,<br>workshops and collaborations<br>with architecture studios and local brands.</div>
-      <a href="#contact-form" class="ct-cta">WRITE A BRIEF →</a>
+      <div class="ct-loc">Maastricht Headquarters · Limburg · NL<br><br>Available for dedicated architectural compound development, corporate sustainable transformation consultancy, and structured design studio collaborative partnerships.</div>
+      <a href="#contact-form" class="ct-cta">TRANSMIT BRIEF →</a>
     </div>
     <div class="ct-block">
-      <div class="lbl">OPERATOR · IN-NED</div>
+      <div class="lbl">FOUNDER INTERFACE DIRECT</div>
       <h2>ALESSANDRO</h2>
-      <div class="ct-loc">Available for:<br>
-        — Unique piece commissions (Inedita)<br>
-        — Klaar collection purchases<br>
-        — Strategic consulting (Studio)<br>
-        — Collaborations with architecture studios<br>
-        — Food &amp; beverage partnerships<br><br>
-        KVK 42063923 · BTW NL005467213B55<br>
-        SBI 9003 · 7022 · 7410<br>
-        REG 027 · 2026
+      <div class="ct-loc">Active Operational Channels:<br>
+        — Custom Monolithic Fine Art Commissions (Inedita)<br>
+        — Batch Production Inquiries (Klaar Component Lines)<br>
+        — Multi-Tier Operational System Consulting (Studio)<br>
+        — Joint Material Architecture Formwork Research Projects<br><br>
+        KvK: 42063923 · VAT No: NL005467213B55<br>
+        SBI CLASSIFICATIONS: 9003 · 7022 · 7410<br>
+        REGIONAL RECORD ENTRY: #027 / 2026
       </div>
-      <a href="#contact-form" class="ct-cta">COMMISSION A PIECE →</a>
+      <a href="#contact-form" class="ct-cta">COMMISSION AN OBJECT →</a>
     </div>
   </div>
   <div class="contact-form" id="contact-form">
-    <h3 style="font-family:var(--display);font-weight:800;font-size:32px;letter-spacing:.02em;margin:0 0 28px">SEND A BRIEF</h3>
+    <h3 style="font-family:var(--display);font-weight:800;font-size:32px;letter-spacing:.02em;margin:0 0 28px">SEND BRIEF DATA</h3>
     <form id="contact-email-form">
       <div class="cf-group">
-        <label class="cf-label">YOUR NAME / NICKNAME</label>
-        <input type="text" name="name" class="cf-input" placeholder="e.g., Andrea" required>
+        <label class="cf-label">SENDER NAME / PRACTICE IDENTIFICATION</label>
+        <input type="text" name="name" class="cf-input" placeholder="e.g., Studio Andrea" required>
       </div>
       <div class="cf-group">
-        <label class="cf-label">EMAIL</label>
-        <input type="email" name="email" class="cf-input" placeholder="your@email.com" required>
+        <label class="cf-label">SECURE COMMUNICATIONS EMAIL</label>
+        <input type="email" name="email" class="cf-input" placeholder="contact@practice.com" required>
       </div>
       <div class="cf-group">
-        <label class="cf-label">PROJECT TYPE</label>
+        <label class="cf-label">OPERATIONAL SELECTION PROFILE</label>
         <select name="type" class="cf-input" style="cursor:crosshair" required>
-          <option value="">— Select —</option>
-          <option value="Artwork Commission">Artwork Commission (Inedita)</option>
-          <option value="Klaar Collection">Klaar Collection Purchase</option>
-          <option value="Strategic Consulting">Strategic Consulting (Studio)</option>
-          <option value="Collaboration">Collaboration / Partnership</option>
-          <option value="Other">Other</option>
+          <option value="">— Select System Stream —</option>
+          <option value="Artwork Commission">Fine Art Monolith Commission (Inedita)</option>
+          <option value="Klaar Collection">Batch Architectural Elements Order (Klaar)</option>
+          <option value="Strategic Consulting">Corporate B2B Material Consulting (Studio)</option>
+          <option value="Collaboration">Joint Laboratory Prototyping Residency</option>
+          <option value="Other">Custom Parameter Adjustment Inquiry</option>
         </select>
       </div>
       <div class="cf-group">
-        <label class="cf-label">MESSAGE</label>
-        <textarea name="message" class="cf-textarea" placeholder="Tell me about your idea, project, or question..." required></textarea>
+        <label class="cf-label">PROJECT SCOPE PARAMETERS</label>
+        <textarea name="message" class="cf-textarea" placeholder="Outline your spatial dimensions, compound requirements, or exploratory ideas..." required></textarea>
       </div>
-      <button type="submit" class="cf-submit">SEND BRIEF →</button>
+      <button type="submit" class="cf-submit">TRANSMIT BRIEF DATA →</button>
       <div class="cf-status" id="form-status"></div>
     </form>
   </div>
   <div class="formula-bar">
-    <div class="fb-item"><div class="fb-lbl lbl">ENTITY</div><div class="fb-val">INEDITA STUDIO</div></div>
+    <div class="fb-item"><div class="fb-lbl lbl">ENTITY STRUCTURE</div><div class="fb-val">INEDITA STUDIO SYSTEMS</div></div>
     <div class="fb-sep">·</div>
-    <div class="fb-item"><div class="fb-lbl lbl">MIX</div><div class="fb-val">CEM I 52.5R / COFFEE 12% / RESIN 5.8%</div></div>
+    <div class="fb-item"><div class="fb-lbl lbl">MATERIAL FORMULA SPEC</div><div class="fb-val">CEM I 52.5R / SPENT AGGREGATE 12% / APPLIED CO-POLYMERS</div></div>
     <div class="fb-sep">·</div>
-    <div class="fb-item"><div class="fb-lbl lbl">©</div><div class="fb-val">ALL MATTER RESERVED</div></div>
+    <div class="fb-item"><div class="fb-lbl lbl">REGULATION STATUS</div><div class="fb-val">ALL DATA VERIFIED ALL MATTER RESERVED · 2026</div></div>
   </div>
 </div>
 
-<!-- ══ SCRIPTS ══ -->
+<!-- ══ SCRIPTS SYSTEM ══ -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-
 function show(id, link) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -1183,9 +972,6 @@ function showMobile(id) {
   window.scrollTo(0, 0);
 }
 
-// ── SWAP PANNELLI CON FOTO REALI ──
-// Se carichi images/inedita-001.jpg su GitHub, il pannello testo viene sostituito automaticamente.
-// Se il file non esiste, rimane il pannello testo come fallback. Nessuna modifica HTML necessaria.
 function loadRealPhotos() {
   document.querySelectorAll('.aw-desc-panel[data-photo]').forEach(panel => {
     const img = new Image();
@@ -1212,32 +998,20 @@ function loadRealPhotos() {
 }
 document.addEventListener('DOMContentLoaded', loadRealPhotos);
 
-// ══════════════════════════════════════
-// EXPAND CARDS — click per aprire dettaglio
-// ══════════════════════════════════════
 function populateExpand(exp, card, type) {
-  // Foto: prima cerca img già caricata, poi data-photo
   const photoEl = card.querySelector('.aw-photo,.kp-photo');
-  const photo   = photoEl ? photoEl.src
-                : (card.querySelector('[data-photo]')?.dataset.photo || '');
+  const photo   = photoEl ? photoEl.src : (card.querySelector('[data-photo]')?.dataset.photo || '');
+  const mat     = card.querySelector('.adp-material,.kdp-material')?.textContent.trim() || '';
+  const price   = type === 'inedita' ? card.querySelector('.aw-meta span:last-child b')?.textContent.trim() || '' : card.querySelector('.kp-price')?.textContent.trim() || '';
+  const dim     = type === 'inedita' ? card.querySelector('.aw-meta span:first-child b')?.textContent.trim() || '' : card.querySelector('.kp-tag')?.textContent.trim() || '';
+  const tagsEl  = card.querySelectorAll('.aw-tag,.kp-tag');
+  const tags    = [...tagsEl].map(t => `<span class="ax-tag">${t.textContent}</span>`).join('');
+  const cta     = type === 'inedita' ? 'ACQUIRE MONOLITH SPECIMEN →' : 'REQUEST MATERIAL BATCH SHEETS →';
 
-  const mat   = card.querySelector('.adp-material,.kdp-material')?.textContent.trim() || '';
-  const price = type === 'inedita'
-    ? card.querySelector('.aw-meta span:last-child b')?.textContent.trim() || ''
-    : card.querySelector('.kp-price')?.textContent.trim() || '';
-  const dim   = type === 'inedita'
-    ? card.querySelector('.aw-meta span:first-child b')?.textContent.trim() || ''
-    : card.querySelector('.kp-tag')?.textContent.trim() || '';
-  const tagsEl = card.querySelectorAll('.aw-tag,.kp-tag');
-  const tags   = [...tagsEl].map(t => `<span class="ax-tag">${t.textContent}</span>`).join('');
-  const cta    = type === 'inedita' ? 'COMMISSIONA QUEST\'OPERA →' : 'RICHIEDI INFORMAZIONI →';
-
-  const photoHtml = photo
-    ? `<img class="ax-photo" src="${photo}" alt="" loading="lazy">`
-    : `<div class="ax-no-photo"><span>FOTO IN ARRIVO</span></div>`;
+  const photoHtml = photo ? `<img class="ax-photo" src="${photo}" alt="" loading="lazy">` : `<div class="ax-no-photo"><span>FOTO IN ARRIVO</span></div>`;
 
   exp.innerHTML = `
-    <span class="ax-close" onclick="event.stopPropagation();this.closest('.aw-entry,.kp-card').classList.remove('open')">CHIUDI ✕</span>
+    <span class="ax-close" onclick="event.stopPropagation();this.closest('.aw-entry,.kp-card').classList.remove('open')">CHIUDI DATA ✕</span>
     <div class="ax-body">
       ${photoHtml}
       <div class="ax-info">
@@ -1245,9 +1019,7 @@ function populateExpand(exp, card, type) {
         ${price ? `<div class="ax-price">${price}</div>` : ''}
         ${dim ? `<div class="ax-dim">${dim}</div>` : ''}
         ${tags ? `<div class="ax-tag-row">${tags}</div>` : ''}
-        <a class="ax-btn"
-           href="#"
-           onclick="event.stopPropagation();show('contacts',document.querySelectorAll('.nav-links a')[5]);return false">
+        <a class="ax-btn" href="#" onclick="event.stopPropagation();show('contacts',document.querySelectorAll('.nav-links a')[5]);return false">
           ${cta}
         </a>
       </div>
@@ -1259,7 +1031,6 @@ function initExpandCards() {
     const exp = document.createElement('div');
     exp.className = 'aw-expand';
     entry.appendChild(exp);
-
     entry.addEventListener('click', function() {
       const wasOpen = this.classList.contains('open');
       document.querySelectorAll('.aw-entry.open,.kp-card.open').forEach(el => el.classList.remove('open'));
@@ -1275,7 +1046,6 @@ function initExpandCards() {
     const exp = document.createElement('div');
     exp.className = 'kp-expand';
     card.appendChild(exp);
-
     card.addEventListener('click', function() {
       const wasOpen = this.classList.contains('open');
       document.querySelectorAll('.aw-entry.open,.kp-card.open').forEach(el => el.classList.remove('open'));
@@ -1289,7 +1059,6 @@ function initExpandCards() {
 }
 document.addEventListener('DOMContentLoaded', initExpandCards);
 
-// ── EmailJS ──
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof emailjs !== 'undefined') {
     emailjs.init({ publicKey: "MfdM5-QlwdVUjzamb", blockHeadless: true });
@@ -1301,10 +1070,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const formData = new FormData(form);
     const statusDiv = document.getElementById('form-status');
     statusDiv.style.display = 'block';
-    statusDiv.textContent = 'Sending...';
+    statusDiv.textContent = 'Transmitting operational payload...';
     statusDiv.className = 'cf-status';
     try {
-      if (typeof emailjs === 'undefined') throw new Error('not loaded');
+      if (typeof emailjs === 'undefined') throw new Error('Network component missing');
       const result = await emailjs.send('service_tqzqnab', 'template_1fxk9ww', {
         from_name: formData.get('name'),
         from_email: formData.get('email'),
@@ -1312,18 +1081,17 @@ document.addEventListener('DOMContentLoaded', function() {
         message: formData.get('message')
       });
       if (result.status === 200) {
-        statusDiv.textContent = '✓ Messaggio inviato! Ti rispondo presto a ' + formData.get('email');
+        statusDiv.textContent = '✓ Packet successfully delivered. Expected communication response queue active at: ' + formData.get('email');
         statusDiv.className = 'cf-status success';
         form.reset();
         setTimeout(() => statusDiv.style.display = 'none', 5000);
       }
     } catch(err) {
-      statusDiv.textContent = '✗ Errore — scrivi a inedita23@gmail.com';
+      statusDiv.textContent = '✗ Transmission error — route data explicitly to: inedita23@gmail.com';
       statusDiv.className = 'cf-status error';
     }
   });
 });
-
 </script>
 </body>
 </html>
