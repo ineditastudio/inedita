@@ -20,7 +20,156 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.7;cursor:crosshair}
+body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13px;line-height:1.7;cursor:crosshair;overflow-x:hidden}
+
+/* ── SPLASH PAGE ── */
+#splash-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+}
+#splash-page.dismissed {
+  transform: translateY(-100vh);
+}
+.splash-trigger {
+  text-align: center;
+  text-decoration: none;
+  color: var(--ink);
+  cursor: crosshair;
+  background: none;
+  border: none;
+  padding: 40px;
+}
+.splash-logo {
+  font-family: var(--display);
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+.splash-logo span {
+  font-weight: 400;
+  font-family: var(--display);
+  text-transform: lowercase;
+}
+.splash-enter-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--orange);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--orange);
+  padding-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.splash-trigger:hover .splash-enter-btn {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+/* ── PROTOCOL ACCESS GATE (PIN PAGE) ── */
+#access-gate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--ink);
+  color: var(--bg);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  transition: transform 0.6s cubic-bezier(0.85, 0, 0.15, 1);
+}
+#access-gate.dismissed {
+  transform: translateY(-100vh);
+}
+.gate-container {
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+.gate-title {
+  font-family: var(--display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.gate-sub {
+  font-size: 11px;
+  color: #888;
+  letter-spacing: 0.05em;
+  margin-bottom: 32px;
+}
+.pin-input-wrapper {
+  position: relative;
+  margin-bottom: 24px;
+}
+.pin-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #333;
+  color: var(--orange);
+  font-family: var(--mono);
+  font-size: 32px;
+  text-align: center;
+  letter-spacing: 0.5em;
+  width: 100%;
+  padding: 8px 0;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.pin-input:focus {
+  border-color: var(--orange);
+}
+/* Hide native input password dots styling slightly to keep it clean */
+.pin-input::placeholder {
+  color: #222;
+  letter-spacing: normal;
+  font-size: 14px;
+}
+.gate-btn {
+  background: transparent;
+  color: var(--bg);
+  border: 1px solid #444;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  padding: 12px 24px;
+  cursor: crosshair;
+  transition: all 0.2s;
+  width: 100%;
+  text-transform: uppercase;
+}
+.gate-btn:hover {
+  background: var(--bg);
+  color: var(--ink);
+  border-color: var(--bg);
+}
+.gate-error {
+  color: #ef4444;
+  font-size: 11px;
+  margin-top: 16px;
+  letter-spacing: 0.05em;
+  min-height: 18px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:52px;background:var(--bg);border-bottom:1px solid var(--border);letter-spacing:.14em;font-size:11px}
@@ -53,48 +202,75 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .ph-sub{font-size:12px;color:var(--grey);margin-top:8px;max-width:500px}
 .ph-right{font-size:11px;color:var(--grey);letter-spacing:.15em;text-align:right}
 
-footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:20px 32px;border-top:1px solid var(--border);font-size:10px;color:var(--grey);letter-spacing:.15em}
-footer b{color:var(--ink);display:block;margin-top:2px}
+/* ── FOOTER AZIENDALE STRUTTURATO ── */
+.corporate-footer{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:32px;border-top:1px solid var(--border);font-size:11px;color:var(--grey);letter-spacing:.12em;line-height:1.6}
+.corporate-footer b{color:var(--ink);display:block;margin-bottom:4px;font-family:var(--display);font-weight:700;letter-spacing:.05em}
+.corporate-footer span{display:block}
 
-/* ── HOME ── */
+/* ── HOME LAYOUT SCHEMA ── */
 .home-hero{margin:32px;padding:56px 48px 48px;border:1px solid var(--border);position:relative}
-.home-hero h1{font-family:var(--display);font-weight:800;font-size:clamp(60px,9vw,112px);line-height:.93;letter-spacing:.01em;margin-bottom:32px}
+.home-hero h1{font-family:var(--display);font-weight:800;font-size:clamp(60px, 9vw, 112px);line-height:.93;letter-spacing:.01em;margin-bottom:32px}
 .home-hero h1 em{color:var(--orange);font-style:normal}
-.home-brands{display:grid;grid-template-columns:repeat(3,1fr);margin:0 32px}
-.brand-card{border:1px solid var(--border);border-top:none;border-right:none;padding:32px;transition:background .15s;cursor:crosshair}
-.brand-card:last-child{border-right:1px solid var(--border)}
-.brand-card:hover{background:var(--hover)}
-.brand-card h2{font-family:var(--display);font-weight:800;font-size:36px;letter-spacing:.02em;margin-bottom:14px}
-.brand-card p{font-size:12px;color:var(--grey-lt);line-height:1.8}
-.brand-card .bc-cta{display:inline-block;margin-top:20px;font-size:10px;letter-spacing:.2em;color:var(--ink);border:1px solid var(--border);padding:6px 14px;text-decoration:none;transition:all .15s}
-.brand-card:hover .bc-cta{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
-/* ── GRIDS ── */
-.artwork-grid, .klaar-products{display:grid;grid-template-columns:repeat(3,1fr);margin:0 32px}
-.aw-entry, .kp-card{border:1px solid var(--border);border-top:none;border-right:none;padding:24px;transition:background .15s;cursor:crosshair}
-.aw-entry:nth-child(3n), .kp-card:nth-child(3n){border-right:1px solid var(--border)}
-.aw-entry:hover, .kp-card:hover{background:var(--hover)}
-.aw-title, .kp-name{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.02em;margin-bottom:6px}
-.aw-desc, .kp-desc{font-size:11px;color:var(--grey-lt);line-height:1.7;margin-bottom:12px}
-.kp-price{font-family:var(--display);font-weight:700;font-size:16px;color:var(--ink)}
+.home-brands-schema{display:grid;grid-template-columns:repeat(3,1fr);margin:0 32px;border-bottom:1px solid var(--border)}
+.brand-box{border-left:1px solid var(--border);padding:32px;transition:background .15s}
+.brand-box:last-child{border-right:1px solid var(--border)}
+.brand-box:hover{background:var(--hover)}
+.bb-meta{font-size:10px;letter-spacing:.15em;color:var(--orange);margin-bottom:12px;display:block}
+.brand-box h2{font-family:var(--display);font-weight:800;font-size:42px;letter-spacing:.01em;margin-bottom:16px;line-height:1}
+.brand-box p{font-size:12px;color:var(--grey-lt);line-height:1.7;margin-bottom:24px}
+.brand-box .bb-link{display:inline-block;font-size:11px;letter-spacing:.15em;color:var(--ink);text-decoration:none;border:1px solid var(--border);padding:8px 16px;transition:all .15s}
+.brand-box:hover .bb-link{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 
-/* ── STUDIO SERVICES ── */
-.studio-manifesto{margin:0 32px;border:1px solid var(--border);border-top:none;padding:48px}
-.studio-manifesto h2{font-family:var(--display);font-weight:800;font-size:44px;letter-spacing:.01em;margin-bottom:16px}
-.studio-manifesto p{font-size:13px;color:var(--grey-lt);line-height:1.9;max-width:640px}
-.studio-services{display:grid;grid-template-columns:1fr 1fr;margin:0 32px}
-.svc-card{border:1px solid var(--border);border-top:none;border-right:none;padding:32px;transition:background .15s}
-.svc-card:nth-child(even){border-right:1px solid var(--border)}
-.svc-card:hover{background:var(--hover)}
-.svc-name{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:.02em;margin-bottom:12px}
-.svc-desc{font-size:12px;color:var(--grey-lt);line-height:1.8}
+.home-profile-schema{display:grid;grid-template-columns:1fr 1fr;margin:0 32px}
+.profile-box{border-left:1px solid var(--border);padding:40px;border-bottom:1px solid var(--border)}
+.profile-box:last-child{border-right:1px solid var(--border)}
+.profile-box h3{font-family:var(--display);font-weight:800;font-size:32px;margin-bottom:16px;line-height:1.1}
+.profile-box p{font-size:12px;color:var(--grey-lt);line-height:1.8;margin-bottom:24px}
+.pb-data-row{display:flex;gap:32px;border-top:1px solid var(--border);padding-top:16px}
+.pb-data-item{font-size:11px}
+.pb-data-item span{display:block;font-size:9px;color:var(--grey);letter-spacing:.15em;margin-bottom:4px}
+.pb-data-item strong{font-family:var(--display);font-weight:700;font-size:14px}
 
-/* ── JOURNEY ── */
+/* ── CARDS SCHEDATE INEDITA & KLAAR ── */
+.lab-grid{display:grid;grid-template-columns:repeat(3,1fr);margin:0 32px}
+.lab-card{border-left:1px solid var(--border);border-bottom:1px solid var(--border);padding:32px;background:var(--bg);transition:background .15s;position:relative}
+.lab-card:nth-child(3n){border-right:1px solid var(--border)}
+.lab-card:hover{background:var(--hover)}
+.lc-header{display:flex;justify-content:between;font-size:10px;color:var(--orange);letter-spacing:.1em;margin-bottom:12px}
+.lc-header .lc-id{font-weight:700}
+.lc-header .lc-year{margin-left:auto;color:var(--grey)}
+.lab-card h2{font-family:var(--display);font-weight:800;font-size:28px;line-height:1.1;margin-bottom:16px;letter-spacing:.01em}
+.lab-card p{font-size:12px;color:var(--grey-lt);line-height:1.7;margin-bottom:24px;min-height:70px}
+.lc-tags{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
+.lc-tag{font-size:9px;letter-spacing:.1em;border:1px solid var(--border);padding:2px 8px;color:var(--grey)}
+.lc-specs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);padding-top:14px;font-size:11px}
+.lc-specs div span{display:block;font-size:9px;color:var(--grey);letter-spacing:.1em;margin-bottom:2px}
+.lc-specs div strong{font-weight:700}
+.lc-btn{width:100%;margin-top:24px;background:var(--ink);color:var(--bg);border:none;padding:12px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;cursor:crosshair;transition:background .15s}
+.lc-btn:hover{background:var(--orange)}
+
+/* ── STUDIO LAYOUT COMPLETO B2B ── */
+.studio-b2b-grid{display:grid;grid-template-columns:1fr 1fr;margin:0 32px}
+.b2b-card{border-left:1px solid var(--border);border-bottom:1px solid var(--border);padding:40px;transition:background .15s;display:flex;flex-direction:column;justify-content:space-between}
+.b2b-card:nth-child(2n){border-right:1px solid var(--border)}
+.b2b-card:hover{background:var(--hover)}
+.b2b-meta{font-size:10px;letter-spacing:.15em;color:var(--orange);margin-bottom:12px;display:block}
+.b2b-card h2{font-family:var(--display);font-weight:800;font-size:36px;letter-spacing:.01em;margin-bottom:16px;line-height:1}
+.b2b-desc{font-size:13px;color:var(--ink);line-height:1.7;margin-bottom:20px}
+.b2b-divider{height:1px;background:var(--border);margin:24px 0}
+.b2b-list{list-style:none;margin-bottom:24px}
+.b2b-list li{font-size:12px;color:var(--grey-lt);position:relative;padding-left:16px;margin-bottom:8px}
+.b2b-list li::before{content:"—";position:absolute;left:0;color:var(--orange)}
+.b2b-price{font-size:11px;color:var(--grey);letter-spacing:.05em;margin-bottom:20px}
+
+/* ── JOURNEY CRONOLOGIA REVISIONATA ── */
 .post-list{margin:0 32px}
-.post-item{border:1px solid var(--border);border-top:none;padding:32px;display:grid;grid-template-columns:140px 1fr;gap:24px;transition:background .15s}
+.post-item{border-left:1px solid var(--border);border-bottom:1px solid var(--border);padding:32px;display:grid;grid-template-columns:140px 1fr;gap:24px;transition:background .15s}
+.post-item:last-child{border-right:none}
 .post-item:hover{background:var(--hover)}
-.pi-date{font-size:11px;color:var(--grey);letter-spacing:.08em}
-.pi-title{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:.02em;margin-bottom:6px}
+.pi-date{font-family:var(--display);font-weight:800;font-size:24px;color:var(--orange);line-height:1}
+.pi-title{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.02em;margin-bottom:6px}
 .pi-text{font-size:12px;color:var(--grey-lt);line-height:1.8}
 
 /* ── CONTACTS & FORM ── */
@@ -121,14 +297,38 @@ footer b{color:var(--ink);display:block;margin-top:2px}
   .home-hero h1{font-size:36px}
   .page-header{padding:24px 16px;flex-direction:column;align-items:flex-start}
   .page-header h1{font-size:40px}
-  .home-brands, .artwork-grid, .klaar-products, .studio-services, .post-list, .contacts-grid, .contact-form{grid-template-columns:1fr;margin:0 10px}
-  .brand-card, .aw-entry, .kp-card, .svc-card, .ct-block{border-right:1px solid var(--border)!important}
-  .post-item{grid-template-columns:1fr;padding:20px 16px}
+  .home-brands-schema, .home-profile-schema, .lab-grid, .studio-b2b-grid, .post-list, .contacts-grid, .contact-form{grid-template-columns:1fr;margin:0 10px}
+  .brand-box, .profile-box, .lab-card, .b2b-card, .ct-block{border-right:1px solid var(--border)!important;border-left:1px solid var(--border)!important}
+  .post-item{grid-template-columns:1fr;padding:20px 16px;border-left:1px solid var(--border)!important;border-right:1px solid var(--border)!important}
+  .corporate-footer{grid-template-columns:1fr;padding:24px 16px;gap:16px}
 }
 </style>
 </head>
 <body>
 
+<!-- ── SPLASH PAGE ── -->
+<div id="splash-page">
+  <button class="splash-trigger" onclick="dismissSplash()">
+    <h1 class="splash-logo">INEDITA <span>studio</span></h1>
+    <div class="splash-enter-btn">ENTER LABORATORY</div>
+  </button>
+</div>
+
+<!-- ── PROTOCOL ACCESS GATE (PIN PAGE) ── -->
+<div id="access-gate">
+  <div class="gate-container">
+    <div class="gate-title">System Authorization</div>
+    <div class="gate-sub">Enter credentials to unlock matrix data layers</div>
+    <div class="pin-input-wrapper">
+      <!-- Password field max length set to 4 characters -->
+      <input type="password" id="lab-pin" class="pin-input" maxlength="4" placeholder="••••" onkeydown="handlePinKey(event)">
+    </div>
+    <button class="gate-btn" onclick="verifyPin()">Verify Access</button>
+    <div id="gate-error-msg" class="gate-error">SECURITY BREACH: Invalid protocol key.</div>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
 <nav>
   <div class="nav-brand">INEDITA<em>.</em> STUDIO</div>
   <div class="nav-links">
@@ -154,148 +354,331 @@ footer b{color:var(--ink);display:block;margin-top:2px}
   <a href="#" onclick="showMobile('contacts')">CONTACTS</a>
 </div>
 
+<!-- ── HOME ── -->
 <div id="home" class="page active">
   <div class="home-hero">
     <h1>WE SHAPE<br>MATTER<br><em>BEYOND</em><br>WASTE.</h1>
   </div>
-  <div class="home-brands">
-    <div class="brand-card">
+  
+  <div class="home-brands-schema">
+    <div class="brand-box">
+      <span class="bb-meta">ARTIST BRAND · THE SOUL</span>
       <h2>INEDITA</h2>
-      <p>Pezzi unici e opere d'arte nati dall'esplorazione e dalla tensione della materia pura. Edizioni singole, irripetibili, libere da vincoli industriali.</p>
-      <a href="#" class="bc-cta" onclick="show('inedita', document.querySelectorAll('.nav-links a')[1])">VIEW ARCHIVE →</a>
+      <p>Artworks born from a process of material research. Unique pieces that tell the story of IN-NED – Italian identity lived in the Netherlands. Poetic but never pretentious. Slow, reflective. Objects that carry the trace of their making.</p>
+      <a href="#" class="bb-link" onclick="show('inedita', document.querySelectorAll('.nav-links a')[1])">VIEW ARCHIVE →</a>
     </div>
-    <div class="brand-card">
+    <div class="brand-box">
+      <span class="bb-meta">PRODUCT BRAND · THE INNOVATION</span>
       <h2>KLAAR</h2>
-      <p>Oggetti di design funzionali, minimalisti e geometrici. Una collezione permanente pensata per integrarsi con l'architettura dello spazio quotidiano.</p>
-      <a href="#" class="bc-cta" onclick="show('klaar', document.querySelectorAll('.nav-links a')[2])">VIEW COLLECTION →</a>
+      <p>Home design objects built on Nero Materia. Coffee grounds and paper waste transformed into desirable objects. Not greenwashing – high-level design that proves sustainability without aesthetic compromise. Ready. Klaar.</p>
+      <a href="#" class="bb-link" onclick="show('klaar', document.querySelectorAll('.nav-links a')[2])">VIEW COLLECTION →</a>
     </div>
-    <div class="brand-card">
+    <div class="brand-box">
+      <span class="bb-meta">LAB & CONSULTING · THE BRIDGE</span>
       <h2>STUDIO</h2>
-      <p>Consulenza strategica, posizionamento di brand e workshop operativi per realtà che scelgono di integrare materiali circolari e di ricerca.</p>
-      <a href="#" class="bc-cta" onclick="show('studio', document.querySelectorAll('.nav-links a')[3])">VIEW SERVICES →</a>
+      <p>Hybrid consulting for brands that want to transform their vision into a concrete product. Material research, creative direction, brand strategy. Not academics – operational creatives who know how to make things real.</p>
+      <a href="#" class="bb-link" onclick="show('studio', document.querySelectorAll('.nav-links a')[3])">VIEW SERVICES →</a>
     </div>
   </div>
-  <footer>
-    <div><b>INEDITA STUDIO</b></div>
-    <div><b>MAASTRICHT · NL</b></div>
-    <div><b>© 2026 ALL MATTER RESERVED</b></div>
+
+  <div class="home-profile-schema">
+    <div class="profile-box">
+      <span class="bb-meta">OPERATOR</span>
+      <h3>ALESSANDRO</h3>
+      <p>Barista in Maastricht. Artist in the studio. I work at the intersection of coffee extraction, cementitious matrices and technical resins to shape a new material vocabulary. Mediterranean creativity meets Northern European precision. One founder, three distinct voices.</p>
+      <div class="pb-data-row">
+        <div class="pb-data-item"><span>REG</span><strong>027</strong></div>
+        <div class="pb-data-item"><span>YEAR</span><strong>2026</strong></div>
+        <div class="pb-data-item"><span>LAB</span><strong>OLV</strong></div>
+        <div class="pb-data-item"><span>KVK</span><strong>NL</strong></div>
+      </div>
+    </div>
+    <div class="profile-box">
+      <span class="bb-meta">VISION · IN-NED</span>
+      <h3>THE VALUE</h3>
+      <p>Three brands, three voices, one person behind everything. Inedita builds artistic credibility. Klaar generates continuative revenue through product. Studio brings high revenue and professional positioning. The three reinforce each other – they do not compete. Authenticity is the thread that cannot be replicated.</p>
+      <div class="pb-data-row">
+        <div class="pb-data-item"><span>ART</span><strong>UNIQUE</strong></div>
+        <div class="pb-data-item"><span>RETAIL</span><strong>KLAAR</strong></div>
+        <div class="pb-data-item"><span>B2B</span><strong>STUDIO</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="corporate-footer">
+    <div>
+      <b>INEDITA STUDIO</b>
+      <span>© 2026 All Matter Reserved</span>
+      <span>Material R&D Lab</span>
+    </div>
+    <div>
+      <b>LOCATION</b>
+      <span>Maastricht, Netherlands</span>
+      <span>OLV Prototyping Site</span>
+    </div>
+    <div>
+      <b>REGISTRY</b>
+      <span>KvK: Registered</span>
+      <span>VAT: NL Available</span>
+    </div>
+    <div>
+      <b>CONTACTS</b>
+      <span>inedita23@gmail.com</span>
+      <span>Corporate Stream</span>
+    </div>
   </footer>
 </div>
 
+<!-- ── INEDITA ── -->
 <div id="inedita" class="page">
   <div class="page-header">
     <div>
       <h1>INEDITA</h1>
-      <div class="ph-sub">Edizioni singole e opere di ricerca materica pura. Espressione visiva cruda e senza compromessi.</div>
+      <div class="ph-sub">Single editions and pure material research works. Raw and uncompromising visual expression.</div>
     </div>
-    <div class="ph-right lbl">PEZZI UNICI</div>
+    <div class="ph-right lbl">UNIQUE PIECES</div>
   </div>
-  <div class="artwork-grid">
-    <div class="aw-entry">
-      <div class="aw-title">NERO MATERIA I</div>
-      <div class="aw-desc">Monolito fondante ad assorbimento cromatico totale. Superficie opaca e densa nata dalla stratificazione organica.</div>
+  <div class="lab-grid">
+    <div class="lab-card">
+      <div class="lc-header"><span class="lc-id">A · 001 · 2023</span></div>
+      <h2>NERO MATERIA I</h2>
+      <p>Cementitious matrix with spent coffee grounds. Opaque surface, maximum optical density. The black comes from depth, not from pigment. First piece of the AG series – the one where the material spoke first.</p>
+      <div class="lc-tags">
+        <span class="lc-tag">CEMENT</span><span class="lc-tag">COFFEE</span><span class="lc-tag">UNIQUE</span>
+      </div>
+      <div class="lc-specs">
+        <div><span>DIM</span><strong>40×40 cm</strong></div>
+        <div><span>SERIES</span><strong>AG / 01</strong></div>
+        <div><span>PRICE</span><strong>€ 450</strong></div>
+      </div>
+      <button class="lc-btn" onclick="orderPiece('NERO MATERIA I')">COMMISSION THIS WORK →</button>
     </div>
-    <div class="aw-entry">
-      <div class="aw-title">CHROMATIC FOCUS</div>
-      <div class="aw-desc">Esplorazione dei tempi di maturazione del legante, tradotti in variazioni cromatiche sequenziali.</div>
+    <div class="lab-card">
+      <div class="lc-header"><span class="lc-id">A · 002 · 2023</span></div>
+      <h2>NERO MATERIA II</h2>
+      <p>Chromatic variation on the AG series. Residual carbon layered in three successive coats. The surface records the time of the making – depth and sequence simultaneously visible.</p>
+      <div class="lc-tags">
+        <span class="lc-tag">CEMENT</span><span class="lc-tag">LAYER</span><span class="lc-tag">UNIQUE</span>
+      </div>
+      <div class="lc-specs">
+        <div><span>DIM</span><strong>40×40 cm</strong></div>
+        <div><span>SERIES</span><strong>AG / 02</strong></div>
+        <div><span>PRICE</span><strong>€ 480</strong></div>
+      </div>
+      <button class="lc-btn" onclick="orderPiece('NERO MATERIA II')">COMMISSION THIS WORK →</button>
     </div>
-    <div class="aw-entry">
-      <div class="aw-title">CONTROLLED FRACTURE</div>
-      <div class="aw-desc">La bellezza dell'imprevisto strutturale. Tensioni indotte registrate permanentemente sulla superficie.</div>
+    <div class="lab-card">
+      <div class="lc-header"><span class="lc-id">A · 003 · 2024</span></div>
+      <h2>ALCHEMIST GRADE o3</h2>
+      <p>Extreme chromatic saturation. Technical resin on the surface, carbon in depth. Where the AG series becomes fully itself – not replicable, even by the author.</p>
+      <div class="lc-tags">
+        <span class="lc-tag">AG</span><span class="lc-tag">RESIN</span><span class="lc-tag">UNIQUE</span>
+      </div>
+      <div class="lc-specs">
+        <div><span>DIM</span><strong>45×45 cm</strong></div>
+        <div><span>SERIES</span><strong>AG / 03</strong></div>
+        <div><span>PRICE</span><strong>€ 650</strong></div>
+      </div>
+      <button class="lc-btn" onclick="orderPiece('ALCHEMIST GRADE o3')">COMMISSION THIS WORK →</button>
     </div>
   </div>
+  
+  <footer class="corporate-footer">
+    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
+    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
+    <div><b>REGISTRY</b><span>KvK / VAT Active</span></div>
+    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
+  </footer>
 </div>
 
+<!-- ── KLAAR ── -->
 <div id="klaar" class="page">
   <div class="page-header">
     <div>
       <h1>KLAAR</h1>
-      <div class="ph-sub">Oggetti d'uso quotidiano realizzati secondo gli standard geometrici e visivi del brand. Minimalismo tangibile.</div>
+      <div class="ph-sub">Objects of daily use crafted according to the geometric and visual standards of the brand. Tangible minimalism.</div>
     </div>
-    <div class="ph-right lbl">COLLEZIONE PERMANENTE</div>
+    <div class="ph-right lbl">PERMANENT COLLECTION</div>
   </div>
-  <div class="klaar-products">
-    <div class="kp-card">
-      <div class="kp-name">KLAAR HOME 01</div>
-      <div class="kp-desc">Elemento modulare geometrico con finitura satinata. Progettato per un forte impatto tattile nello spazio.</div>
-      <div class="kp-price">€ 85</div>
+  <div class="lab-grid">
+    <div class="lab-card">
+      <div class="lc-header"><span class="lc-id">K · 001</span></div>
+      <h2>KLAAR HOME 01</h2>
+      <p>Geometric modular element with a satin finish. Designed for a strong tactile and volumetric impact within the everyday architectural space.</p>
+      <div class="lc-tags"><span class="lc-tag">MATTE</span><span class="lc-tag">GEOMETRIC</span></div>
+      <div class="lc-specs">
+        <div><span>DIM</span><strong>15×15 cm</strong></div>
+        <div><span>SERIES</span><strong>K-HOME</strong></div>
+        <div><span>PRICE</span><strong>€ 85</strong></div>
+      </div>
+      <button class="lc-btn" onclick="orderPiece('KLAAR HOME 01')">ORDER PRODUCT →</button>
     </div>
-    <div class="kp-card">
-      <div class="kp-name">CANDLE BLOCK</div>
-      <div class="kp-desc">Portacandele massiccio a volume cilindrico ridotto. Presenza brutalista dal peso scultoreo.</div>
-      <div class="kp-price">€ 35</div>
+    <div class="lab-card">
+      <div class="lc-header"><span class="lc-id">K · 002</span></div>
+      <h2>CANDLE BLOCK</h2>
+      <p>Massive candle holder with a reduced cylindrical volume. Brutalist presence with a sculptural weight achieved through the perfect balance of the binder.</p>
+      <div class="lc-tags"><span class="lc-tag">BRUTALIST</span><span class="lc-tag">SOLID</span></div>
+      <div class="lc-specs">
+        <div><span>DIM</span><strong>10×18 cm</strong></div>
+        <div><span>SERIES</span><strong>K-OBJECT</strong></div>
+        <div><span>PRICE</span><strong>€ 35</strong></div>
+      </div>
+      <button class="lc-btn" onclick="orderPiece('CANDLE BLOCK')">ORDER PRODUCT →</button>
     </div>
-    <div class="kp-card">
-      <div class="kp-name">MATERIAL SHEET</div>
-      <div class="kp-desc">Manuale e panoramica visiva sull'utilizzo delle componenti strutturali per la progettazione.</div>
-      <div class="kp-price">€ 12</div>
+    <div class="lab-card">
+      <div class="lc-header"><span class="lc-id">K · 003</span></div>
+      <h2>MATERIAL SHEET</h2>
+      <p>Manual and visual overview on the use of organic structural components for designing and formulating custom surfaces.</p>
+      <div class="lc-tags"><span class="lc-tag">DOCUMENT</span><span class="lc-tag">PRINT</span></div>
+      <div class="lc-specs">
+        <div><span>DIM</span><strong>A4 SIZE</strong></div>
+        <div><span>SERIES</span><strong>K-INFO</strong></div>
+        <div><span>PRICE</span><strong>€ 12</strong></div>
+      </div>
+      <button class="lc-btn" onclick="orderPiece('MATERIAL SHEET')">ORDER PRODUCT →</button>
     </div>
   </div>
+
+  <footer class="corporate-footer">
+    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
+    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
+    <div><b>REGISTRY</b><span>KvK / VAT Configured</span></div>
+    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
+  </footer>
 </div>
 
+<!-- ── STUDIO ── -->
 <div id="studio" class="page">
   <div class="page-header">
     <div>
       <h1>STUDIO</h1>
-      <div class="ph-sub">Servizi e percorsi di affiancamento per posizionare, comunicare e sviluppare progetti legati ai bio-compositi.</div>
+      <div class="ph-sub">Services and support frameworks to position, communicate, and develop projects linked to bio-composites.</div>
     </div>
-    <div class="ph-right lbl">CONSULENZA & LAB</div>
+    <div class="ph-right lbl">CONSULTING & LAB</div>
   </div>
-  <div class="studio-manifesto">
-    <h2>DALL'IDEA ALLA MATERIA.</h2>
-    <p>Studio connette l'intuizione estetica all'applicazione pratica, fornendo gli strumenti necessari per l'evoluzione del brand e lo sviluppo del prodotto.</p>
+  
+  <div class="studio-b2b-grid">
+    <div class="b2b-card">
+      <div>
+        <span class="b2b-meta">S · 01 · STRATEGY</span>
+        <h2>BRAND STRATEGY</h2>
+        <p class="b2b-desc">Positioning analysis, value proposition definition, operational roadmap. From brief to delivery – we stay until it is concrete, not just written.</p>
+        <div class="b2b-divider"></div>
+        <ul class="b2b-list">
+          <li>Business Model Canvas and competitive analysis</li>
+          <li>Value proposition and positioning definition</li>
+          <li>12-month roadmap with measurable KPIs</li>
+        </ul>
+      </div>
+      <div>
+        <div class="b2b-price">From € 1,000 / project · Discovery: € 150-250 (2h)</div>
+        <button class="lc-btn" onclick="orderStudio('BRAND STRATEGY')">REQUEST SERVICE INFO →</button>
+      </div>
+    </div>
+    
+    <div class="b2b-card">
+      <div>
+        <span class="b2b-meta">S · 02 · MARKETING</span>
+        <h2>MARKETING & SALES</h2>
+        <p class="b2b-desc">Sales funnel, content strategy, digital and physical channels. From follower to paying customer – authority built through demonstrated competence, not advertising.</p>
+        <div class="b2b-divider"></div>
+        <ul class="b2b-list">
+          <li>Content Hub and editorial plan per brand</li>
+          <li>LinkedIn / Instagram / TikTok presence</li>
+          <li>B2B outreach and local networking strategy</li>
+        </ul>
+      </div>
+      <div>
+        <div class="b2b-price">From € 800 / project · Day rate: € 600-900</div>
+        <button class="lc-btn" onclick="orderStudio('MARKETING & SALES')">REQUEST SERVICE INFO →</button>
+      </div>
+    </div>
+    
+    <div class="b2b-card">
+      <div>
+        <span class="b2b-meta">S · 03 · DESIGN</span>
+        <h2>PRODUCT DESIGN</h2>
+        <p class="b2b-desc">Material prototyping, object design, circular supply chain development. From concept to prototype – with documentation that makes the process repeatable.</p>
+        <div class="b2b-divider"></div>
+        <ul class="b2b-list">
+          <li>Materials R&D, formulas, technical SOP</li>
+          <li>Industrial and product design</li>
+          <li>Circular supply chain mapping and activation</li>
+        </ul>
+      </div>
+      <div>
+        <div class="b2b-price">From € 1,200 / project</div>
+        <button class="lc-btn" onclick="orderStudio('PRODUCT DESIGN')">REQUEST SERVICE INFO →</button>
+      </div>
+    </div>
+    
+    <div class="b2b-card">
+      <div>
+        <span class="b2b-meta">S · 04 · WORKSHOP</span>
+        <h2>WORKSHOP & COLLAB</h2>
+        <p class="b2b-desc">Open lab sessions with architecture studios, chefs, and material engineers. OLV Lab – permanent prototyping site in Maastricht. We pour together, fail together, document everything.</p>
+        <div class="b2b-divider"></div>
+        <ul class="b2b-list">
+          <li>Coffee Science program: extraction, chemistry, application</li>
+          <li>Formwork, weighing, mix design sessions</li>
+          <li>Collab Architectures – OLV Lab residency</li>
+        </ul>
+      </div>
+      <div>
+        <div class="b2b-price">From € 200 / session</div>
+        <button class="lc-btn" onclick="orderStudio('WORKSHOP & COLLAB')">REQUEST SERVICE INFO →</button>
+      </div>
+    </div>
   </div>
-  <div class="studio-services">
-    <div class="svc-card">
-      <div class="svc-name">BRAND STRATEGY</div>
-      <div class="svc-desc">Posizionamento sul mercato, modelli di business per prodotti di ricerca e definizione delle traiettorie di sviluppo commerciale.</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-name">MARKETING & POSITIONING</div>
-      <div class="svc-desc">Pianificazione dei contenuti visivi e dei canali di comunicazione organica per consolidare l'autorevolezza del brand nel settore.</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-name">PRODUCT DESIGN</div>
-      <div class="svc-desc">Sviluppo di prototipi fisici, logistica delle materie di recupero e ottimizzazione dei processi per tirature scalabili.</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-name">LAB WORKSHOPS</div>
-      <div class="svc-desc">Esperienze di affiancamento in presenza dedicate a professionisti che desiderano esplorare la creazione delle superfici.</div>
-    </div>
-  </div>
+
+  <footer class="corporate-footer">
+    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
+    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
+    <div><b>REGISTRY</b><span>KvK / VAT Managed</span></div>
+    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
+  </footer>
 </div>
 
+<!-- ── JOURNEY ── -->
 <div id="journey" class="page">
   <div class="page-header">
     <div>
       <h1>JOURNEY</h1>
-      <div class="ph-sub">Le tappe fondamentali, la nascita della struttura e i passaggi decisivi del percorso.</div>
+      <div class="ph-sub">The milestone stages of lab development and material research.</div>
     </div>
-    <div class="ph-right lbl">CRONOLOGIA</div>
+    <div class="ph-right lbl">CHRONOLOGICAL LOG</div>
   </div>
   <div class="post-list">
     <div class="post-item">
-      <div class="pi-date">ORIGINE</div>
+      <div class="pi-date">2023</div>
       <div>
-        <div class="pi-title">REGISTRAZIONE KVK</div>
-        <div class="pi-text">Inizio formale della visione commerciale e strutturazione del sistema aziendale nei Paesi Bassi.</div>
+        <div class="pi-title">FIRST KINTSUGI</div>
+        <div class="pi-text">The structural failure that morphs into geometric value. The fracture is highlighted and permanently stabilized. And so it began.</div>
       </div>
     </div>
     <div class="post-item">
-      <div class="pi-date">2023</div>
+      <div class="pi-date">2026</div>
       <div>
-        <div class="pi-title">PRIMO KINTSUGI</div>
-        <div class="pi-text">L'errore che diventa valore, la frattura trasformata in linea. E così ebbe inizio.</div>
+        <div class="pi-title">BUSINESS REGISTRATION (KvK)</div>
+        <div class="pi-text">Formal launch of commercial operations and structured consulting within the Dutch territory (KvK). Setting up the modular ecosystem: Inedita, Klaar, and Studio.</div>
       </div>
     </div>
   </div>
+
+  <footer class="corporate-footer" style="margin-top:40px;">
+    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
+    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
+    <div><b>REGISTRY</b><span>KvK Active</span></div>
+    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
+  </footer>
 </div>
 
+<!-- ── CONTACTS ── -->
 <div id="contacts" class="page">
   <div class="page-header">
     <div>
       <h1>CONTACTS</h1>
-      <div class="ph-sub">Per consulenze strategiche, ordini della collezione permanente o sessioni in studio. La linea è aperta.</div>
+      <div class="ph-sub">For strategically driven consulting, permanent collection orders, or studio laboratory sessions.</div>
     </div>
     <div class="ph-right lbl">MAASTRICHT</div>
   </div>
@@ -303,11 +686,11 @@ footer b{color:var(--ink);display:block;margin-top:2px}
     <div class="ct-block">
       <h2>INEDITA STUDIO</h2>
       <span class="ct-email">inedita23@gmail.com</span>
-      <p>Sede e laboratori di ricerca · Maastricht, NL.</p>
+      <p>Headquarters and research laboratories · Maastricht, NL.</p>
     </div>
     <div class="ct-block">
       <h2>ALESSANDRO</h2>
-      <p>Disponibile per commissioni d'arte su misura, ordini della linea permanente e consulenze B2B integrate.</p>
+      <p>Available for bespoke fine art commissions, permanent line orders, and integrated B2B consultations.</p>
     </div>
   </div>
   
@@ -316,15 +699,15 @@ footer b{color:var(--ink);display:block;margin-top:2px}
     <form id="contact-email-form">
       <div class="cf-group">
         <label class="cf-label">NAME / COMPANY</label>
-        <input type="text" name="name" class="cf-input" required>
+        <input type="text" name="name" id="form-name" class="cf-input" required>
       </div>
       <div class="cf-group">
         <label class="cf-label">EMAIL</label>
-        <input type="email" name="email" class="cf-input" required>
+        <input type="email" name="email" id="form-email" class="cf-input" required>
       </div>
       <div class="cf-group">
         <label class="cf-label">STREAM</label>
-        <select name="type" class="cf-input" required>
+        <select name="type" id="form-type" class="cf-input" required>
           <option value="">— Select —</option>
           <option value="Inedita Piece">Fine Art Commission (Inedita)</option>
           <option value="Klaar Collection">Product Order (Klaar)</option>
@@ -333,16 +716,59 @@ footer b{color:var(--ink);display:block;margin-top:2px}
       </div>
       <div class="cf-group">
         <label class="cf-label">MESSAGE</label>
-        <textarea name="message" class="cf-textarea" required></textarea>
+        <textarea name="message" id="form-message" class="cf-textarea" required></textarea>
       </div>
       <button type="submit" class="cf-submit">TRANSMIT →</button>
       <div class="cf-status" id="form-status"></div>
     </form>
   </div>
+
+  <footer class="corporate-footer" style="margin-top:40px; border-left:none; border-right:none; margin-left:-32px; margin-right:-32px; padding-left:32px; padding-right:32px;">
+    <div><b>INEDITA STUDIO</b><span>© 2026 All Matter Reserved</span></div>
+    <div><b>LOCATION</b><span>Maastricht, Netherlands</span></div>
+    <div><b>REGISTRY</b><span>KvK / VAT Ecosystem</span></div>
+    <div><b>CONTACTS</b><span>inedita23@gmail.com</span></div>
+  </footer>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
+// Define the secure protocol variable token
+const LAB_PASSCODE = "2023"; 
+
+function dismissSplash() {
+  document.getElementById('splash-page').classList.add('dismissed');
+  // Dynamic autofocus on the verification frame
+  setTimeout(() => {
+    document.getElementById('lab-pin').focus();
+  }, 400);
+}
+
+function handlePinKey(event) {
+  if (event.key === "Enter") {
+    verifyPin();
+  }
+}
+
+function verifyPin() {
+  const inputPin = document.getElementById('lab-pin').value;
+  const errorElement = document.getElementById('gate-error-msg');
+  
+  if (inputPin === LAB_PASSCODE) {
+    errorElement.style.opacity = "0";
+    document.getElementById('access-gate').classList.add('dismissed');
+  } else {
+    errorElement.style.opacity = "1";
+    // Shake animation effect for wrong input
+    const inputField = document.getElementById('lab-pin');
+    inputField.style.borderColor = "#ef4444";
+    inputField.value = "";
+    setTimeout(() => {
+      inputField.style.borderColor = "#333";
+    }, 800);
+  }
+}
+
 function show(id, link) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
@@ -361,7 +787,25 @@ function showMobile(id) {
   document.querySelector('.nav-hamburger').classList.remove('open');
   window.scrollTo(0, 0);
 }
-
+function orderPiece(name) {
+  show('contacts', document.querySelectorAll('.nav-links a')[5]);
+  const streamSelect = document.getElementById('form-type');
+  const messageArea = document.getElementById('form-message');
+  if(name.includes('KLAAR') || name.includes('BLOCK') || name.includes('SHEET')) {
+    streamSelect.value = 'Klaar Collection';
+    messageArea.value = `Order inquiry for object: ${name}. Awaiting shipping specifications.`;
+  } else {
+    streamSelect.value = 'Inedita Piece';
+    messageArea.value = `Commission inquiry for unique artwork: ${name}. Requesting availability analysis.`;
+  }
+}
+function orderStudio(serviceName) {
+  show('contacts', document.querySelectorAll('.nav-links a')[5]);
+  const streamSelect = document.getElementById('form-type');
+  const messageArea = document.getElementById('form-message');
+  streamSelect.value = 'Consulting';
+  messageArea.value = `Information request for B2B Service / Consultation: ${serviceName}. Requesting an initial exploratory call.`;
+}
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof emailjs !== 'undefined') {
     emailjs.init({ publicKey: "MfdM5-QlwdVUjzamb", blockHeadless: true });
@@ -370,7 +814,6 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!form) return;
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const formData = new FormData(form);
     const statusDiv = document.getElementById('form-status');
     statusDiv.style.display = 'block';
     statusDiv.textContent = 'Sending...';
@@ -378,19 +821,19 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
       if (typeof emailjs === 'undefined') throw new Error('not loaded');
       const result = await emailjs.send('service_tqzqnab', 'template_1fxk9ww', {
-        from_name: formData.get('name'),
-        from_email: formData.get('email'),
-        project_type: formData.get('type'),
-        message: formData.get('message')
+        from_name: document.getElementById('form-name').value,
+        from_email: document.getElementById('form-email').value,
+        project_type: document.getElementById('form-type').value,
+        message: document.getElementById('form-message').value
       });
       if (result.status === 200) {
-        statusDiv.textContent = '✓ Messaggio inviato! Ti rispondo presto a ' + formData.get('email');
+        statusDiv.textContent = '✓ Message successfully transmitted to the Inedita Studio log.';
         statusDiv.className = 'cf-status success';
         form.reset();
         setTimeout(() => statusDiv.style.display = 'none', 5000);
       }
     } catch(err) {
-      statusDiv.textContent = '✗ Errore. Invia direttamente a: inedita23@gmail.com';
+      statusDiv.textContent = '✗ Transmission error. Write directly to: inedita23@gmail.com';
       statusDiv.className = 'cf-status error';
     }
   });
