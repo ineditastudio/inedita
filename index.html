@@ -300,49 +300,113 @@ footer b{color:var(--ink);display:block;margin-top:2px}
    RESPONSIVE — MOBILE
 ══════════════════════════════════════ */
 @media(max-width:768px){
-  nav{padding:0 20px}
+  /* touch: no crosshair */
+  *{cursor:auto!important}
+
+  /* ── nav ── */
+  nav{padding:0 16px}
   .nav-links{display:none}
   .nav-loc{display:none}
   .nav-hamburger{display:flex}
-  .home-hero{margin:16px;padding:28px 20px}
-  .home-hero h1{font-size:clamp(48px,14vw,80px)}
-  .home-hero .h-specs{font-size:10px;letter-spacing:.1em;word-break:break-word}
+  .nav-mobile-menu a{padding:18px 20px;font-size:12px}
+
+  /* ── hero ── */
+  .home-hero{margin:10px;padding:22px 16px 20px}
+  .home-hero h1{font-size:clamp(40px,12vw,68px)}
+  .home-hero .h-specs{font-size:9px;letter-spacing:.07em;word-break:break-all;line-height:2.2}
+  .home-hero .h-tag{font-size:9px;top:14px;right:14px}
+  .home-hero .h-sub{font-size:10px}
+  .home-hero{margin-bottom:0}
+
+  /* ── page header ── */
+  .page-header{padding:20px 14px 16px;flex-direction:column;align-items:flex-start;gap:6px}
+  .page-header h1{font-size:clamp(32px,10vw,48px);line-height:1}
+  .ph-sub{font-size:11px;max-width:100%;margin-top:6px}
+  .ph-right{text-align:left;font-size:10px;margin-top:4px}
+
+  /* ── single-column grids ── */
   .home-brands,.home-bio,.artwork-grid,.klaar-intro,.klaar-products,
   .studio-services,.contacts-grid,.halo-grid{grid-template-columns:1fr}
+
+  /* ── margins ── */
   .home-brands,.home-bio,.artwork-grid,.klaar-intro,.klaar-products,
   .studio-manifesto,.studio-services,.halo-section,.gallery-section,.post-list,
-  .contacts-grid,.formula-bar,.contact-form{margin-left:16px;margin-right:16px}
-  .gallery-grid{grid-template-columns:1fr 1fr}
-  .gallery-item:nth-child(4n){border-right:1px solid var(--border)}
-  .gallery-item:nth-child(2n){border-right:none}
+  .contacts-grid,.formula-bar,.contact-form{margin-left:10px;margin-right:10px}
+
+  /* ── border fixes in single column ── */
   .brand-card,.kp-card,.aw-entry,.svc-card,.ct-block,.bio-block{border-right:1px solid var(--border)!important}
   .aw-entry:nth-child(3n){border-right:1px solid var(--border)}
   .ki-text{border-right:none;border-bottom:1px solid var(--border)}
   .klaar-intro{border-left:1px solid var(--border)}
-  .page-header{padding:24px 16px 20px;flex-direction:column;align-items:flex-start;gap:8px}
-  .page-header h1{font-size:52px}
-  .ph-right{text-align:left}
-  .brand-card{padding:24px 20px}
-  .bio-block{padding:24px 20px}
-  .post-item{grid-template-columns:1fr;gap:4px;padding:20px}
-  .pi-date{padding-top:0}
-  .ki-text{padding:28px 20px}
-  .ki-material{padding:28px 20px}
-  .ki-text h2{font-size:36px}
-  .studio-manifesto{padding:28px 20px}
-  .studio-manifesto h2{font-size:34px}
-  .svc-card{padding:24px 20px}
-  .halo-section{padding:24px 20px}
-  .ct-block{padding:28px 20px}
-  .contact-form{padding:28px 20px}
-  .formula-bar{flex-direction:column;align-items:flex-start;gap:16px;padding:20px}
+
+  /* ── gallery: 2 colonne su mobile ── */
+  .gallery-grid{grid-template-columns:1fr 1fr}
+  .gallery-item:nth-child(4n){border-right:1px solid var(--border)}
+  .gallery-item:nth-child(2n){border-right:none}
+  .gallery-header{padding:20px 14px 14px;flex-direction:column;align-items:flex-start;gap:6px}
+  .gallery-header h3{font-size:26px}
+  .gallery-header .gh-right{text-align:left}
+
+  /* ── card padding ── */
+  .brand-card{padding:20px 14px}
+  .bio-block{padding:20px 14px}
+  .svc-card{padding:20px 14px}
+  .ct-block{padding:22px 14px}
+  .ki-text{padding:22px 14px}
+  .ki-material{padding:22px 14px}
+  .studio-manifesto{padding:22px 14px}
+  .halo-section{padding:20px 14px}
+  .contact-form{padding:22px 14px}
+
+  /* ── typography ── */
+  .brand-card h2{font-size:26px}
+  .brand-card p{font-size:11px}
+  .bio-block h2{font-size:26px}
+  .ki-text h2{font-size:30px}
+  .studio-manifesto h2{font-size:26px;line-height:1.2}
+  .studio-manifesto p{font-size:12px}
+  .svc-name{font-size:20px}
+  .ct-block h2{font-size:28px}
+  .halo-section h3{font-size:26px}
+  .halo-item h4{font-size:16px}
+  .halo-item p{font-size:11px}
+  .halo-num{font-size:28px}
+
+  /* ── brand card CTA full width ── */
+  .bc-cta{display:block;text-align:center;padding:12px 16px;margin-top:16px}
+
+  /* ── swatches più piccoli ── */
+  .ki-swatches{gap:8px;margin-bottom:28px}
+  .kl-sw{width:38px;height:38px}
+  .ki-formula{font-size:9px;letter-spacing:.1em}
+
+  /* ── post list ── */
+  .post-item{grid-template-columns:1fr;gap:2px;padding:16px 14px}
+  .pi-date{padding-top:0;font-size:10px}
+  .pi-title{font-size:18px}
+  .pi-text{font-size:11px}
+
+  /* ── form ── */
+  .cf-input,.cf-textarea{font-size:16px} /* previene zoom su iOS */
+  .cf-submit{width:100%;padding:14px;font-size:11px;letter-spacing:.15em}
+
+  /* ── formula bar ── */
+  .formula-bar{flex-direction:column;align-items:flex-start;gap:10px;padding:16px 14px}
   .fb-sep{display:none}
-  .brw-grid{grid-template-columns:1fr}
-  .brw-col{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding:24px 20px}
-  .brw-header{padding:24px 20px 16px}
-  .brw-footer{padding:16px 20px}
-  footer{padding:20px 16px;gap:16px}
-  footer>div{min-width:40%}
+  .fb-item .fb-val{font-size:11px}
+
+  /* ── footer ── */
+  footer{padding:16px 14px;gap:10px}
+  footer>div{min-width:45%}
+  footer b{font-size:11px}
+}
+
+/* ── iPhone SE e schermi <375px ── */
+@media(max-width:375px){
+  .gallery-grid{grid-template-columns:1fr}
+  .gallery-item:nth-child(2n){border-right:1px solid var(--border)}
+  .home-hero h1{font-size:38px}
+  .page-header h1{font-size:30px}
 }
 
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border)}
@@ -537,8 +601,8 @@ footer b{color:var(--ink);display:block;margin-top:2px}
         <div class="aw-num" style="color:var(--grey)">A · 027 · 2026 · CURRENT</div>
         <div class="aw-title">WORK IN PROGRESS</div>
         <div class="aw-desc">New granulometry, new material vocabulary. Not yet titled. The research phase is still open — this entry is a live document, not a finished work.</div>
-        <div class="aw-tags"><span class="aw-tag">ACTIVE</span><span class="aw-tag">2026</span><span class="aw-tag"></span></div>
-        <div class="aw-meta"><span>STATUS<b>◎ ONGOING</b></span><span><b></b></span></div>
+        <div class="aw-tags"><span class="aw-tag">ACTIVE</span><span class="aw-tag">2026</span><span class="aw-tag">OLV</span></div>
+        <div class="aw-meta"><span>STATUS<b>◎ ONGOING</b></span><span>LAB<b>OLV</b></span></div>
       </div>
     </div>
 
@@ -551,8 +615,28 @@ footer b{color:var(--ink);display:block;margin-top:2px}
         <div class="lbl">TEXTURES · SURFACES · MATTER</div>
         <h3>MATERIAL ARCHIVE</h3>
       </div>
+      <div class="gh-right lbl">ONGOING · OLV LAB<br>SURFACE STUDIES</div>
+    </div>
     <div class="gallery-grid" id="gallery-grid-inedita">
-      <div class="gallery-loading">LOADING TEXTURES…</div>
+      <!-- ══ COME AGGIUNGERE TEXTURE ══════════════════════════════════
+           1. Carica l'immagine su GitHub in images/ (es. texture-01.jpg)
+           2. Copia e incolla un blocco <div class="gallery-item"> qui sotto
+           3. Aggiorna src, titolo e meta
+           Con foto:    <img class="gallery-thumb" src="images/NOMEFILE.jpg" alt="TITOLO" loading="lazy">
+           Senza foto:  usa il div gallery-thumb-placeholder qui sotto come template
+      ════════════════════════════════════════════════════════════════ -->
+
+      <div class="gallery-item">
+        <div class="gallery-thumb-placeholder">
+          <div class="gtp-label">CEM I · COFFEE 18% · NO PIGMENT</div>
+          <div class="gtp-visual">NERO MATERIA · AG/01</div>
+        </div>
+        <div class="gallery-caption">
+          <div class="gc-title">NERO MATERIA · AG/01</div>
+          <div class="gc-meta">CEM I · COFFEE 18% · 400 GRIT</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -699,7 +783,19 @@ footer b{color:var(--ink);display:block;margin-top:2px}
       <div class="gh-right lbl">ONGOING · MAASTRICHT<br>MATERIAL LIBRARY</div>
     </div>
     <div class="gallery-grid" id="gallery-grid-klaar">
-      <div class="gallery-loading">LOADING TEXTURES…</div>
+      <!-- ══ COME AGGIUNGERE TEXTURE — vedi commento in gallery INEDITA ══ -->
+
+      <div class="gallery-item">
+        <div class="gallery-thumb-placeholder">
+          <div class="gtp-label">NERO MATERIA · 400 GRIT · KLAAR</div>
+          <div class="gtp-visual">SURFACE STUDY · NM/01</div>
+        </div>
+        <div class="gallery-caption">
+          <div class="gc-title">SURFACE STUDY · NM/01</div>
+          <div class="gc-meta">NERO MATERIA · 400 GRIT · CHARCOAL</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -806,10 +902,22 @@ footer b{color:var(--ink);display:block;margin-top:2px}
         <div class="lbl">PROCESS SURFACES · R&D</div>
         <h3>LAB TEXTURES</h3>
       </div>
-      <div class="gh-right lbl">START · 2023 – 2026<br>RESEARCH ARCHIVE</div>
+      <div class="gh-right lbl">OLV LAB · 2023 – 2026<br>RESEARCH ARCHIVE</div>
     </div>
     <div class="gallery-grid" id="gallery-grid-studio">
-      <div class="gallery-loading">LOADING TEXTURES…</div>
+      <!-- ══ COME AGGIUNGERE TEXTURE — vedi commento in gallery INEDITA ══ -->
+
+      <div class="gallery-item">
+        <div class="gallery-thumb-placeholder">
+          <div class="gtp-label">R&D · OLV LAB · 2026</div>
+          <div class="gtp-visual">LAB STUDY · LS/01</div>
+        </div>
+        <div class="gallery-caption">
+          <div class="gc-title">LAB STUDY · LS/01</div>
+          <div class="gc-meta">R&D · OLV LAB · 2026</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -964,9 +1072,8 @@ footer b{color:var(--ink);display:block;margin-top:2px}
 </div>
 
 <!-- ══ SCRIPTS ══ -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/build/es5/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-const galleriesLoaded = { inedita: false, klaar: false, studio: false };
 
 function show(id, link) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -974,10 +1081,6 @@ function show(id, link) {
   document.getElementById(id).classList.add('active');
   if (link) link.classList.add('active');
   window.scrollTo(0, 0);
-  if (galleriesLoaded[id] === false) {
-    galleriesLoaded[id] = true;
-    loadGallery('gallery-grid-' + id);
-  }
 }
 function toggleMenu(btn) {
   btn.classList.toggle('open');
@@ -990,15 +1093,11 @@ function showMobile(id) {
   document.getElementById('mobileMenu').classList.remove('open');
   document.querySelector('.nav-hamburger').classList.remove('open');
   window.scrollTo(0, 0);
-  if (galleriesLoaded[id] === false) {
-    galleriesLoaded[id] = true;
-    loadGallery('gallery-grid-' + id);
-  }
 }
 
 // ── SWAP PANNELLI CON FOTO REALI ──
-// Se la foto esiste in images/, sostituisce automaticamente il pannello testo.
-// Se non esiste, rimane il pannello testo come fallback.
+// Se carichi images/inedita-001.jpg su GitHub, il pannello testo viene sostituito automaticamente.
+// Se il file non esiste, rimane il pannello testo come fallback. Nessuna modifica HTML necessaria.
 function loadRealPhotos() {
   document.querySelectorAll('.aw-desc-panel[data-photo]').forEach(panel => {
     const img = new Image();
@@ -1025,10 +1124,11 @@ function loadRealPhotos() {
 }
 document.addEventListener('DOMContentLoaded', loadRealPhotos);
 
-// EmailJS
-emailjs.init({ publicKey: "MfdM5-QlwdVUjzamb", blockHeadless: true });
-
+// ── EmailJS ──
 document.addEventListener('DOMContentLoaded', function() {
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init({ publicKey: "MfdM5-QlwdVUjzamb", blockHeadless: true });
+  }
   const form = document.getElementById('contact-email-form');
   if (!form) return;
   form.addEventListener('submit', async function(e) {
@@ -1039,6 +1139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     statusDiv.textContent = 'Sending...';
     statusDiv.className = 'cf-status';
     try {
+      if (typeof emailjs === 'undefined') throw new Error('not loaded');
       const result = await emailjs.send('service_tqzqnab', 'template_1fxk9ww', {
         from_name: formData.get('name'),
         from_email: formData.get('email'),
@@ -1046,88 +1147,17 @@ document.addEventListener('DOMContentLoaded', function() {
         message: formData.get('message')
       });
       if (result.status === 200) {
-        statusDiv.textContent = '✓ Message sent! I\'ll get back to you soon at ' + formData.get('email');
+        statusDiv.textContent = '✓ Messaggio inviato! Ti rispondo presto a ' + formData.get('email');
         statusDiv.className = 'cf-status success';
         form.reset();
         setTimeout(() => statusDiv.style.display = 'none', 5000);
       }
     } catch(err) {
-      statusDiv.textContent = '✗ Error sending. Please email inedita23@gmail.com directly.';
+      statusDiv.textContent = '✗ Errore — scrivi a inedita23@gmail.com';
       statusDiv.className = 'cf-status error';
     }
   });
 });
-
-// ══════════════════════════════════════
-// TEXTURE GALLERY — Notion CMS + fallback gallery.json
-// Flusso: carica foto in images/ su GitHub → copia URL raw → incolla in Notion campo Immagine
-// URL raw GitHub: https://raw.githubusercontent.com/ineditastudio/inedita/main/images/NOMEFILE.jpg
-// ══════════════════════════════════════
-const WORKER_URL = 'https://inedita-notion-proxy.inedita23.workers.dev';
-const GALLERY_DB_ID = '50586d1bc4f340d9a6d48d93807de333';
-
-function renderGalleryItem(item) {
-  const imgHtml = item.image
-    ? `<img class="gallery-thumb" src="${item.image}" alt="${item.title}" loading="lazy">`
-    : `<div class="gallery-thumb-placeholder">
-        <div class="gtp-label">${item.meta || 'SURFACE STUDY · OLV LAB'}</div>
-        <div class="gtp-visual">${item.title}</div>
-       </div>`;
-  return `<div class="gallery-item">
-    ${imgHtml}
-    <div class="gallery-caption">
-      <div class="gc-title">${item.title}</div>
-      <div class="gc-meta">${item.meta || ''}</div>
-      ${item.badge ? `<span class="gc-badge">${item.badge}</span>` : ''}
-    </div>
-  </div>`;
-}
-
-async function loadGallery(gridId) {
-  const grid = document.getElementById(gridId);
-  if (!grid) return;
-
-  // 1. Prova Notion via Worker
-  try {
-    const res = await fetch(`${WORKER_URL}/query`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        database_id: GALLERY_DB_ID,
-        sorts: [{timestamp: 'created_time', direction: 'descending'}],
-        page_size: 20
-      })
-    });
-    if (!res.ok) throw new Error('worker');
-    const data = await res.json();
-    if (!data.results?.length) throw new Error('empty');
-
-    const items = data.results.map(page => {
-      const p = page.properties;
-      const title = p['Titolo']?.title?.[0]?.plain_text || 'UNTITLED';
-      const meta  = p['Descrizione']?.rich_text?.[0]?.plain_text || '';
-      const badge = p['Badge']?.select?.name || p['Stato']?.select?.name || '';
-      const image = p['Immagine']?.rich_text?.[0]?.plain_text
-                 || p['Immagine']?.url
-                 || page.cover?.external?.url
-                 || page.cover?.file?.url || '';
-      return { title, meta, badge, image };
-    });
-    grid.innerHTML = items.map(renderGalleryItem).join('');
-    return;
-  } catch(e) { /* fallback */ }
-
-  // 2. Fallback: gallery.json
-  try {
-    const res = await fetch('gallery.json');
-    const items = await res.json();
-    grid.innerHTML = items.length
-      ? items.map(renderGalleryItem).join('')
-      : '<div class="gallery-loading">Nessuna texture — aggiungi voci in Notion o gallery.json</div>';
-  } catch {
-    grid.innerHTML = '<div class="gallery-loading">Caricamento non riuscito</div>';
-  }
-}
 
 </script>
 </body>
