@@ -48,24 +48,64 @@ body{background:var(--bg);color:var(--ink);font-family:var(--mono);font-size:13p
 .splash-enter-btn{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--orange);text-transform:uppercase;border-bottom:1px solid var(--orange);padding-bottom:4px;transition:color .2s,border-color .2s}
 .splash-trigger:hover .splash-enter-btn{color:var(--ink);border-color:var(--ink)}
 
-/* ══ PIN GATE ══ */
-#access-gate{
+/* ══ DART GATE (entry screen) ══ */
+#dart-gate{
   position:fixed;top:0;left:0;width:100vw;height:100vh;
   background:var(--ink);color:var(--bg);z-index:999;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;padding:24px;
-  transition:transform .6s cubic-bezier(.85,0,.15,1)
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .6s cubic-bezier(.85,0,.15,1);overflow:hidden
 }
-#access-gate.dismissed{transform:translateY(-100vh);pointer-events:none}
-.gate-container{max-width:400px;width:100%;text-align:center}
-.gate-title{font-family:var(--display);font-size:20px;font-weight:700;letter-spacing:.1em;margin-bottom:8px;text-transform:uppercase}
-.gate-sub{font-size:11px;color:#888;letter-spacing:.05em;margin-bottom:32px}
-.pin-input-wrapper{position:relative;margin-bottom:24px}
-.pin-input{background:transparent;border:none;border-bottom:2px solid #333;color:var(--orange);font-family:var(--mono);font-size:32px;text-align:center;letter-spacing:.5em;width:100%;padding:8px 0;outline:none;transition:border-color .3s}
-.pin-input:focus{border-color:var(--orange)}
-.pin-input::placeholder{color:#222;letter-spacing:normal;font-size:14px}
-.gate-btn{background:transparent;color:var(--bg);border:1px solid #444;font-family:var(--mono);font-size:11px;letter-spacing:.15em;padding:12px 24px;cursor:crosshair;transition:all .2s;width:100%;text-transform:uppercase}
-.gate-btn:hover{background:var(--bg);color:var(--ink);border-color:var(--bg)}
-.gate-error{color:#ef4444;font-size:11px;margin-top:16px;letter-spacing:.05em;min-height:18px;opacity:0;transition:opacity .15s}
+#dart-gate.dismissed{transform:translateY(-100vh);pointer-events:none}
+.dg-inner{
+  display:flex;flex-direction:column;align-items:center;
+  width:100%;max-width:480px;height:100vh;
+  overflow-y:auto;scrollbar-width:none;
+  justify-content:center;gap:10px;padding:20px 24px
+}
+.dg-inner::-webkit-scrollbar{display:none}
+.dg-top{text-align:center;flex-shrink:0}
+.dg-lbl{font-size:9px;color:#555;letter-spacing:.3em;margin-bottom:6px}
+.dg-title{font-family:var(--display);font-weight:800;font-size:clamp(18px,4vw,26px);color:#f2f0ec;letter-spacing:.02em}
+.dg-canvas-wrap{cursor:crosshair;flex-shrink:0}
+.dg-canvas-wrap canvas{display:block}
+.dg-hint{font-size:10px;color:#555;letter-spacing:.18em;text-align:center;min-height:16px;font-family:var(--mono);flex-shrink:0}
+.dg-hud{display:flex;gap:28px;align-items:center;flex-shrink:0}
+.dg-darts-lbl{font-size:8px;color:#555;letter-spacing:.25em;margin-bottom:5px}
+.dg-darts{display:flex;gap:6px}
+.dg-d{width:10px;height:10px;border-radius:50%;background:var(--orange);transition:background .2s,opacity .2s}
+.dg-d.used{background:#222;opacity:.5}
+.dg-score-lbl{font-size:8px;color:#555;letter-spacing:.25em;margin-bottom:2px;text-align:center}
+.dg-score{font-family:var(--display);font-weight:800;font-size:28px;color:#f2f0ec;line-height:1;transition:color .15s;min-width:56px;text-align:center}
+.dg-score.tick{color:var(--orange)}
+/* Result panel */
+.dg-result{display:none;flex-direction:column;align-items:center;gap:10px;width:100%;flex-shrink:0}
+.dg-result-box{background:#0d0d0d;border:1px solid #1a1a1a;padding:14px 28px;text-align:center;width:100%}
+.dg-res-lbl{font-size:8px;color:#555;letter-spacing:.3em;margin-bottom:4px}
+.dg-res-score{font-family:var(--display);font-weight:800;font-size:44px;color:#f2f0ec;line-height:1}
+.dg-res-msg{font-size:10px;color:var(--orange);letter-spacing:.2em;margin-top:5px}
+/* Mini leaderboard */
+.dg-lb-mini{width:100%;max-height:120px;overflow-y:auto;scrollbar-width:none;border:1px solid #111}
+.dg-lb-mini::-webkit-scrollbar{display:none}
+.dg-lb-row{display:flex;align-items:center;padding:7px 12px;border-bottom:1px solid #0d0d0d;font-size:10px}
+.dg-lb-row:last-child{border-bottom:none}
+.dg-lb-rank{font-size:9px;color:#333;width:16px;flex-shrink:0}
+.dg-lb-name{color:#888;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dg-lb-pts{font-family:var(--display);font-weight:700;font-size:12px;color:var(--orange)}
+.dg-lb-row.gold .dg-lb-rank,.dg-lb-row.gold .dg-lb-pts{color:#c9a84c}
+.dg-lb-row.new-entry .dg-lb-name{color:#f2f0ec}
+/* Name save */
+.dg-save-row{display:flex;width:100%}
+.dg-name-inp{flex:1;background:transparent;border:none;border-bottom:1px solid #2a2a2a;color:var(--orange);font-family:var(--mono);font-size:14px;padding:8px 8px 8px 0;outline:none;min-width:0;transition:border-color .2s}
+.dg-name-inp::placeholder{color:#1e1e1e;font-size:10px;letter-spacing:.1em}
+.dg-name-inp:focus{border-color:var(--orange)}
+.dg-save-btn{background:transparent;border:none;border-bottom:1px solid #2a2a2a;color:#555;font-family:var(--mono);font-size:10px;letter-spacing:.15em;padding:8px 0 8px 12px;cursor:crosshair;transition:color .15s;white-space:nowrap}
+.dg-save-btn:hover{color:#f2f0ec}
+/* Action buttons */
+.dg-actions{display:flex;gap:10px;width:100%}
+.dg-btn{flex:1;background:transparent;border:1px solid #2a2a2a;color:#666;font-family:var(--mono);font-size:10px;letter-spacing:.2em;padding:13px;cursor:crosshair;transition:all .2s;text-transform:uppercase}
+.dg-btn:hover{border-color:#666;color:#f2f0ec}
+.dg-btn.go{border-color:var(--orange);color:var(--orange)}
+.dg-btn.go:hover{background:var(--orange);color:var(--ink)}
 
 /* ══ NAV ══ */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:0 24px;height:var(--nav-h);background:var(--bg);border-bottom:1px solid var(--border);letter-spacing:.14em;font-size:11px}
@@ -102,7 +142,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 #s-hero{background:var(--ink);flex-direction:column;justify-content:space-between;padding:48px}
 .hero-top{display:flex;justify-content:space-between;align-items:flex-start}
 .hero-tag{font-size:10px;color:#444;letter-spacing:.3em}
-.hero-headline{font-family:var(--display);font-weight:800;font-size:clamp(44px,6.2vw,90px);line-height:.92;letter-spacing:.01em;color:#f2f0ec;max-width:900px}
+.hero-headline{font-family:var(--display);font-weight:800;font-size:clamp(36px,5vw,74px);line-height:.92;letter-spacing:.01em;color:#f2f0ec;max-width:900px}
 .hero-headline em{color:var(--orange);font-style:normal}
 .hero-bottom{display:flex;justify-content:space-between;align-items:flex-end}
 .hero-meta{font-size:10px;color:#555;letter-spacing:.2em;line-height:2}
@@ -113,7 +153,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 /* ══ S2/S3/S4 — Brand slides ══ */
 #s-inedita .sl{background:var(--studio-navy)}
 #s-inedita .sl .sl-lbl{color:var(--studio-teal)}
-#s-inedita .sl .sl-name{font-size:clamp(52px,4.8vw,76px);color:#f2f0ec}
+#s-inedita .sl .sl-name{font-size:clamp(42px,3.8vw,62px);color:#f2f0ec}
 #s-inedita .sl .sl-desc{color:#9cc5d0}
 #s-inedita .sl .sl-cta{color:#f2f0ec;border-color:rgba(255,255,255,.3)}
 #s-inedita .sl .sl-cta:hover{background:var(--orange);border-color:var(--orange)}
@@ -121,7 +161,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 
 #s-klaar .sl{background:var(--klaar-charcoal)}
 #s-klaar .sl .sl-lbl{color:var(--klaar-sand)}
-#s-klaar .sl .sl-name{font-size:clamp(52px,5vw,80px);color:var(--klaar-cream)}
+#s-klaar .sl .sl-name{font-size:clamp(42px,4vw,66px);color:var(--klaar-cream)}
 #s-klaar .sl .sl-desc{color:var(--klaar-linen)}
 #s-klaar .sl .sl-cta{color:var(--klaar-cream);border-color:rgba(255,255,255,.3)}
 #s-klaar .sl .sl-cta:hover{background:var(--orange);border-color:var(--orange)}
@@ -129,7 +169,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 
 #s-studio .sl{background:#111}
 #s-studio .sl .sl-lbl{color:#666}
-#s-studio .sl .sl-name{font-size:clamp(38px,4vw,64px);color:#f2f0ec}
+#s-studio .sl .sl-name{font-size:clamp(30px,3.2vw,52px);color:#f2f0ec}
 #s-studio .sl .sl-desc{color:#888}
 #s-studio .sl .sl-cta{color:#f2f0ec;border-color:rgba(255,255,255,.3)}
 #s-studio .sl .sl-cta:hover{background:var(--orange);border-color:var(--orange)}
@@ -138,7 +178,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 /* ══ S5 — JOURNEY ══ */
 #s-journey{background:var(--ink);flex-direction:column;overflow:hidden}
 #s-journey .j-header{padding:36px 48px 24px;border-bottom:1px solid #1a1a1a;flex-shrink:0;display:flex;justify-content:space-between;align-items:flex-end}
-#s-journey .j-header h2{font-family:var(--display);font-weight:800;font-size:52px;color:#f2f0ec;letter-spacing:.01em;line-height:1}
+#s-journey .j-header h2{font-family:var(--display);font-weight:800;font-size:42px;color:#f2f0ec;letter-spacing:.01em;line-height:1}
 #s-journey .j-header .j-sub{font-size:10px;color:#555;letter-spacing:.3em;text-align:right;line-height:2}
 #s-journey .j-list{overflow-y:auto;flex:1;padding:0 48px;scrollbar-width:thin;scrollbar-color:#1a1a1a transparent}
 #s-journey .j-list::-webkit-scrollbar{width:2px}
@@ -153,7 +193,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 /* ══ S6 — CONTACTS ══ */
 #s-contacts .sl{background:var(--klaar-charcoal);justify-content:space-between;padding-top:48px}
 #s-contacts .sl .sl-lbl{color:var(--klaar-sand)}
-#s-contacts .sl h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,3vw,44px);color:var(--klaar-cream);letter-spacing:.02em;margin-bottom:20px}
+#s-contacts .sl h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,2.4vw,36px);color:var(--klaar-cream);letter-spacing:.02em;margin-bottom:20px}
 .ct-email{display:block;color:var(--orange);font-size:16px;letter-spacing:.06em;margin-bottom:8px}
 .ct-loc{font-size:12px;color:var(--klaar-sand);line-height:2}
 .ct-details{margin-top:28px;font-size:10px;color:#666;letter-spacing:.12em;line-height:2.2}
@@ -171,20 +211,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .cf-status.success{background:#f0fff4;border-color:#22c55e;color:#16a34a}
 .cf-status.error{background:#fff5f5;border-color:#ef4444;color:#991b1b}
 
-/* ══ S7 — CLOSING ══ */
-#s-closing{background:var(--ink);position:relative}
-.closing-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:52px 48px}
-.closing-col:last-child{border-left:1px solid #111}
-.closing-col .cl-lbl{font-size:9px;color:#555;letter-spacing:.3em;margin-bottom:20px}
-.closing-col h2{font-family:var(--display);font-weight:800;font-size:clamp(28px,3vw,48px);color:#f2f0ec;letter-spacing:.02em;line-height:1;margin-bottom:20px}
-.closing-col p{font-size:12px;color:#666;line-height:1.9;margin-bottom:24px;max-width:420px}
-.closing-data{display:flex;gap:24px;padding-top:20px;border-top:1px solid #111;flex-wrap:wrap}
-.cd-item{font-size:10px}
-.cd-item span{display:block;font-size:9px;color:#555;letter-spacing:.15em;margin-bottom:3px}
-.cd-item strong{font-family:var(--display);font-weight:700;font-size:14px;color:#f2f0ec}
-.closing-footer{padding:16px 48px;border-top:1px solid #0d0d0d;font-size:10px;color:#444;letter-spacing:.2em;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;position:absolute;bottom:0;left:0;right:0}
-.closing-footer a{color:#555;text-decoration:none;border-bottom:1px solid #333;cursor:crosshair;transition:color .15s}
-.closing-footer a:hover{color:#f2f0ec}
+/* ══ S7 — CLOSING ══ (see full block below) */
 
 /* ══ COMPACT CARDS ══ */
 .rc-list{padding:28px 36px}
@@ -327,6 +354,28 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 .dc-name-btn{background:transparent;border:none;border-bottom:1px solid #2a2a2a;color:#555;font-family:var(--mono);font-size:10px;letter-spacing:.15em;padding:6px 0 6px 10px;cursor:crosshair;transition:color .15s;flex-shrink:0;white-space:nowrap}
 .dc-name-btn:hover{color:#f2f0ec}
 
+/* ══ CLOSING SLIDE ══ */
+#s-closing{background:var(--ink);display:flex;align-items:stretch}
+.closing-col{display:flex;flex-direction:column;justify-content:space-between;height:100%;padding:48px 40px;flex:1}
+.closing-left{border-right:1px solid #111;flex:0 0 40%;max-width:40%}
+.closing-right{flex:1;background:linear-gradient(135deg,#0a0a0a 0%,#111 100%)}
+.closing-name{font-family:var(--display);font-weight:800;font-size:clamp(30px,3.2vw,52px);color:#f2f0ec;letter-spacing:.02em;line-height:1.05;margin:8px 0 14px;word-break:break-word;overflow-wrap:break-word}
+.closing-bio{font-size:11px;color:#666;line-height:1.9;letter-spacing:.06em;max-width:28ch;margin-bottom:20px}
+.closing-data{display:flex;gap:16px;flex-wrap:wrap}
+.closing-data-item{display:flex;flex-direction:column;gap:2px}
+.closing-data-item span{font-size:8px;color:#333;letter-spacing:.25em}
+.closing-data-item strong{font-family:var(--display);font-size:15px;color:#888;font-weight:700}
+.closing-footer{font-size:9px;color:#2a2a2a;letter-spacing:.15em;line-height:2.2}
+.closing-footer a{color:#444;text-decoration:none;border-bottom:1px solid #222;transition:color .15s}
+.closing-footer a:hover{color:var(--orange)}
+.closing-manifesto{height:100%;display:flex;flex-direction:column;justify-content:center;max-width:38ch}
+.closing-manifesto p{font-size:12px;color:#555;line-height:2;letter-spacing:.06em;margin-bottom:20px}
+.closing-links{display:flex;flex-direction:column;gap:10px;margin-top:32px}
+.closing-link{font-family:var(--mono);font-size:10px;color:#444;letter-spacing:.18em;text-decoration:none;transition:color .15s}
+.closing-link:hover{color:#f2f0ec}
+.closing-cta{color:var(--orange);border-bottom:1px solid #3a1a0a;padding-bottom:2px}
+.closing-cta:hover{color:#f2f0ec}
+
 /* ══ MOBILE ══ */
 @media(max-width:768px){
   body{overflow:auto}html{overflow:auto}
@@ -334,19 +383,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
   .slide{min-width:100%;width:100%;height:auto;min-height:auto;flex-direction:column;scroll-snap-align:none;overflow:visible}
   .sl{width:100%!important;padding:32px 20px;justify-content:flex-start}
   .sr{height:auto;overflow-y:visible}
-  .sl-name{font-size:clamp(32px,10vw,58px)!important}
+  .sl-name{font-size:clamp(26px,8vw,46px)!important}
   #s-hero{padding:32px 20px;height:100svh;min-height:100svh}
-  .hero-headline{font-size:clamp(30px,9vw,52px)}
+  .hero-headline{font-size:clamp(24px,7.5vw,42px)}
   #s-journey{height:auto}
   #s-journey .j-header{padding:28px 20px 20px}
-  #s-journey .j-header h2{font-size:32px}
+  #s-journey .j-header h2{font-size:26px}
   #s-journey .j-list{overflow-y:visible;padding:0 20px}
   #s-contacts .sl{padding:32px 20px}
   #s-contacts .sr{padding:28px 20px}
   #s-closing{flex-direction:column;overflow-y:auto;height:auto}
-  .dc-info{width:100%;border-right:none;border-bottom:1px solid #111;padding:24px 20px}
-  .dc-game{padding:20px;min-height:360px}
-  .dc-lb{width:100%;border-left:none;border-top:1px solid #111;padding:20px}
+  .closing-col{flex:none;width:100%;max-width:100%;padding:28px 20px}
+  .closing-left{border-right:none;border-bottom:1px solid #111}
+  .closing-right{background:none}
   .rc-list{padding:16px 20px}
   .svc-list-r{padding:12px 20px}
   nav{padding:0 16px}
@@ -368,16 +417,46 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
   </button>
 </div>
 
-<!-- ══ PIN GATE ══ -->
-<div id="access-gate">
-  <div class="gate-container">
-    <div class="gate-title">Lab Access</div>
-    <div class="gate-sub">Enter the protocol key to unlock the matrix</div>
-    <div class="pin-input-wrapper">
-      <input type="password" id="lab-pin" class="pin-input" maxlength="4" placeholder="••••" onkeydown="handlePinKey(event)" autocomplete="off">
+<!-- ══ DART GATE ══ -->
+<div id="dart-gate">
+  <div class="dg-inner">
+    <div class="dg-top">
+      <div class="dg-lbl">OLV LAB · MAASTRICHT · INEDITA STUDIO</div>
+      <div class="dg-title">THROW YOUR WAY IN</div>
     </div>
-    <button class="gate-btn" onclick="verifyPin()">Verify Access</button>
-    <div id="gate-error-msg" class="gate-error">INVALID KEY — Access denied.</div>
+    <div class="dg-canvas-wrap" id="dg-canvas-wrap">
+      <canvas id="dart-canvas"></canvas>
+    </div>
+    <div class="dg-hint" id="dg-hint">CLICK O TOCCA IL BERSAGLIO PER LANCIARE</div>
+    <div class="dg-hud">
+      <div>
+        <div class="dg-darts-lbl">DARDI RIMASTI</div>
+        <div class="dg-darts" id="dg-darts">
+          <div class="dg-d"></div><div class="dg-d"></div><div class="dg-d"></div>
+          <div class="dg-d"></div><div class="dg-d"></div><div class="dg-d"></div>
+        </div>
+      </div>
+      <div>
+        <div class="dg-score-lbl">PUNTEGGIO</div>
+        <div class="dg-score" id="dg-score">0</div>
+      </div>
+    </div>
+    <div class="dg-result" id="dg-result">
+      <div class="dg-result-box">
+        <div class="dg-res-lbl">PUNTEGGIO FINALE</div>
+        <div class="dg-res-score" id="dg-final-score">0</div>
+        <div class="dg-res-msg" id="dg-final-msg">—</div>
+      </div>
+      <div class="dg-lb-mini" id="dg-lb-mini"></div>
+      <div class="dg-save-row">
+        <input type="text" class="dg-name-inp" id="dg-name-inp" placeholder="il tuo nome..." maxlength="18" onkeydown="if(event.key==='Enter')saveDartScore()">
+        <button class="dg-save-btn" onclick="saveDartScore()">SALVA →</button>
+      </div>
+      <div class="dg-actions">
+        <button class="dg-btn" onclick="resetDartGame()">← RIGIOCA</button>
+        <button class="dg-btn go" onclick="proseguiSite()">PROSEGUI →</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -904,72 +983,34 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
   <!-- ─── S7 · CLOSING ─────────────────────── -->
   <section class="slide" id="s-closing">
 
-    <!-- Left info -->
-    <div class="dc-info">
+    <div class="closing-col closing-left">
       <div>
         <div class="cl-lbl">OPERATOR · IN-NED</div>
-        <h2>ALES&shy;SANDRO</h2>
-        <p>Barista in Maastricht. Artist in the studio. Coffee, cement, resin. Mediterranean creativity meets Northern European precision.</p>
-        <div class="dc-data">
-          <div class="dc-data-item"><span>REG</span><strong>027</strong></div>
-          <div class="dc-data-item"><span>LAB</span><strong>OLV</strong></div>
-          <div class="dc-data-item"><span>ART</span><strong>UNIQUE</strong></div>
-          <div class="dc-data-item"><span>B2B</span><strong>STUDIO</strong></div>
+        <h2 class="closing-name">ALES­SANDRO</h2>
+        <p class="closing-bio">Barista in Maastricht. Artist in the studio. Coffee, cement, resin. Mediterranean creativity meets Northern European precision.</p>
+        <div class="closing-data">
+          <div class="closing-data-item"><span>REG</span><strong>027</strong></div>
+          <div class="closing-data-item"><span>LAB</span><strong>OLV</strong></div>
+          <div class="closing-data-item"><span>ART</span><strong>UNIQUE</strong></div>
+          <div class="closing-data-item"><span>B2B</span><strong>STUDIO</strong></div>
         </div>
       </div>
-      <div class="dc-footer">
+      <div class="closing-footer">
         © 2026 · ALL MATTER RESERVED<br>
         CEM I / COFFEE 12% / RESIN 5.8%<br>
         <a onclick="openLegal();return false" href="#">PRIVACY &amp; LEGAL</a>
       </div>
     </div>
 
-    <!-- Center: dart game -->
-    <div class="dc-game">
-      <div class="dc-game-label">DARTS · 6 THROWS · OLV LAB</div>
-      <div class="dc-board-wrap" id="dc-board-wrap">
-        <canvas id="dart-canvas"></canvas>
-      </div>
-      <div class="dc-throw-hint" id="dc-hint">CLICK THE BOARD TO THROW</div>
-      <div class="dc-hud">
-        <div class="dc-darts-wrap">
-          <div class="dc-darts-label">DARTS LEFT</div>
-          <div class="dc-darts" id="dc-darts">
-            <div class="dc-d"></div><div class="dc-d"></div><div class="dc-d"></div>
-            <div class="dc-d"></div><div class="dc-d"></div><div class="dc-d"></div>
-          </div>
-        </div>
-        <div class="dc-score-display">
-          <div class="dc-score-label">SCORE</div>
-          <div class="dc-score-val" id="dc-score">0</div>
-        </div>
-      </div>
-      <div class="dc-result-area" id="dc-result-area">
-        <div class="dc-result-banner">
-          <div class="dr-lbl">FINAL SCORE</div>
-          <div class="dr-score" id="dc-final-score">0</div>
-          <div class="dr-msg" id="dc-final-msg">—</div>
-        </div>
-        <button class="dc-play-again" onclick="resetDartGame()">PLAY AGAIN →</button>
-      </div>
-    </div>
-
-    <!-- Right: leaderboard -->
-    <div class="dc-lb">
-      <div class="dc-lb-header">
-        <div class="dc-lb-title">HALL OF DARTS</div>
-        <div class="dc-lb-sub">TOP SCORERS · OLV LAB</div>
-      </div>
-      <div class="dc-lb-list" id="dc-lb-list">
-        <div class="dc-lb-empty">Nessun punteggio.<br>Sii il primo.</div>
-      </div>
-      <div class="dc-name-area hidden" id="dc-name-area">
-        <div class="dc-name-prompt">SALVA IL TUO PUNTEGGIO</div>
-        <div class="dc-name-row">
-          <input type="text" class="dc-name-input" id="dc-name-input"
-            placeholder="il tuo nome..." maxlength="20"
-            onkeydown="if(event.key==='Enter')saveDartScore()">
-          <button class="dc-name-btn" onclick="saveDartScore()">SALVA →</button>
+    <div class="closing-col closing-right">
+      <div class="closing-manifesto">
+        <div class="cl-lbl">THE VALUE</div>
+        <p>Objects that hold memory. Coffee grounds pressed into coasters. Canvas marked by the weight of the studio. Every piece a record of the process.</p>
+        <p>Not furniture. Not decoration. Matter that has lived — and now lives in yours.</p>
+        <div class="closing-links">
+          <a href="mailto:inedita23@gmail.com" class="closing-link">inedita23@gmail.com</a>
+          <a href="https://instagram.com" target="_blank" class="closing-link">@ineditastudio</a>
+          <a onclick="goToSlide(5);return false" href="#" class="closing-link closing-cta">CONTATTAMI →</a>
         </div>
       </div>
     </div>
@@ -984,7 +1025,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content
 /* ══════════════════════════════
    SESSION PERSISTENCE
 ══════════════════════════════ */
-const STORE_KEY   = 'inedita_access';
+const STORE_KEY   = 'inedita_dart_entry_v1';
 const COOKIE_KEY  = 'inedita_cookie_consent';
 const LAB_PASSCODE = '2023';
 
@@ -1005,7 +1046,7 @@ function saveCookieConsent(val) {
 (function() {
   if (isUnlocked()) {
     const s = document.getElementById('splash-page');
-    const g = document.getElementById('access-gate');
+    const g = document.getElementById('dart-gate');
     if (s) { s.style.transition = 'none'; s.classList.add('dismissed'); }
     if (g) { g.style.transition = 'none'; g.classList.add('dismissed'); }
   }
@@ -1016,33 +1057,17 @@ function saveCookieConsent(val) {
 })();
 
 /* ══════════════════════════════
-   SPLASH + PIN
+   SPLASH + DART GATE
 ══════════════════════════════ */
 function dismissSplash() {
   document.getElementById('splash-page').classList.add('dismissed');
-  setTimeout(() => {
-    const pin = document.getElementById('lab-pin');
-    if (pin) pin.focus();
-  }, 450);
+  setTimeout(() => { initDartGame(); }, 400);
 }
 
-function verifyPin() {
-  const pin = document.getElementById('lab-pin').value;
-  const err = document.getElementById('gate-error-msg');
-  if (pin === LAB_PASSCODE) {
-    document.getElementById('access-gate').classList.add('dismissed');
-    err.style.opacity = '0';
-    setUnlocked();
-  } else {
-    err.style.opacity = '1';
-    document.getElementById('lab-pin').value = '';
-    document.getElementById('lab-pin').focus();
-    setTimeout(() => { err.style.opacity = '0'; }, 2500);
-  }
-}
-
-function handlePinKey(e) {
-  if (e.key === 'Enter') verifyPin();
+function proseguiSite() {
+  setUnlocked();
+  const g = document.getElementById('dart-gate');
+  if (g) g.classList.add('dismissed');
 }
 
 /* ══════════════════════════════
@@ -1271,9 +1296,9 @@ let DG = null;
 function initDartGame() {
   const canvas = document.getElementById('dart-canvas');
   if (!canvas || DG) return;
-  const wrap  = document.getElementById('dc-board-wrap');
-  const size  = Math.min(Math.max(wrap ? Math.min(wrap.clientWidth, wrap.clientHeight) : 260, 160), 270);
-  const dpr   = window.devicePixelRatio || 1;
+  /* Mobile-first canvas sizing */
+  const size = Math.min(window.innerWidth - 48, window.innerHeight - 240, 380);
+  const dpr  = window.devicePixelRatio || 1;
   canvas.style.width  = size + 'px';
   canvas.style.height = size + 'px';
   canvas.width  = size * dpr;
@@ -1282,10 +1307,15 @@ function initDartGame() {
   ctx.scale(dpr, dpr);
   DG = { canvas, ctx, size, dpr, cx:size/2, cy:size/2, R:size*.41, dartsLeft:6, thrown:[], total:0, phase:'playing', _hover:null };
   boardDraw();
-  renderLB();
-  canvas.addEventListener('click',     onDartClick);
+  renderLBMini();
+  canvas.addEventListener('click', onDartClick);
   canvas.addEventListener('mousemove', onDartHover);
-  canvas.addEventListener('mouseleave',() => { if(DG){DG._hover=null; boardDraw();} });
+  canvas.addEventListener('mouseleave', () => { if(DG){DG._hover=null; boardDraw();} });
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const t = e.touches[0];
+    onDartClick({ clientX: t.clientX, clientY: t.clientY });
+  }, { passive: false });
 }
 
 function onDartClick(e) {
@@ -1329,10 +1359,10 @@ function dartScore(dx, dy) {
 }
 
 function dartHUD(last) {
-  const sc = document.getElementById('dc-score');
+  const sc = document.getElementById('dg-score');
   if (sc) { sc.textContent=DG.total; sc.classList.add('tick'); setTimeout(()=>sc.classList.remove('tick'),300); }
-  document.querySelectorAll('#dc-darts .dc-d').forEach((p,i) => p.classList.toggle('used', i >= DG.dartsLeft));
-  const hint = document.getElementById('dc-hint');
+  document.querySelectorAll('#dg-darts .dg-d').forEach((p,i) => p.classList.toggle('used', i >= DG.dartsLeft));
+  const hint = document.getElementById('dg-hint');
   if (!hint) return;
   if (last===50)      hint.textContent = '◎  BULLSEYE! +50';
   else if (last===25) hint.textContent = '◎  OUTER BULL +25';
@@ -1344,49 +1374,53 @@ function dartEnd() {
   DG.phase = 'done';
   const s = DG.total;
   const msg = s>=200?'LEGGENDARIO 🎯': s>=150?'TOP FORM': s>=100?'SOLID PLAYER': s>=60?'FAIR SHOT':'ALLENATI DI PIÙ';
-  const hint = document.getElementById('dc-hint'); if(hint) hint.textContent='';
-  const ra = document.getElementById('dc-result-area');
-  if (ra) { ra.style.display='flex'; document.getElementById('dc-final-score').textContent=s; document.getElementById('dc-final-msg').textContent=msg; }
-  const na = document.getElementById('dc-name-area'); if(na) na.classList.remove('hidden');
+  const hint = document.getElementById('dg-hint'); if(hint) hint.textContent='';
+  document.getElementById('dg-final-score').textContent = s;
+  document.getElementById('dg-final-msg').textContent   = msg;
+  const res = document.getElementById('dg-result');
+  if (res) res.style.display = 'flex';
+  renderLBMini();
 }
 
 function resetDartGame() {
-  if (!DG) return;
-  DG.dartsLeft=6; DG.thrown=[]; DG.total=0; DG.phase='playing'; DG._hover=null;
-  document.getElementById('dc-score').textContent='0';
-  document.querySelectorAll('#dc-darts .dc-d').forEach(p=>p.classList.remove('used'));
-  const hint=document.getElementById('dc-hint'); if(hint) hint.textContent='CLICK THE BOARD TO THROW';
-  const ra=document.getElementById('dc-result-area'); if(ra) ra.style.display='none';
-  const na=document.getElementById('dc-name-area'); if(na) na.classList.add('hidden');
-  const ni=document.getElementById('dc-name-input'); if(ni) ni.value='';
-  boardDraw();
+  DG = null;
+  const canvas = document.getElementById('dart-canvas');
+  if (canvas) { canvas.replaceWith(canvas.cloneNode(false)); }
+  document.querySelectorAll('#dg-darts .dg-d').forEach(p=>p.classList.remove('used'));
+  const sc = document.getElementById('dg-score'); if(sc) sc.textContent='0';
+  const hint = document.getElementById('dg-hint'); if(hint) hint.textContent='CLICK O TOCCA IL BERSAGLIO PER LANCIARE';
+  const res = document.getElementById('dg-result'); if(res) res.style.display='none';
+  const ni = document.getElementById('dg-name-inp'); if(ni) ni.value='';
+  initDartGame();
 }
 
 function saveDartScore() {
-  const ni   = document.getElementById('dc-name-input');
+  const ni   = document.getElementById('dg-name-inp');
   const name = (ni?.value.trim().toUpperCase()) || 'ANONYMOUS';
   let scores = loadLB();
   scores.push({name, score:DG.total, date:new Date().toLocaleDateString('it-IT',{day:'2-digit',month:'2-digit'})});
   scores.sort((a,b)=>b.score-a.score);
   scores = scores.slice(0,15);
   try{ localStorage.setItem(DART_LB_KEY, JSON.stringify(scores)); }catch(e){}
-  renderLB(name, DG.total);
-  const na=document.getElementById('dc-name-area'); if(na) na.classList.add('hidden');
+  renderLBMini(name, DG.total);
+  if(ni) ni.disabled = true;
+  const sb = document.querySelector('.dg-save-btn'); if(sb) sb.disabled = true;
 }
 
 function loadLB() {
   try{ const r=localStorage.getItem(DART_LB_KEY); return r?JSON.parse(r):[]; }catch(e){return[];}
 }
 
-function renderLB(hlName, hlScore) {
-  const list = document.getElementById('dc-lb-list');
-  if (!list) return;
+function renderLBMini(hlName, hlScore) {
+  const mini = document.getElementById('dg-lb-mini');
+  if (!mini) return;
   const scores = loadLB();
-  if (!scores.length) { list.innerHTML='<div class="dc-lb-empty">Nessun punteggio.<br>Sii il primo.</div>'; return; }
-  list.innerHTML = scores.map((s,i) => {
-    const isNew=hlName&&s.name===hlName&&s.score===hlScore, isGold=i===0;
-    const cls=['dc-lb-row',isNew?'new-entry':'',isGold?'gold':''].filter(Boolean).join(' ');
-    return `<div class="${cls}"><span class="dc-lb-rank">${i+1}</span><span class="dc-lb-name">${s.name}</span><span class="dc-lb-pts">${s.score}</span></div>`;
+  if (!scores.length) { mini.innerHTML=''; return; }
+  const top = scores.slice(0,5);
+  mini.innerHTML = top.map((s,i) => {
+    const isNew  = hlName&&s.name===hlName&&s.score===hlScore;
+    const isGold = i===0;
+    return `<div class="dg-lb-row${isNew?' new-entry':''}${isGold?' gold':''}"><span class="dg-lb-rank">${i+1}</span><span class="dg-lb-name">${s.name}</span><span class="dg-lb-pts">${s.score}</span></div>`;
   }).join('');
 }
 
@@ -1443,15 +1477,6 @@ function dartDraw(ctx,x,y,score){
   ctx.fillText(score===0?'MISS':'+'+score, x, y-17);
   ctx.restore();
 }
-
-// Auto-init when closing slide enters viewport
-(function(){
-  const slide=document.getElementById('s-closing'); if(!slide) return;
-  const obs=new IntersectionObserver(entries=>{
-    if(entries[0].isIntersecting){ initDartGame(); obs.disconnect(); }
-  },{threshold:.2});
-  obs.observe(slide);
-})();
 </script>
 </body>
 </html>
